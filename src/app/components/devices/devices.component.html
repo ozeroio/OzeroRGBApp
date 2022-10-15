@@ -1,0 +1,38 @@
+<div class="container-fluid m-0 p-0">
+  <div class="row m-0 p-0">
+    <div *ngIf="devices.size === 0" class="m-2">There are no devices to display.</div>
+    <ng-container *ngFor="let device of devices | keyvalue">
+      <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
+        <mat-card>
+          <mat-card-header>
+            <div (click)="toggleDevice(device.value)" class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
+              <mat-icon>memory</mat-icon>
+            </div>
+            <mat-card-title>{{device.value.name ? device.value.name : device.key}}</mat-card-title>
+            <mat-card-subtitle>
+              Missing pings: {{device.value.pendingPings}}/{{maxAllowedPendingPings}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="p-0 m-0" [hidden]="device.value.hidden">
+            <mat-tab-group [selectedIndex]="device.value.currentEffectCode">
+              <ng-container *ngFor="let availableEffect of device.value.availableEffects | keyvalue">
+                <mat-tab [label]="availableEffect.value.name | titlecase">
+                  <app-effect [effect]="availableEffect.value"
+                              (change)="onEffectChange(device.key, availableEffect.value)"></app-effect>
+                </mat-tab>
+              </ng-container>
+            </mat-tab-group>
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
+            <div class="">
+              <button (click)="onRenameDeviceClick(device.value)" color="primary" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+</div>
+

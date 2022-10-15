@@ -1,0 +1,3 @@
+<div *ngFor="let parameter of parameters"  class="m-4">
+  <app-parameter [parameter]="parameter" (change)="onParameterChange(parameter)"></app-parameter>
+</div>

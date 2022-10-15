@@ -1,0 +1,3 @@
+<app-color *ngIf="parameter.type === EffectParameterType.COLOR" [parameter]="castToColor()" (change)="onChange()"></app-color>
+<app-number *ngIf="parameter.type === EffectParameterType.NUMBER" [parameter]="castToNumber()" (change)="onChange()"></app-number>
+<app-range *ngIf="parameter.type === EffectParameterType.RANGE" [parameter]="castToRange()" (change)="onChange()"></app-range>

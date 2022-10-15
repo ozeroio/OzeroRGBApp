@@ -1,0 +1,133 @@
+@import "~bootstrap/scss/bootstrap";
+@import "fonts";
+@import "theme";
+
+button {
+  outline: none !important;
+}
+
+body, html {
+  font-family: $font-family;
+  height: calc(100vh - 48px);
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  //font-weight: bold;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.link {
+  color: #4c87b7 !important;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+.warning {
+  color: $warning-color;
+  font-weight: bold;
+}
+
+.critical {
+  color: $critical-color;
+  font-weight: bold;
+}
+
+.background-warning {
+  background-color: $warning-color;
+}
+
+.background-critical {
+  background-color: $critical-color;
+}
+
+.field-label {
+  text-transform: uppercase;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.card-icon {
+  background: $primary-color-100;
+  //border: 4px solid $accent-color-contrast-700;
+  color: $primary-color-contrast-100;
+}
+
+.text-break-word {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.white-space-pre-line {
+  white-space: pre-line;
+}
+
+// Material
+
+.mat-dialog-title {
+  h1 {
+    font-size: 20px;
+  }
+}
+
+.mat-dialog-content {
+  max-width: 800px;
+}
+
+mat-card-header {
+  border-bottom: 1px solid #eee;
+}
+
+.wide-mat-card-header {
+  margin: -16px -16px 0 -16px !important;
+  padding: 16px 16px 0 16px !important;
+  border-radius: 3px 3px 0 0;
+}
+
+table {
+  width: 100%;
+
+  th, td {
+    padding: 0 12px !important;
+
+    .mat-column-actions {
+      width: 150px;
+    }
+  }
+
+  .mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+}
+
+.mat-dialog-actions {
+  padding-bottom: 24px !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.section-title {
+  color: $primary-color-500;
+  padding-top: 4px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

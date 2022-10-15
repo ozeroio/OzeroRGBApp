@@ -1,0 +1,22 @@
+.toolbar {
+  height: 48px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.sidenav-container {
+  height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+a {
+  text-decoration: none !important;
+}

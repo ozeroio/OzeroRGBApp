@@ -1,0 +1,5 @@
+<mat-label>{{parameter.name | titlecase}}:</mat-label>&nbsp;
+<input matInput type="number" placeholder="Value"
+       [(ngModel)]="parameter.value"
+       (ngModelChange)="onChange()">
+

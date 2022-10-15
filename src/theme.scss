@@ -1,0 +1,50 @@
+@import '~@angular/material/theming';
+@import "colors";
+
+$font-family: 'Open Sans';
+
+$custom-typography: mat-typography-config(
+  $font-family: $font-family
+);
+@include mat-core($custom-typography);
+
+$custom-mat-primary-color: (
+  700: $primary-color-700,
+  500: $primary-color-500,
+  100: $primary-color-100,
+  contrast: (
+    700: $primary-color-contrast-700,
+    500: $primary-color-contrast-500,
+    100: $primary-color-contrast-100
+  )
+);
+
+$custom-mat-accent-color: (
+  700: $accent-color-700,
+  500: $accent-color-500,
+  100: $accent-color-700,
+  contrast: (
+    700: $accent-color-contrast-700,
+    500: $accent-color-contrast-500,
+    100: $accent-color-contrast-100
+  )
+);
+
+$custom-mat-warn-color: (
+  700: $warn-color-700,
+  500: $warn-color-500,
+  100: $warn-color-100,
+  contrast: (
+    700: $warn-color-contrast-700,
+    500: $warn-color-contrast-500,
+    100: $warn-color-contrast-100
+  )
+);
+
+$custom-app-primary: mat-palette($custom-mat-primary-color);
+$custom-app-accent: mat-palette($custom-mat-accent-color);
+$custom-app-warn: mat-palette($custom-mat-warn-color);
+
+$custom-app-theme: mat-light-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
+
+@include angular-material-theme($custom-app-theme);
