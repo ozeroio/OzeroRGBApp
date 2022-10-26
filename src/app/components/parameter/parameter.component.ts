@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EffectParameter, EffectParameterType} from "../../models/effect-parameter.class";
-import {EffectParameterColor} from "../../models/parameters/effect-parameter-color.class";
-import {EffectParameterNumber} from "../../models/parameters/effect-parameter-number.class";
-import {EffectParameterRange} from "../../models/parameters/effect-parameter-range.class";
-import {EffectParameterBoolean} from "../../models/parameters/effect-parameter-bool.class";
+import {Parameter, EffectParameterType} from "../../models/parameter.class";
+import {ParameterColor} from "../../models/parameters/parameter-color.class";
+import {ParameterNumber} from "../../models/parameters/parameter-number.class";
+import {ParameterRange} from "../../models/parameters/parameter-range.class";
+import {ParameterBoolean} from "../../models/parameters/parameter-bool.class";
 
 @Component({
   selector: 'app-parameter',
@@ -12,33 +12,33 @@ import {EffectParameterBoolean} from "../../models/parameters/effect-parameter-b
 })
 export class ParameterComponent implements OnInit {
 
-  @Input() parameter: EffectParameter;
+  @Input() parameter: Parameter;
   @Output() change: EventEmitter<void>;
 
   EffectParameterType = EffectParameterType;
 
   constructor() {
     this.change = new EventEmitter<void>();
-    this.parameter = {} as EffectParameter;
+    this.parameter = {} as Parameter;
   }
 
   ngOnInit(): void {
   }
 
-  castToColor(): EffectParameterColor {
-    return this.parameter as EffectParameterColor;
+  castToColor(): ParameterColor {
+    return this.parameter as ParameterColor;
   }
 
-  castToNumber(): EffectParameterNumber {
-    return this.parameter as EffectParameterNumber;
+  castToNumber(): ParameterNumber {
+    return this.parameter as ParameterNumber;
   }
 
-  castToRange(): EffectParameterRange {
-    return this.parameter as EffectParameterRange;
+  castToRange(): ParameterRange {
+    return this.parameter as ParameterRange;
   }
 
-  castToBoolean(): EffectParameterBoolean {
-    return this.parameter as EffectParameterBoolean;
+  castToBoolean(): ParameterBoolean {
+    return this.parameter as ParameterBoolean;
   }
 
   onChange(): void {

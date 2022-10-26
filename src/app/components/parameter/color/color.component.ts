@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EffectParameterColor} from "../../../models/parameters/effect-parameter-color.class";
+import {ParameterColor} from "../../../models/parameters/parameter-color.class";
 import {ColorPickerComponent} from "../../color-picker/color-picker.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Color} from "../../../models/color.interface";
@@ -11,12 +11,12 @@ import {Color} from "../../../models/color.interface";
 })
 export class ColorComponent implements OnInit {
 
-  @Input() parameter: EffectParameterColor;
+  @Input() parameter: ParameterColor;
   @Output() change: EventEmitter<void>;
 
   constructor(protected dialog: MatDialog) {
     this.change = new EventEmitter<void>();
-    this.parameter = {} as EffectParameterColor;
+    this.parameter = {} as ParameterColor;
   }
 
   ngOnInit(): void {

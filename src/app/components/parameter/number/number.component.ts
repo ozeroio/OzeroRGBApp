@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EffectParameterNumber} from "../../../models/parameters/effect-parameter-number.class";
+import {ParameterNumber} from "../../../models/parameters/parameter-number.class";
 
 @Component({
   selector: 'app-number',
@@ -8,12 +8,12 @@ import {EffectParameterNumber} from "../../../models/parameters/effect-parameter
 })
 export class NumberComponent implements OnInit {
 
-  @Input() parameter: EffectParameterNumber;
+  @Input() parameter: ParameterNumber;
   @Output() change: EventEmitter<void>;
 
   constructor() {
     this.change = new EventEmitter<void>();
-    this.parameter = {} as EffectParameterNumber;
+    this.parameter = {} as ParameterNumber;
   }
 
   ngOnInit(): void {

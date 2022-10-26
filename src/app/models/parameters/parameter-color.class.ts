@@ -1,6 +1,6 @@
-import {EffectParameter} from "../effect-parameter.class";
+import {Parameter} from "../parameter.class";
 
-export class EffectParameterColor extends EffectParameter {
+export class ParameterColor extends Parameter {
 
   private _r: number;
   private _g: number;

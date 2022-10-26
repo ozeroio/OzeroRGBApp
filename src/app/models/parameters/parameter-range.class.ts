@@ -1,7 +1,7 @@
-import {EffectParameterType} from "../effect-parameter.class";
-import {EffectParameterNumber} from "./effect-parameter-number.class";
+import {EffectParameterType} from "../parameter.class";
+import {ParameterNumber} from "./parameter-number.class";
 
-export class EffectParameterRange extends EffectParameterNumber {
+export class ParameterRange extends ParameterNumber {
   private _min: number;
   private _max: number;
   private _step: number;

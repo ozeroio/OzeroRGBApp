@@ -1,7 +1,7 @@
-import {EffectParameterType} from "../effect-parameter.class";
-import {EffectParameterNumber} from "./effect-parameter-number.class";
+import {EffectParameterType} from "../parameter.class";
+import {ParameterNumber} from "./parameter-number.class";
 
-export class EffectParameterBoolean extends EffectParameterNumber {
+export class ParameterBoolean extends ParameterNumber {
 
   constructor(name: string, value: number) {
     super(name, value);

@@ -1,4 +1,4 @@
-export abstract class EffectParameter {
+export abstract class Parameter {
   private _type: EffectParameterType;
   private _name: string;
 

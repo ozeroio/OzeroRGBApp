@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EffectParameterRange} from "../../../models/parameters/effect-parameter-range.class";
+import {ParameterRange} from "../../../models/parameters/parameter-range.class";
 
 @Component({
   selector: 'app-range',
@@ -8,12 +8,12 @@ import {EffectParameterRange} from "../../../models/parameters/effect-parameter-
 })
 export class RangeComponent implements OnInit {
 
-  @Input() parameter: EffectParameterRange;
+  @Input() parameter: ParameterRange;
   @Output() change: EventEmitter<void>;
 
   constructor() {
     this.change = new EventEmitter<void>();
-    this.parameter = {} as EffectParameterRange;
+    this.parameter = {} as ParameterRange;
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EffectParameterNumber} from "../../../models/parameters/effect-parameter-number.class";
-import {EffectParameterBoolean} from "../../../models/parameters/effect-parameter-bool.class";
+import {ParameterNumber} from "../../../models/parameters/parameter-number.class";
+import {ParameterBoolean} from "../../../models/parameters/parameter-bool.class";
 
 @Component({
   selector: 'app-boolean',
@@ -9,12 +9,12 @@ import {EffectParameterBoolean} from "../../../models/parameters/effect-paramete
 })
 export class BooleanComponent implements OnInit {
 
-  @Input() parameter: EffectParameterBoolean;
+  @Input() parameter: ParameterBoolean;
   @Output() change: EventEmitter<void>;
 
   constructor() {
     this.change = new EventEmitter<void>();
-    this.parameter = {} as EffectParameterNumber;
+    this.parameter = {} as ParameterNumber;
   }
 
   ngOnInit(): void {

@@ -9,7 +9,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {EffectParameterColor} from "../../models/parameters/effect-parameter-color.class";
+import {ParameterColor} from "../../models/parameters/parameter-color.class";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Color} from "../../models/color.interface";
 
@@ -21,7 +21,7 @@ import {Color} from "../../models/color.interface";
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 
   @Output() change: EventEmitter<Color>;
-  @Input() parameter: EffectParameterColor;
+  @Input() parameter: ParameterColor;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement> | undefined;
   context: CanvasRenderingContext2D | null | undefined;
   image: ImageData | undefined;
@@ -34,7 +34,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   constructor(public dialogRef: MatDialogRef<ColorPickerComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { color: Color }) {
     this.change = new EventEmitter<Color>();
-    this.parameter = {} as EffectParameterColor;
+    this.parameter = {} as ParameterColor;
     if (data.color) {
       this.color.r = data.color.r;
       this.color.g = data.color.g;

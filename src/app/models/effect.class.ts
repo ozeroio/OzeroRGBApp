@@ -1,4 +1,4 @@
-import {EffectParameter} from "./effect-parameter.class";
+import {Parameter} from "./parameter.class";
 
 export type Builder = () => Effect;
 
@@ -6,11 +6,11 @@ export abstract class Effect {
 
   private _code: EffectCode;
   private _name: string;
-  private _parameters: Array<EffectParameter>;
+  private _parameters: Array<Parameter>;
 
   private static _registeredEffects: Map<EffectCode, Builder> = new Map<EffectCode, Builder>();
 
-  protected constructor(code: number, name: string, parameters: Array<EffectParameter>) {
+  protected constructor(code: number, name: string, parameters: Array<Parameter>) {
     this._code = code;
     this._name = name;
     this._parameters = parameters;
@@ -19,7 +19,7 @@ export abstract class Effect {
   abstract applyParameters(payload: Uint8Array): void;
 
   serialize(): Array<number> {
-    const serializedParams = Array.from(this.parameters.values()).map((param: EffectParameter) => {
+    const serializedParams = Array.from(this.parameters.values()).map((param: Parameter) => {
       return param.serialize();
     });
     return [this.code, ...serializedParams.flat()];
@@ -49,11 +49,11 @@ export abstract class Effect {
     this._name = value;
   }
 
-  get parameters(): Array<EffectParameter> {
+  get parameters(): Array<Parameter> {
     return this._parameters;
   }
 
-  set parameters(value: Array<EffectParameter>) {
+  set parameters(value: Array<Parameter>) {
     this._parameters = value;
   }
 

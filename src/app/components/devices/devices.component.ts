@@ -7,12 +7,12 @@ import {Builder, Effect, EffectCode} from "../../models/effect.class";
 import {ColorEffect} from "../../models/effects/color-effect.class";
 import {LocalStorageService} from "../../services/local-storage.service";
 import {Buffer} from "buffer";
-import {Deserializer} from "v8";
 import {MatDialog} from "@angular/material/dialog";
 import {DeviceEditComponent} from "./edit/device-edit.component";
 import {WaveEffect} from "../../models/effects/wave-effect.class";
 import {ChaseEffect} from "../../models/effects/chase-effect.class";
 import {SparkleEffect} from "../../models/effects/sparkle-effect.class";
+import {ParameterNumber} from "../../models/parameters/parameter-number.class";
 
 @Component({
   selector: 'app-devices',
@@ -91,7 +91,7 @@ export class DevicesComponent implements OnInit {
       const brightness: number = message.payload[DevicesComponent.CONFIG_BRIGHTNESS_POS];
       const effectCode: number = message.payload[DevicesComponent.CONFIG_EFFECT_CODE_POS];
       const device: Device = this.retrieveOrCreateDevice(id);
-      device.brightness = brightness;
+      device.brightness.value = brightness;
       const effect: Effect | undefined = device.availableEffects?.get(effectCode);
       if (effect) {
         effect.applyParameters(message.payload.slice(DevicesComponent.CONFIG_EFFECT_PARAM_0_POS));
@@ -161,7 +161,7 @@ export class DevicesComponent implements OnInit {
   private retrieveOrCreateDevice(id: number): Device {
     let device: Device | undefined = this.devices.get(id);
     if (device == undefined) {
-      device = new Device(id, 0, this.storageService.get(`device-name-${id}`), 0);
+      device = new Device(id, new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS), this.storageService.get(`device-name-${id}`), 0);
       this.devices.set(id, device);
     }
     return device;

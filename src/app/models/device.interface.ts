@@ -1,20 +1,21 @@
 import {Effect, EffectCode} from "./effect.class";
+import {ParameterNumber} from "./parameters/parameter-number.class";
 
 export class Device {
 
-  private static DEFAULT_BRIGHTNESS: number = 180;
+  public static DEFAULT_BRIGHTNESS: number = 180;
 
   private _id: number;
-  private _brightness: number;
   private _name: string;
   private _pendingPings: number;
   private _currentEffect?: Effect;
   private _availableEffects?: Map<EffectCode, Effect>;
   private _hidden?: boolean;
+  private _brightness: ParameterNumber;
 
-  constructor(id: number, brightness: number, name: string, pendingPings: number, currentEffect?: Effect, availableEffects?: Map<EffectCode, Effect>, hidden?: boolean) {
+  constructor(id: number, brightness: ParameterNumber , name: string, pendingPings: number, currentEffect?: Effect, availableEffects?: Map<EffectCode, Effect>, hidden?: boolean) {
     this._id = id;
-    this._brightness = brightness || Device.DEFAULT_BRIGHTNESS;
+    this._brightness = brightness;
     this._name = name;
     this._pendingPings = pendingPings;
     this._currentEffect = currentEffect;
@@ -23,7 +24,7 @@ export class Device {
   }
 
   serialize(): Array<number> {
-    const data = Array.from([this.id, this.brightness]);
+    const data = Array.from([this.id, this.brightness.value]);
     if (this.currentEffect) {
       data.push(...this.currentEffect.serialize());
     }
@@ -38,11 +39,11 @@ export class Device {
     this._id = value;
   }
 
-  get brightness(): number {
+  get brightness(): ParameterNumber {
     return this._brightness;
   }
 
-  set brightness(value: number) {
+  set brightness(value: ParameterNumber) {
     this._brightness = value;
   }
 
