@@ -68,5 +68,8 @@ export abstract class Effect {
 
 export enum EffectCode {
   FIRE,
-  COLOR
+  COLOR,
+  WAVE,
+  CHASE,
+  SPARKLE
 }

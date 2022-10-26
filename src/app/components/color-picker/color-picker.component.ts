@@ -26,6 +26,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   context: CanvasRenderingContext2D | null | undefined;
   image: ImageData | undefined;
   color: Color = {r: 0, g: 0, b: 0};
+  down: boolean = false;
   dragging: boolean = false;
   padding: number = 30;
   predefinedColors: Array<Color>;
@@ -133,25 +134,32 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   onCanvasMouseDown(e: MouseEvent): void {
-    this.dragging = true;
+    this.down = true;
   }
 
   onCanvasTouchStart(e: TouchEvent): void {
-    this.dragging = true;
+    this.down = true;
   }
 
   onCanvasMouseUp(e: MouseEvent): void {
-    this.dragging = false;
+    if (this.dragging) {
+      this.dragging = false;
+      this.down = false;
+    }
     this.onChange();
   }
 
   onCanvasTouchEnd(e: TouchEvent): void {
-    this.dragging = false;
-    this.onChange();
+    if (this.dragging) {
+      this.dragging = false;
+      this.down = false;
+      this.onChange();
+    }
   }
 
   onCanvasMouseMove(e: MouseEvent): void {
-    if (this.dragging) {
+    if (this.down) {
+      this.dragging = true;
       this.onInteract(e.offsetX, e.offsetY);
     }
     e.preventDefault();
@@ -159,17 +167,20 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 
   onCanvasClick(e: MouseEvent): void {
     this.onInteract(e.offsetX, e.offsetY);
+    this.onChange();
     e.preventDefault();
   }
 
   onCanvasTouchMove(e: PointerEvent): void {
-    if (this.dragging) {
+    if (this.down) {
+      this.dragging = true;
       this.onInteract(e.offsetX, e.offsetY);
     }
     e.preventDefault();
   }
 
   onChange(): void {
+    console.log("EMIT:", this.color);
     this.change.emit(this.color);
   }
 

@@ -20,6 +20,10 @@ export class EffectComponent implements OnInit {
     this.parameters = [];
   }
 
+  onApplyClick(): void {
+    this.change.emit({} as EffectParameter);
+  }
+
   onParameterChange(parameter: EffectParameter): void {
     this.change.emit(parameter);
   }

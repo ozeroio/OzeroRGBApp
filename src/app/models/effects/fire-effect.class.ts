@@ -11,7 +11,7 @@ export class FireEffect extends Effect {
     const parameters = [
       new EffectParameterRange('Sparking', 60, 0, 255, 1),
       new EffectParameterRange('Cooling', 80, 0, 255, 1),
-      new EffectParameterRange('Speed', 20, 0, 50, 1),
+      new EffectParameterRange('Delay', 20, 0, 255, 1),
       new EffectParameterRange('Spark Level', 7, 1, 16, 1),
     ];
     super(FireEffect.CODE, FireEffect.NAME, parameters);

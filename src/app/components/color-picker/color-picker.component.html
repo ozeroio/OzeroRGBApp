@@ -7,13 +7,20 @@
         (mousemove)="onCanvasMouseMove($event)"
         (pointermove)="onCanvasTouchMove($event)"
         (click)="onCanvasClick($event)" #canvas></canvas>
+
 <div class="container-fluid ">
-    <div class="row align-content-center align-items-center">
-      <div *ngFor="let c of predefinedColors.slice(0, 6);" [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}"
-           class="color-spot col-2" [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}" (click)="onColorClick(c)">&nbsp;</div>
+  <div class="row align-content-center align-items-center">
+    <div *ngFor="let c of predefinedColors.slice(0, 6);"
+         [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}"
+         class="color-spot col-2" [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}" (click)="onColorClick(c)">
+      &nbsp;
     </div>
-    <div class="row align-content-center align-items-center">
-      <div *ngFor="let c of predefinedColors.slice(6, 12);" [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}"
-           class="color-spot col-2" [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}" (click)="onColorClick(c)">&nbsp;</div>
+  </div>
+  <div class="row align-content-center align-items-center">
+    <div *ngFor="let c of predefinedColors.slice(6, 12);"
+         [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}"
+         class="color-spot col-2" [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}" (click)="onColorClick(c)">
+      &nbsp;
     </div>
+  </div>
 </div>

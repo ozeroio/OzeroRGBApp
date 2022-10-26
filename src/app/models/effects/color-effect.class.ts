@@ -10,7 +10,7 @@ export class ColorEffect extends Effect {
 
   constructor() {
     const parameters = [
-      new EffectParameterColor('Color', 0, 0, 0)
+      new EffectParameterColor('Color', 255, 0, 0)
     ];
     super(ColorEffect.CODE, ColorEffect.NAME, parameters);
   }

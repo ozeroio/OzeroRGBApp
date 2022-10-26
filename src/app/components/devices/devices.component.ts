@@ -10,6 +10,9 @@ import {Buffer} from "buffer";
 import {Deserializer} from "v8";
 import {MatDialog} from "@angular/material/dialog";
 import {DeviceEditComponent} from "./edit/device-edit.component";
+import {WaveEffect} from "../../models/effects/wave-effect.class";
+import {ChaseEffect} from "../../models/effects/chase-effect.class";
+import {SparkleEffect} from "../../models/effects/sparkle-effect.class";
 
 @Component({
   selector: 'app-devices',
@@ -25,6 +28,12 @@ export class DevicesComponent implements OnInit {
   private static DESCRIBE_TOPIC: string = 'device/describe';
   private static PING_TOPIC: string = 'device/ping';
   private static PONG_TOPIC: string = 'device/pong';
+
+  private static CONFIG_DEVICE_ID_POS: number = 0;
+  private static CONFIG_BRIGHTNESS_POS: number = 1;
+  private static CONFIG_EFFECT_CODE_POS: number = 2;
+  private static CONFIG_EFFECT_PARAM_0_POS: number = 3;
+  private static CONFIG_SUPPORTED_EFFECTS_POS: number = 1;
 
   private static PING_TIMEOUT: number = 3000;
   private static MAX_ALLOWED_PENDING_PINGS: number = 3;
@@ -49,6 +58,9 @@ export class DevicesComponent implements OnInit {
     this.storageService.set(`device-name-4`, 'Lucas Desk');
     this.storageService.set(`device-name-5`, 'Davi Desk');
     this.storageService.set(`device-name-6`, 'Office Desk');
+    this.storageService.set(`device-name-7`, 'Kitchen Top');
+    this.storageService.set(`device-name-8`, 'Unknown');
+    this.storageService.set(`device-name-9`, 'Test Device');
 
     this.mqttService.publish(DevicesComponent.DISCOVERY_TOPIC, '').subscribe(() => {
     });
@@ -57,11 +69,11 @@ export class DevicesComponent implements OnInit {
       for (let i = 0; i < (message.length || 0); i++) {
         console.log(i, ':', message.payload[i]);
       }
-      const id: number = message.payload[0];
-      const device: Device = this.ensureDevice(id);
+      const id: number = message.payload[DevicesComponent.CONFIG_DEVICE_ID_POS];
+      const device: Device = this.retrieveOrCreateDevice(id);
       device.availableEffects = new Map<EffectCode, Effect>();
-      for (let i = 0; i < message.payload[1]; i++) {
-        const effectCode: number = message.payload[2 + i];
+      for (let i = 0; i < message.payload[DevicesComponent.CONFIG_SUPPORTED_EFFECTS_POS]; i++) {
+        const effectCode: number = message.payload[DevicesComponent.CONFIG_SUPPORTED_EFFECTS_POS + 1 + i];
         const builder: Builder | undefined = Effect.registeredEffects.get(effectCode);
         let effect = {} as Effect;
         if (builder != undefined) {
@@ -75,20 +87,22 @@ export class DevicesComponent implements OnInit {
     });
 
     this.descriptionSubscription = this.mqttService.observe(DevicesComponent.DESCRIPTION_TOPIC).subscribe((message: IMqttMessage) => {
-      const id: number = message.payload[0];
-      const effectCode: number = message.payload[1];
-      const device: Device = this.ensureDevice(id);
+      const id: number = message.payload[DevicesComponent.CONFIG_DEVICE_ID_POS];
+      const brightness: number = message.payload[DevicesComponent.CONFIG_BRIGHTNESS_POS];
+      const effectCode: number = message.payload[DevicesComponent.CONFIG_EFFECT_CODE_POS];
+      const device: Device = this.retrieveOrCreateDevice(id);
+      device.brightness = brightness;
       const effect: Effect | undefined = device.availableEffects?.get(effectCode);
       if (effect) {
-        device.currentEffectCode = effectCode;
-        effect.applyParameters(message.payload.slice(2));
+        effect.applyParameters(message.payload.slice(DevicesComponent.CONFIG_EFFECT_PARAM_0_POS));
+        device.currentEffect = effect;
         console.log(effect)
       }
     });
 
     this.pongSubscription = this.mqttService.observe(DevicesComponent.PONG_TOPIC).subscribe((message: IMqttMessage) => {
-      const id: number = message.payload[0];
-      const device: Device = this.ensureDevice(id);
+      const id: number = message.payload[DevicesComponent.CONFIG_DEVICE_ID_POS];
+      const device: Device = this.retrieveOrCreateDevice(id);
       device.pendingPings = 0;
     });
 
@@ -103,6 +117,9 @@ export class DevicesComponent implements OnInit {
 
     Effect.registerEffect(FireEffect.CODE, FireEffect.build);
     Effect.registerEffect(ColorEffect.CODE, ColorEffect.build);
+    Effect.registerEffect(WaveEffect.CODE, WaveEffect.build);
+    Effect.registerEffect(ChaseEffect.CODE, ChaseEffect.build);
+    Effect.registerEffect(SparkleEffect.CODE, SparkleEffect.build);
   }
 
   ngOnInit(): void {
@@ -122,26 +139,29 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  onApplyDeviceClick(id: number): void {
-
-  }
-
   toggleDevice(device: Device): void {
     device.hidden = !device.hidden;
   }
 
+  onBrightnessChange(device: Device): void {
+    this.sendDeviceConfiguration(device);
+  }
+
   onEffectChange(id: number, effect: Effect): void {
-    const b = Array.from([id, ...effect.serialize()])
-    const device: Device = this.ensureDevice(id);
-    device.currentEffectCode = effect.code;
-    this.mqttService.publish(DevicesComponent.CONFIGURE_TOPIC, new Buffer(b)).subscribe(() => {
+    const device: Device = this.retrieveOrCreateDevice(id);
+    device.currentEffect = effect;
+    this.sendDeviceConfiguration(device);
+  }
+
+  private sendDeviceConfiguration(device: Device): void {
+    this.mqttService.publish(DevicesComponent.CONFIGURE_TOPIC, new Buffer(device.serialize())).subscribe(() => {
     });
   }
 
-  private ensureDevice(id: number): Device {
+  private retrieveOrCreateDevice(id: number): Device {
     let device: Device | undefined = this.devices.get(id);
     if (device == undefined) {
-      device = {id: id, name: this.storageService.get(`device-name-${id}`), pendingPings: 0};
+      device = new Device(id, 0, this.storageService.get(`device-name-${id}`), 0);
       this.devices.set(id, device);
     }
     return device;

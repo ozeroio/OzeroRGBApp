@@ -5,7 +5,8 @@
       <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
         <mat-card>
           <mat-card-header>
-            <div (click)="toggleDevice(device.value)" class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
+            <div (click)="toggleDevice(device.value)"
+                 class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
               <mat-icon>memory</mat-icon>
             </div>
             <mat-card-title>{{device.value.name ? device.value.name : device.key}}</mat-card-title>
@@ -14,14 +15,30 @@
             </mat-card-subtitle>
           </mat-card-header>
           <mat-card-content class="p-0 m-0" [hidden]="device.value.hidden">
-            <mat-tab-group [selectedIndex]="device.value.currentEffectCode">
-              <ng-container *ngFor="let availableEffect of device.value.availableEffects | keyvalue">
-                <mat-tab [label]="availableEffect.value.name | titlecase">
-                  <app-effect [effect]="availableEffect.value"
-                              (change)="onEffectChange(device.key, availableEffect.value)"></app-effect>
-                </mat-tab>
-              </ng-container>
+            <mat-tab-group selectedIndex="1">
+              <mat-tab label="Configuration">
+                <div class="m-4">
+                  <mat-label>Brightness</mat-label>
+                  <mat-slider class="w-100" thumbLabel [tickInterval]="10"
+                              [step]="10"
+                              [min]="0"
+                              [max]="255"
+                              [(ngModel)]="device.value.brightness"
+                              (change)="onBrightnessChange(device.value)"></mat-slider>
+                </div>
+              </mat-tab>
+              <mat-tab label="Effects">
+                <mat-tab-group [selectedIndex]="device.value.currentEffect?.code">
+                  <ng-container *ngFor="let availableEffect of device.value.availableEffects | keyvalue">
+                    <mat-tab [label]="availableEffect.value.name | titlecase">
+                      <app-effect [effect]="availableEffect.value"
+                                  (change)="onEffectChange(device.key, availableEffect.value)"></app-effect>
+                    </mat-tab>
+                  </ng-container>
+                </mat-tab-group>
+              </mat-tab>
             </mat-tab-group>
+
           </mat-card-content>
           <mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
             <div class="">

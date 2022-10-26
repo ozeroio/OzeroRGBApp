@@ -29,5 +29,6 @@ export abstract class EffectParameter {
 export enum EffectParameterType {
   NUMBER,
   RANGE,
-  COLOR
+  COLOR,
+  BOOLEAN
 }

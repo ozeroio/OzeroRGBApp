@@ -3,6 +3,7 @@ import {EffectParameter, EffectParameterType} from "../../models/effect-paramete
 import {EffectParameterColor} from "../../models/parameters/effect-parameter-color.class";
 import {EffectParameterNumber} from "../../models/parameters/effect-parameter-number.class";
 import {EffectParameterRange} from "../../models/parameters/effect-parameter-range.class";
+import {EffectParameterBoolean} from "../../models/parameters/effect-parameter-bool.class";
 
 @Component({
   selector: 'app-parameter',
@@ -12,8 +13,9 @@ import {EffectParameterRange} from "../../models/parameters/effect-parameter-ran
 export class ParameterComponent implements OnInit {
 
   @Input() parameter: EffectParameter;
-  EffectParameterType = EffectParameterType;
   @Output() change: EventEmitter<void>;
+
+  EffectParameterType = EffectParameterType;
 
   constructor() {
     this.change = new EventEmitter<void>();
@@ -33,6 +35,10 @@ export class ParameterComponent implements OnInit {
 
   castToRange(): EffectParameterRange {
     return this.parameter as EffectParameterRange;
+  }
+
+  castToBoolean(): EffectParameterBoolean {
+    return this.parameter as EffectParameterBoolean;
   }
 
   onChange(): void {

@@ -46,6 +46,7 @@ import { NumberComponent } from './components/parameter/number/number.component'
 import { EffectComponent } from './components/effect/effect.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import { DeviceEditComponent } from './components/devices/edit/device-edit.component';
+import { BooleanComponent } from './components/parameter/boolean/boolean.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { DeviceEditComponent } from './components/devices/edit/device-edit.compo
     NumberComponent,
     EffectComponent,
     ColorPickerComponent,
-    DeviceEditComponent
+    DeviceEditComponent,
+    BooleanComponent
   ],
   imports: [
     BrowserModule,
