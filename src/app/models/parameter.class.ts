@@ -30,5 +30,6 @@ export enum EffectParameterType {
   NUMBER,
   RANGE,
   COLOR,
-  BOOLEAN
+  BOOLEAN,
+  NUMERAL_OPTION
 }

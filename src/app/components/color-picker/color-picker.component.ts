@@ -180,7 +180,6 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   onChange(): void {
-    console.log("EMIT:", this.color);
     this.change.emit(this.color);
   }
 

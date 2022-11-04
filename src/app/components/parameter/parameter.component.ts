@@ -4,6 +4,7 @@ import {ParameterColor} from "../../models/parameters/parameter-color.class";
 import {ParameterNumber} from "../../models/parameters/parameter-number.class";
 import {ParameterRange} from "../../models/parameters/parameter-range.class";
 import {ParameterBoolean} from "../../models/parameters/parameter-bool.class";
+import {ParameterNumeralOption} from "../../models/parameters/parameter-numeral-option.class";
 
 @Component({
   selector: 'app-parameter',
@@ -39,6 +40,10 @@ export class ParameterComponent implements OnInit {
 
   castToBoolean(): ParameterBoolean {
     return this.parameter as ParameterBoolean;
+  }
+
+  castToNumeralOption(): ParameterNumeralOption {
+    return this.parameter as ParameterNumeralOption;
   }
 
   onChange(): void {

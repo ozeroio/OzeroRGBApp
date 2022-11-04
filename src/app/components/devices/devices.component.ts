@@ -13,6 +13,7 @@ import {WaveEffect} from "../../models/effects/wave-effect.class";
 import {ChaseEffect} from "../../models/effects/chase-effect.class";
 import {SparkleEffect} from "../../models/effects/sparkle-effect.class";
 import {ParameterNumber} from "../../models/parameters/parameter-number.class";
+import {BreathingEffect} from "../../models/effects/breathing-effect.class";
 
 @Component({
   selector: 'app-devices',
@@ -120,6 +121,7 @@ export class DevicesComponent implements OnInit {
     Effect.registerEffect(WaveEffect.CODE, WaveEffect.build);
     Effect.registerEffect(ChaseEffect.CODE, ChaseEffect.build);
     Effect.registerEffect(SparkleEffect.CODE, SparkleEffect.build);
+    Effect.registerEffect(BreathingEffect.CODE, BreathingEffect.build);
   }
 
   ngOnInit(): void {
@@ -154,6 +156,7 @@ export class DevicesComponent implements OnInit {
   }
 
   private sendDeviceConfiguration(device: Device): void {
+    console.log("Sending:", device.serialize());
     this.mqttService.publish(DevicesComponent.CONFIGURE_TOPIC, new Buffer(device.serialize())).subscribe(() => {
     });
   }

@@ -14,7 +14,7 @@ export class SparkleEffect extends Effect {
       new ParameterColor('Color', 255, 0, 0),
       new ParameterRange('Delay', 20, 0, 255, 1),
       new ParameterRange('Num LEDs', 1, 0, 255, 1),
-      new ParameterBoolean('Randomize Color', 0),
+      new ParameterBoolean('Randomize Color', 0)
     ];
     super(SparkleEffect.CODE, SparkleEffect.NAME, parameters);
   }

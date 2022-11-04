@@ -39,14 +39,15 @@ import {
   NGX_MAT_COLOR_FORMATS,
   NgxMatColorPickerModule
 } from "@angular-material-components/color-picker";
-import { ParameterComponent } from './components/parameter/parameter.component';
-import { RangeComponent } from './components/parameter/range/range.component';
-import { ColorComponent } from './components/parameter/color/color.component';
-import { NumberComponent } from './components/parameter/number/number.component';
-import { EffectComponent } from './components/effect/effect.component';
-import { ColorPickerComponent } from './components/color-picker/color-picker.component';
-import { DeviceEditComponent } from './components/devices/edit/device-edit.component';
-import { BooleanComponent } from './components/parameter/boolean/boolean.component';
+import {ParameterComponent} from './components/parameter/parameter.component';
+import {RangeComponent} from './components/parameter/range/range.component';
+import {ColorComponent} from './components/parameter/color/color.component';
+import {NumberComponent} from './components/parameter/number/number.component';
+import {EffectComponent} from './components/effect/effect.component';
+import {ColorPickerComponent} from './components/color-picker/color-picker.component';
+import {DeviceEditComponent} from './components/devices/edit/device-edit.component';
+import {BooleanComponent} from './components/parameter/boolean/boolean.component';
+import {NumeralOptionComponent} from './components/parameter/numeral-option/numeral-option.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { BooleanComponent } from './components/parameter/boolean/boolean.compone
     EffectComponent,
     ColorPickerComponent,
     DeviceEditComponent,
-    BooleanComponent
+    BooleanComponent,
+    NumeralOptionComponent
   ],
   imports: [
     BrowserModule,

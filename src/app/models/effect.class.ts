@@ -1,4 +1,5 @@
 import {Parameter} from "./parameter.class";
+import {BreathingEffect} from "./effects/breathing-effect.class";
 
 export type Builder = () => Effect;
 
@@ -71,5 +72,6 @@ export enum EffectCode {
   COLOR,
   WAVE,
   CHASE,
-  SPARKLE
+  SPARKLE,
+  BREATHING
 }
