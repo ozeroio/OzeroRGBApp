@@ -51,16 +51,16 @@ export class DevicesComponent implements OnInit {
               private storageService: LocalStorageService,
               protected dialog: MatDialog) {
     this.devices = new Map<number, Device>();
-    this.storageService.set(`device-name-0`, 'Office Window');
-    this.storageService.set(`device-name-1`, 'Suite Window');
-    this.storageService.set(`device-name-2`, 'Lucas Window');
-    this.storageService.set(`device-name-3`, 'House Front');
-    this.storageService.set(`device-name-4`, 'Lucas Desk');
-    this.storageService.set(`device-name-5`, 'Davi Desk');
-    this.storageService.set(`device-name-6`, 'Office Desk');
-    this.storageService.set(`device-name-7`, 'Kitchen Top');
-    this.storageService.set(`device-name-8`, 'Unknown');
-    this.storageService.set(`device-name-9`, 'Test Device');
+    this.storageService.set('device-name-0', 'Office Window');
+    this.storageService.set('device-name-1', 'Suite Window');
+    this.storageService.set('device-name-2', 'Lucas Window');
+    this.storageService.set('device-name-3', 'House Front');
+    this.storageService.set('device-name-4', 'Lucas Desk');
+    this.storageService.set('device-name-5', 'Davi Desk');
+    this.storageService.set('device-name-6', 'Office Desk');
+    this.storageService.set('device-name-7', 'Kitchen Top');
+    this.storageService.set('device-name-8', 'Unknown');
+    this.storageService.set('device-name-9', 'Test Device');
 
     this.mqttService.publish(DevicesComponent.DISCOVERY_TOPIC, '').subscribe(() => {
     });
