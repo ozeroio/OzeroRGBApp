@@ -35,9 +35,9 @@ import {environment} from "../environments/environment";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatSliderModule} from "@angular/material/slider";
 import {
-  MAT_COLOR_FORMATS,
-  NGX_MAT_COLOR_FORMATS,
-  NgxMatColorPickerModule
+    MAT_COLOR_FORMATS,
+    NGX_MAT_COLOR_FORMATS,
+    NgxMatColorPickerModule
 } from "@angular-material-components/color-picker";
 import {ParameterComponent} from './components/parameter/parameter.component';
 import {RangeComponent} from './components/parameter/range/range.component';
@@ -51,61 +51,61 @@ import {NumeralOptionComponent} from './components/parameter/numeral-option/nume
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DevicesComponent,
-    ParameterComponent,
-    RangeComponent,
-    ColorComponent,
-    NumberComponent,
-    EffectComponent,
-    ColorPickerComponent,
-    DeviceEditComponent,
-    BooleanComponent,
-    NumeralOptionComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatDividerModule,
-    MatListModule,
-    HttpClientModule,
-    MatTableModule,
-    MatIconModule,
-    FormsModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatListModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-    MatGridListModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatRadioModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatBadgeModule,
-    MatProgressBarModule,
-    MatTabsModule,
-    MatSliderModule,
-    NgxMatColorPickerModule,
-    MqttModule.forRoot(environment.mqtt as IMqttServiceOptions),
-    MatButtonToggleModule
-  ],
-  providers: [
-    {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    ColorPickerComponent
-  ]
+    declarations: [
+        AppComponent,
+        DevicesComponent,
+        ParameterComponent,
+        RangeComponent,
+        ColorComponent,
+        NumberComponent,
+        EffectComponent,
+        ColorPickerComponent,
+        DeviceEditComponent,
+        BooleanComponent,
+        NumeralOptionComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatDividerModule,
+        MatListModule,
+        HttpClientModule,
+        MatTableModule,
+        MatIconModule,
+        FormsModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatListModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        MatGridListModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatRadioModule,
+        MatCardModule,
+        MatExpansionModule,
+        MatBadgeModule,
+        MatProgressBarModule,
+        MatTabsModule,
+        MatSliderModule,
+        NgxMatColorPickerModule,
+        MqttModule.forRoot(environment.mqtt as IMqttServiceOptions),
+        MatButtonToggleModule
+    ],
+    providers: [
+        {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
+    ],
+    bootstrap: [AppComponent],
+    entryComponents: [
+        ColorPickerComponent
+    ]
 })
 export class AppModule {
 }

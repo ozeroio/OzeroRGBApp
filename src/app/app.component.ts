@@ -1,28 +1,28 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public title = 'RGB Window App';
-  public navEntries: Array<Array<NavEntry>>;
+    public title = 'RGB Window App';
+    public navEntries: Array<Array<NavEntry>>;
 
-  constructor() {
-    this.navEntries = [[
-      {label: 'Recipes', icon: 'book', path: 'recipes'},
-    ], [
-      {label: 'Brass', icon: 'book', path: 'brass'},
-    ]];
-  }
+    constructor() {
+        this.navEntries = [[
+            {label: 'Recipes', icon: 'book', path: 'recipes'},
+        ], [
+            {label: 'Brass', icon: 'book', path: 'brass'},
+        ]];
+    }
 
-  public onExitClick(): void {
-  }
+    public onExitClick(): void {
+    }
 }
 
 interface NavEntry {
-  label: string;
-  icon: string;
-  path: string;
+    label: string;
+    icon: string;
+    path: string;
 }

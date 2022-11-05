@@ -2,49 +2,50 @@ import {Parameter} from "../parameter.class";
 
 export class ParameterColor extends Parameter {
 
-  private _r: number;
-  private _g: number;
-  private _b: number;
+    constructor(name: string, r: number, g: number, b: number) {
+        super(EffectParameterType.COLOR, name);
+        this._r = r;
+        this._g = g;
+        this._b = b;
+    }
 
-  constructor(name: string, r: number, g: number, b: number) {
-    super(EffectParameterType.COLOR, name);
-    this._r = r;
-    this._g = g;
-    this._b = b;
-  }
+    private _r: number;
 
-  override serialize(): Array<number> {
-    return Array.from([this.r, this.g, this.b]);
-  };
+    get r(): number {
+        return this._r;
+    }
 
+    set r(value: number) {
+        this._r = value;
+    }
 
-  get r(): number {
-    return this._r;
-  }
+    private _g: number;
 
-  set r(value: number) {
-    this._r = value;
-  }
+    get g(): number {
+        return this._g;
+    }
 
-  get g(): number {
-    return this._g;
-  }
+    set g(value: number) {
+        this._g = value;
+    }
 
-  set g(value: number) {
-    this._g = value;
-  }
+    private _b: number;
 
-  get b(): number {
-    return this._b;
-  }
+    get b(): number {
+        return this._b;
+    }
 
-  set b(value: number) {
-    this._b = value;
-  }
+    set b(value: number) {
+        this._b = value;
+    }
+
+    override serialize(): Array<number> {
+        return Array.from([this.r, this.g, this.b]);
+    };
 }
 
 export enum EffectParameterType {
-  NUMBER,
-  RANGE,
-  COLOR
+    NUMBER,
+    RANGE,
+    COLOR
 }

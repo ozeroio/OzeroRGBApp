@@ -1,7 +1,7 @@
 <mat-label>{{parameter.name | titlecase}} ({{parameter.value}}):</mat-label>&nbsp;
-<mat-slider class="w-100" thumbLabel [tickInterval]="parameter.step"
-            [step]="parameter.step"
+<mat-slider (ngModelChange)="onChange()" [(ngModel)]="parameter.value" [max]="parameter.max"
             [min]="parameter.min"
-            [max]="parameter.max"
-            [(ngModel)]="parameter.value"
-            (ngModelChange)="onChange()"></mat-slider>
+            [step]="parameter.step"
+            [tickInterval]="parameter.step"
+            class="w-100"
+            thumbLabel></mat-slider>

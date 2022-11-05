@@ -3,32 +3,32 @@ import {Effect} from "../../models/effect.class";
 import {Parameter} from "../../models/parameter.class";
 
 @Component({
-  selector: 'app-effect',
-  templateUrl: './effect.component.html',
-  styleUrls: ['./effect.component.scss']
+    selector: 'app-effect',
+    templateUrl: './effect.component.html',
+    styleUrls: ['./effect.component.scss']
 })
 export class EffectComponent implements OnInit {
 
-  @Input() effect: Effect;
-  @Output() change: EventEmitter<Parameter>;
+    @Input() effect: Effect;
+    @Output() change: EventEmitter<Parameter>;
 
-  parameters: Array<Parameter>;
+    parameters: Array<Parameter>;
 
-  constructor() {
-    this.change = new EventEmitter<Parameter>();
-    this.effect = {} as Effect;
-    this.parameters = [];
-  }
+    constructor() {
+        this.change = new EventEmitter<Parameter>();
+        this.effect = {} as Effect;
+        this.parameters = [];
+    }
 
-  onApplyClick(): void {
-    this.change.emit({} as Parameter);
-  }
+    onApplyClick(): void {
+        this.change.emit({} as Parameter);
+    }
 
-  onParameterChange(parameter: Parameter): void {
-    this.change.emit(parameter);
-  }
+    onParameterChange(parameter: Parameter): void {
+        this.change.emit(parameter);
+    }
 
-  ngOnInit(): void {
-    this.parameters = Array.from(this.effect.parameters.values());
-  }
+    ngOnInit(): void {
+        this.parameters = Array.from(this.effect.parameters.values());
+    }
 }

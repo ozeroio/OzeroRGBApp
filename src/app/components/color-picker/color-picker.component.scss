@@ -1,13 +1,14 @@
 canvas {
-  touch-action: none;
-  border-radius: 150px;
+    touch-action: none;
+    border-radius: 150px;
 }
 
 .color-spot {
-  cursor: pointer;
-  border-radius: 30px;
-  border: 2px solid white;
-  &.selected {
-    border-color: black;
-  }
+    cursor: pointer;
+    border-radius: 30px;
+    border: 2px solid white;
+
+    &.selected {
+        border-color: black;
+    }
 }

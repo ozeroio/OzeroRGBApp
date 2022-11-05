@@ -1,5 +1,5 @@
 <mat-label>{{parameter.name | titlecase}} ({{parameter.value}}):</mat-label>&nbsp;
-<input matInput type="number" placeholder="Value"
-       [(ngModel)]="parameter.value"
-       (ngModelChange)="onChange()">
+<input (ngModelChange)="onChange()" [(ngModel)]="parameter.value" matInput
+       placeholder="Value"
+       type="number">
 

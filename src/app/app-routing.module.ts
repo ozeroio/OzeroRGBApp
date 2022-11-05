@@ -4,25 +4,25 @@ import {DevicesComponent} from "./components/devices/devices.component";
 import {APP_BASE_HREF} from "@angular/common";
 
 const routes: Routes = [{
-  path: '',
-  redirectTo: 'devices',
-  pathMatch: 'full'
+    path: '',
+    redirectTo: 'devices',
+    pathMatch: 'full'
 }, {
-  path: 'devices',
-  component: DevicesComponent
+    path: 'devices',
+    component: DevicesComponent
 }]
 
 export const routingConfiguration: ExtraOptions = {
-  paramsInheritanceStrategy: 'always',
-  useHash: true
+    paramsInheritanceStrategy: 'always',
+    useHash: true
 };
 
 export const routing = RouterModule.forRoot(routes, routingConfiguration);
 
 @NgModule({
-  imports: [routing],
-  exports: [RouterModule],
-  providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+    imports: [routing],
+    exports: [RouterModule],
+    providers: [{provide: APP_BASE_HREF, useValue: '/'}]
 })
 export class AppRoutingModule {
 }

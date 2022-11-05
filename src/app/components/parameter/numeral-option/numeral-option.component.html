@@ -1,5 +1,6 @@
 <mat-label>{{parameter.name | titlecase}}:</mat-label>&nbsp;
-<mat-button-toggle-group [(ngModel)]="parameter.value"
-                         (ngModelChange)="onChange()">
-  <mat-button-toggle *ngFor="let option of parameter.options | keyvalue" [value]="option.key">{{option.value}}</mat-button-toggle>
+<mat-button-toggle-group (ngModelChange)="onChange()"
+                         [(ngModel)]="parameter.value">
+    <mat-button-toggle *ngFor="let option of parameter.options | keyvalue"
+                       [value]="option.key">{{option.value}}</mat-button-toggle>
 </mat-button-toggle-group>
