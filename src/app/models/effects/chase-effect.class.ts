@@ -1,7 +1,7 @@
 import {Effect, EffectCode} from "../effect.class";
 import {ParameterRange} from "../parameters/parameter-range.class";
 import {ParameterColor} from "../parameters/parameter-color.class";
-import {ParameterBoolean} from "../parameters/parameter-bool.class";
+import {ParameterBoolean} from "../parameters/parameter-boolean.class";
 
 export class ChaseEffect extends Effect {
 
@@ -12,7 +12,7 @@ export class ChaseEffect extends Effect {
         const parameters = [
             new ParameterColor('Color', 255, 0, 0),
             new ParameterRange('Delay', 20, 0, 255, 1),
-            new ParameterBoolean('Invert Direction', 0),
+            new ParameterBoolean('Invert Direction', false),
             new ParameterRange('Gap Len', 3, 1, 32, 1),
             new ParameterRange('Fill Len', 3, 1, 32, 1)
         ];
@@ -28,7 +28,7 @@ export class ChaseEffect extends Effect {
         (this.parameters[0] as ParameterColor).g = payload[1];
         (this.parameters[0] as ParameterColor).b = payload[2];
         (this.parameters[1] as ParameterRange).value = payload[3];
-        (this.parameters[2] as ParameterBoolean).value = payload[4];
+        (this.parameters[2] as ParameterBoolean).valueNumber = payload[4];
         (this.parameters[3] as ParameterRange).value = payload[5];
         (this.parameters[4] as ParameterRange).value = payload[6];
     }

@@ -14,6 +14,8 @@ import {ChaseEffect} from "../../models/effects/chase-effect.class";
 import {SparkleEffect} from "../../models/effects/sparkle-effect.class";
 import {ParameterNumber} from "../../models/parameters/parameter-number.class";
 import {BreathingEffect} from "../../models/effects/breathing-effect.class";
+import {ParameterBoolean} from "../../models/parameters/parameter-boolean.class";
+import {CommonMessagePositions, ConfigurationMessagePositions, PresenceMessagePositions} from "../../models/positions";
 
 @Component({
     selector: 'app-devices',
@@ -29,12 +31,6 @@ export class DevicesComponent implements OnInit {
     private static DESCRIBE_TOPIC: string = 'device/describe';
     private static PING_TOPIC: string = 'device/ping';
     private static PONG_TOPIC: string = 'device/pong';
-
-    private static CONFIG_DEVICE_ID_POS: number = 0;
-    private static CONFIG_BRIGHTNESS_POS: number = 1;
-    private static CONFIG_EFFECT_CODE_POS: number = 2;
-    private static CONFIG_EFFECT_PARAM_0_POS: number = 3;
-    private static CONFIG_SUPPORTED_EFFECTS_POS: number = 1;
 
     private static PING_TIMEOUT: number = 3000;
     private static MAX_ALLOWED_PENDING_PINGS: number = 3;
@@ -67,12 +63,14 @@ export class DevicesComponent implements OnInit {
             for (let i = 0; i < (message.length || 0); i++) {
                 console.log(i, ':', message.payload[i]);
             }
-            const id: number = message.payload[DevicesComponent.CONFIG_DEVICE_ID_POS];
+            const id: number = message.payload[CommonMessagePositions.commonDeviceID];
             const device: Device = this.retrieveOrCreateDevice(id);
             device.availableEffects = new Map<EffectCode, Effect>();
-            for (let i = 0; i < message.payload[DevicesComponent.CONFIG_SUPPORTED_EFFECTS_POS]; i++) {
-                const effectCode: number = message.payload[DevicesComponent.CONFIG_SUPPORTED_EFFECTS_POS + 1 + i];
+            for (let i = 0; i < message.payload[PresenceMessagePositions.presenceSupportedEffects]; i++) {
+                const effectCode: number = message.payload[PresenceMessagePositions.presenceSupportedEffects + 1 + i];
+                console.log(effectCode)
                 const builder: Builder | undefined = Effect.registeredEffects.get(effectCode);
+                console.log(builder)
                 let effect = {} as Effect;
                 if (builder != undefined) {
                     effect = builder();
@@ -85,21 +83,21 @@ export class DevicesComponent implements OnInit {
         });
 
         this.descriptionSubscription = this.mqttService.observe(DevicesComponent.DESCRIPTION_TOPIC).subscribe((message: IMqttMessage) => {
-            const id: number = message.payload[DevicesComponent.CONFIG_DEVICE_ID_POS];
-            const brightness: number = message.payload[DevicesComponent.CONFIG_BRIGHTNESS_POS];
-            const effectCode: number = message.payload[DevicesComponent.CONFIG_EFFECT_CODE_POS];
+            const id: number = message.payload[CommonMessagePositions.commonDeviceID];
+            const on: number = message.payload[ConfigurationMessagePositions.configurationOnState];
+            const brightness: number = message.payload[ConfigurationMessagePositions.configurationBrightness];
+            const effectCode: number = message.payload[ConfigurationMessagePositions.configurationEffectCode];
             const device: Device = this.retrieveOrCreateDevice(id);
             device.brightness.value = brightness;
             const effect: Effect | undefined = device.availableEffects?.get(effectCode);
             if (effect) {
-                effect.applyParameters(message.payload.slice(DevicesComponent.CONFIG_EFFECT_PARAM_0_POS));
+                effect.applyParameters(message.payload.slice(ConfigurationMessagePositions.configurationEffectParam0));
                 device.currentEffect = effect;
-                console.log(effect)
             }
         });
 
         this.pongSubscription = this.mqttService.observe(DevicesComponent.PONG_TOPIC).subscribe((message: IMqttMessage) => {
-            const id: number = message.payload[DevicesComponent.CONFIG_DEVICE_ID_POS];
+            const id: number = message.payload[CommonMessagePositions.commonDeviceID];
             const device: Device = this.retrieveOrCreateDevice(id);
             device.pendingPings = 0;
         });
@@ -142,7 +140,7 @@ export class DevicesComponent implements OnInit {
         device.hidden = !device.hidden;
     }
 
-    onBrightnessChange(device: Device): void {
+    onDeviceConfigurationChange(device: Device): void {
         this.sendDeviceConfiguration(device);
     }
 
@@ -161,7 +159,13 @@ export class DevicesComponent implements OnInit {
     private retrieveOrCreateDevice(id: number): Device {
         let device: Device | undefined = this.devices.get(id);
         if (device == undefined) {
-            device = new Device(id, new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS), this.storageService.get(`device-name-${id}`), 0);
+            device = new Device(
+                id,
+                new ParameterBoolean('On', true),
+                new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS),
+                this.storageService.get(`device-name-${id}`),
+                0
+            );
             this.devices.set(id, device);
         }
         return device;

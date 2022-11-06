@@ -90,7 +90,9 @@ Discovery is broadcast with no payload.
 
 ### Presence message
 
-MESSAGE: `"DEVICE_ID:NUMBER_OF_AVAILABLE_EFFECTS[:EFFEC_0_CODE:...:EFFECT_N_CODE]"`
+Device to host messages indicating the device is available.
+
+MESSAGE: `"DEVICE_ID:SUPPORTED_EFFECTS[:EFFEC_0_CODE:...:EFFECT_N_CODE]"`
 
 Ex:
 - `0:2:0:1`, meaning device 0 with 2 available effects, 0 and 1.
@@ -99,21 +101,25 @@ Ex:
 
 ### Configure message
 
-MESSAGE: `"DEVICE_ID:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
+Host to device messages. The host wants the device to receive a new configuration.
+
+MESSAGE: `"DEVICE_ID:ON_STATE:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
 
 Ex:
-- `{0,2,255,1}`, meaning device 0, effect 2 with 255 and 1 as parameters.
-- `{0,1,1}`, meaning device 0, effect 1 with 1 as parameter.
-- `{0,0}`, meaning device 0, effect 0 with no params.
+- `{0,1,255,2,255,1}`, meaning device 0, on, full (255) brightness, effect 2 with 255 and 1 as parameters.
+- `{0,0,255,1,1}`, meaning device 0, off, full (255) brightness, effect 1 with 1 as parameter.
+- `{0,1,0,0}`, meaning device 0, on, brightness 0, effect 0 with no params.
 
 ### Description message
 
-MESSAGE: `"DEVICE_ID:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
+Device to host messages. The device is reporting its configuration to the host.
+
+MESSAGE: `"DEVICE_ID:ON_STATE:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
 
 Ex:
-- `{0,255,2,255,1}`, meaning device 0, full (255) brightness, effect 2 with 255 and 1 as parameters.
-- `{0,255,1,1}`, meaning device 0, full (255) brightness, effect 1 with 1 as parameter.
-- `{0,0,0}`, meaning device 0, off (brightness 0), effect 0 with no params.
+- `{0,1,255,2,255,1}`, meaning device 0, on, full (255) brightness, effect 2 with 255 and 1 as parameters.
+- `{0,0,255,1,1}`, meaning device 0, off, full (255) brightness, effect 1 with 1 as parameter.
+- `{0,1,0,0}`, meaning device 0, on, brightness 0, effect 0 with no params.
 
 ### Describe message
 

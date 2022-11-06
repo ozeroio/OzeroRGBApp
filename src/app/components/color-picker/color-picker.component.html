@@ -12,7 +12,8 @@
     <div class="row align-content-center align-items-center">
         <div (click)="onColorClick(c)"
              *ngFor="let c of predefinedColors.slice(0, 6);"
-             [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}" [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}"
+             [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}"
+             [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}"
              class="color-spot col-2">
             &nbsp;
         </div>
@@ -20,7 +21,8 @@
     <div class="row align-content-center align-items-center">
         <div (click)="onColorClick(c)"
              *ngFor="let c of predefinedColors.slice(6, 12);"
-             [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}" [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}"
+             [ngClass]="{selected: c.r == color.r && c.g == color.g && c.b == color.b}"
+             [style]="{backgroundColor: 'rgb('+c.r+','+c.g+','+c.b+')'}"
              class="color-spot col-2">
             &nbsp;
         </div>

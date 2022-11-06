@@ -3,7 +3,7 @@ import {EffectParameterType, Parameter} from "../../models/parameter.class";
 import {ParameterColor} from "../../models/parameters/parameter-color.class";
 import {ParameterNumber} from "../../models/parameters/parameter-number.class";
 import {ParameterRange} from "../../models/parameters/parameter-range.class";
-import {ParameterBoolean} from "../../models/parameters/parameter-bool.class";
+import {ParameterBoolean} from "../../models/parameters/parameter-boolean.class";
 import {ParameterNumeralOption} from "../../models/parameters/parameter-numeral-option.class";
 
 @Component({

@@ -1,7 +1,7 @@
 import {Effect, EffectCode} from "../effect.class";
 import {ParameterNumeralOption} from "../parameters/parameter-numeral-option.class";
 import {ParameterColor} from "../parameters/parameter-color.class";
-import {ParameterBoolean} from "../parameters/parameter-bool.class";
+import {ParameterBoolean} from "../parameters/parameter-boolean.class";
 import {ParameterRange} from "../parameters/parameter-range.class";
 
 export class BreathingEffect extends Effect {
@@ -20,7 +20,7 @@ export class BreathingEffect extends Effect {
             new ParameterRange('Beta', 5, 0, 255, 1),
             new ParameterRange('Gama', 5, 0, 255, 1),
             new ParameterRange('Delay', 5, 0, 255, 1),
-            new ParameterBoolean('Randomize Color', 0),
+            new ParameterBoolean('Randomize Color', false),
         ];
         super(BreathingEffect.CODE, BreathingEffect.NAME, parameters);
     }
@@ -37,6 +37,6 @@ export class BreathingEffect extends Effect {
         (this.parameters[2] as ParameterRange).value = payload[4];
         (this.parameters[3] as ParameterRange).value = payload[5];
         (this.parameters[4] as ParameterRange).value = payload[6];
-        (this.parameters[5] as ParameterBoolean).value = payload[7];
+        (this.parameters[5] as ParameterBoolean).valueNumber = payload[7];
     }
 }

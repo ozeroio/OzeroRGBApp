@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ParameterNumber} from "../../../models/parameters/parameter-number.class";
-import {ParameterBoolean} from "../../../models/parameters/parameter-bool.class";
+import {ParameterBoolean} from "../../../models/parameters/parameter-boolean.class";
 
 @Component({
     selector: 'app-boolean',
@@ -14,13 +14,14 @@ export class BooleanComponent implements OnInit {
 
     constructor() {
         this.change = new EventEmitter<void>();
-        this.parameter = {} as ParameterNumber;
+        this.parameter = {} as ParameterBoolean;
     }
 
     ngOnInit(): void {
     }
 
-    onChange(): void {
+    onChange(e: MouseEvent): void {
+        console.log(this.parameter)
         this.change.emit();
     }
 }

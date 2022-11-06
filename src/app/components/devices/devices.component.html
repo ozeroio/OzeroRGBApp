@@ -18,8 +18,15 @@
                         <mat-tab-group selectedIndex="1">
                             <mat-tab label="Configuration">
                                 <div class="m-4">
+                                    <mat-checkbox [(ngModel)]="device.value.on.value"
+                                                  (change)="onDeviceConfigurationChange(device.value)">
+                                        <mat-label>On/Off</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="m-4">
                                     <mat-label>Brightness</mat-label>
-                                    <mat-slider (change)="onBrightnessChange(device.value)" [(ngModel)]="device.value.brightness.value" [max]="255"
+                                    <mat-slider (change)="onDeviceConfigurationChange(device.value)"
+                                                [(ngModel)]="device.value.brightness.value" [max]="255"
                                                 [min]="0"
                                                 [step]="10"
                                                 [tickInterval]="10"
