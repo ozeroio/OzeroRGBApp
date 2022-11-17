@@ -19,11 +19,4 @@ export class FireEffect extends Effect {
     public static build(): Effect {
         return new FireEffect();
     }
-
-    applyParameters(payload: Uint8Array): void {
-        (this.parameters[0] as ParameterRange).value = payload[0];
-        (this.parameters[1] as ParameterRange).value = payload[1];
-        (this.parameters[2] as ParameterRange).value = payload[2];
-        (this.parameters[3] as ParameterRange).value = payload[3];
-    }
 }

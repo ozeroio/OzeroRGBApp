@@ -39,8 +39,4 @@ export class ParameterRange extends ParameterNumber {
     set step(value: number) {
         this._step = value;
     }
-
-    override serialize(): Array<number> {
-        return super.serialize();
-    }
 }

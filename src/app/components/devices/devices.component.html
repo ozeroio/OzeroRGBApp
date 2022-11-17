@@ -1,32 +1,32 @@
 <div class="container-fluid m-0 p-0">
     <div class="row m-0 p-0">
         <div *ngIf="devices.size === 0" class="m-2">There are no devices to display.</div>
-        <ng-container *ngFor="let device of devices | keyvalue">
+        <ng-container *ngFor="let deviceEntry of devices | keyvalue">
             <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
                 <mat-card>
                     <mat-card-header>
-                        <div (click)="toggleDevice(device.value)"
+                        <div (click)="toggleDevice(deviceEntry.value)"
                              class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
                             <mat-icon>memory</mat-icon>
                         </div>
-                        <mat-card-title>{{device.value.name ? device.value.name : device.key}}</mat-card-title>
+                        <mat-card-title>{{deviceEntry.value.name ? deviceEntry.value.name : deviceEntry.key}}</mat-card-title>
                         <mat-card-subtitle>
-                            Missing pings: {{device.value.pendingPings}}/{{maxAllowedPendingPings}}
+                            Missing pings: {{deviceEntry.value.pendingPings}}/{{maxAllowedPendingPings}}
                         </mat-card-subtitle>
                     </mat-card-header>
-                    <mat-card-content [hidden]="device.value.hidden" class="p-0 m-0">
+                    <mat-card-content [hidden]="deviceEntry.value.hidden" class="p-0 m-0">
                         <mat-tab-group selectedIndex="1">
                             <mat-tab label="Configuration">
                                 <div class="m-4">
-                                    <mat-checkbox [(ngModel)]="device.value.on.value"
-                                                  (change)="onDeviceConfigurationChange(device.value)">
+                                    <mat-checkbox [(ngModel)]="deviceEntry.value.on.value"
+                                                  (change)="onDeviceConfigurationChange(deviceEntry.value)">
                                         <mat-label>On/Off</mat-label>
                                     </mat-checkbox>
                                 </div>
                                 <div class="m-4">
                                     <mat-label>Brightness</mat-label>
-                                    <mat-slider (change)="onDeviceConfigurationChange(device.value)"
-                                                [(ngModel)]="device.value.brightness.value" [max]="255"
+                                    <mat-slider (change)="onDeviceConfigurationChange(deviceEntry.value)"
+                                                [(ngModel)]="deviceEntry.value.brightness.value" [max]="255"
                                                 [min]="0"
                                                 [step]="10"
                                                 [tickInterval]="10"
@@ -35,11 +35,11 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Effects">
-                                <mat-tab-group [selectedIndex]="device.value.currentEffect?.code">
+                                <mat-tab-group [selectedIndex]="(deviceEntry.value.currentEffect?.code || 1) - 1">
                                     <ng-container
-                                        *ngFor="let availableEffect of device.value.availableEffects | keyvalue">
+                                        *ngFor="let availableEffect of deviceEntry.value.availableEffects | keyvalue">
                                         <mat-tab [label]="availableEffect.value.name | titlecase">
-                                            <app-effect (change)="onEffectChange(device.key, availableEffect.value)"
+                                            <app-effect (change)="onEffectChange(deviceEntry.key, availableEffect.value)"
                                                         [effect]="availableEffect.value"></app-effect>
                                         </mat-tab>
                                     </ng-container>
@@ -50,7 +50,7 @@
                     </mat-card-content>
                     <mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
                         <div class="">
-                            <button (click)="onRenameDeviceClick(device.value)" color="primary" mat-icon-button>
+                            <button (click)="onRenameDeviceClick(deviceEntry.value)" color="primary" mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </div>

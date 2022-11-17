@@ -1,4 +1,5 @@
 import {EffectParameterType, Parameter} from "../parameter.class";
+import {RandomAccess} from "../randomAccess.interface";
 
 export class ParameterNumber extends Parameter {
 
@@ -17,7 +18,16 @@ export class ParameterNumber extends Parameter {
         this._value = value;
     }
 
-    override serialize(): Array<number> {
-        return Array.from([this.value]);
+    override serialize(randomAccess: RandomAccess): void {
+        randomAccess.writeUnsignedInt(this.value);
     };
+
+    override deserialize(randomAccess: RandomAccess): void {
+        this.value = randomAccess.readUnsignedInt();
+    };
+
+    override getSerializationSize(): number {
+        // value(4)
+        return 4;
+    }
 }

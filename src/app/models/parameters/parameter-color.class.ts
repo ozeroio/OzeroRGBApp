@@ -1,4 +1,5 @@
 import {Parameter} from "../parameter.class";
+import {RandomAccess} from "../randomAccess.interface";
 
 export class ParameterColor extends Parameter {
 
@@ -39,9 +40,22 @@ export class ParameterColor extends Parameter {
         this._b = value;
     }
 
-    override serialize(): Array<number> {
-        return Array.from([this.r, this.g, this.b]);
+    override serialize(randomAccess: RandomAccess): void {
+        randomAccess.writeUnsignedChar(this.r);
+        randomAccess.writeUnsignedChar(this.g);
+        randomAccess.writeUnsignedChar(this.b);
     };
+
+    override deserialize(randomAccess: RandomAccess): void {
+        this.r = randomAccess.readUnsignedChar();
+        this.g = randomAccess.readUnsignedChar();
+        this.b = randomAccess.readUnsignedChar();
+    };
+
+    override getSerializationSize(): number {
+        // r(1) + g(1) + b(1)
+        return 1 + 1 + 1;
+    }
 }
 
 export enum EffectParameterType {

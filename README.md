@@ -42,7 +42,7 @@ export class MyAwesomeEffect extends Effect {
     super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters);
   }
 
-  applyParameters(payload: Uint8Array): void {
+  deserialize(payload: Uint8Array): void {
     (this.parameters[0] as ParameterColor).r = payload[0];
     (this.parameters[0] as ParameterColor).g = payload[1];
     (this.parameters[0] as ParameterColor).b = payload[2];
@@ -56,7 +56,7 @@ export class MyAwesomeEffect extends Effect {
 }
 ```
 
-```applyParameters``` should receive the current device's config and recreate your effect's state.
+```deserialize``` should receive the current device's config and recreate your effect's state.
 ```build``` should create an instance of your effect.
 
 In your constructor you should call ```super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters);``` with code, name and the parameters of your effect.

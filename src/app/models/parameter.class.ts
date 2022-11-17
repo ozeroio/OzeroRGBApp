@@ -1,3 +1,5 @@
+import {RandomAccess} from "./randomAccess.interface";
+
 export abstract class Parameter {
     protected constructor(type: EffectParameterType, name: string) {
         this._type = type;
@@ -24,7 +26,11 @@ export abstract class Parameter {
         this._name = value;
     }
 
-    abstract serialize(): Array<number>;
+    abstract getSerializationSize(): number;
+
+    abstract serialize(randomAccess: RandomAccess): void;
+
+    abstract deserialize(randomAccess: RandomAccess): void;
 }
 
 export enum EffectParameterType {

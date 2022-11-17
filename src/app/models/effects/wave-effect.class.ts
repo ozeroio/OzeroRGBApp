@@ -20,12 +20,4 @@ export class WaveEffect extends Effect {
     public static build(): Effect {
         return new WaveEffect();
     }
-
-    applyParameters(payload: Uint8Array): void {
-        (this.parameters[0] as ParameterColor).r = payload[0];
-        (this.parameters[0] as ParameterColor).g = payload[1];
-        (this.parameters[0] as ParameterColor).b = payload[2];
-        (this.parameters[1] as ParameterRange).value = payload[3];
-        (this.parameters[2] as ParameterBoolean).valueNumber = payload[4];
-    }
 }

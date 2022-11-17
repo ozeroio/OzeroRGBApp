@@ -1,4 +1,5 @@
 import {Parameter} from "./parameter.class";
+import {RandomAccess} from "./randomAccess.interface";
 
 export type Builder = () => Effect;
 
@@ -58,19 +59,32 @@ export abstract class Effect {
         return this._registeredEffects.get(code);
     }
 
-    abstract applyParameters(payload: Uint8Array): void;
-
-    serialize(): Array<number> {
-        const serializedParams = Array.from(this.parameters.values()).map((param: Parameter) => {
-            return param.serialize();
+    getSerializationSize(): number {
+        let size = 0;
+        this.parameters.forEach((parameter: Parameter) => {
+            size += parameter.getSerializationSize();
         });
-        return [this.code, ...serializedParams.flat()];
+        return size;
+    }
+
+    serialize(randomAccess: RandomAccess): void {
+        this.parameters.forEach((parameter: Parameter) => {
+            parameter.serialize(randomAccess);
+        });
+    }
+
+    deserialize(randomAccess: RandomAccess): void {
+        this.parameters.forEach((parameter: Parameter) => {
+            parameter.deserialize(randomAccess);
+        });
     }
 }
 
+
 export enum EffectCode {
-    FIRE,
+    NONE,
     COLOR,
+    FIRE ,
     WAVE,
     CHASE,
     SPARKLE,

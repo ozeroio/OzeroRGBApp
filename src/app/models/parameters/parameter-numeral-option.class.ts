@@ -17,8 +17,4 @@ export class ParameterNumeralOption extends ParameterNumber {
     set options(value: Map<number, string>) {
         this._options = value;
     }
-
-    override serialize(): Array<number> {
-        return super.serialize();
-    }
 }

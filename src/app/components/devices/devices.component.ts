@@ -6,7 +6,6 @@ import {FireEffect} from "../../models/effects/fire-effect.class";
 import {Builder, Effect, EffectCode} from "../../models/effect.class";
 import {ColorEffect} from "../../models/effects/color-effect.class";
 import {LocalStorageService} from "../../services/local-storage.service";
-import {Buffer} from "buffer";
 import {MatDialog} from "@angular/material/dialog";
 import {DeviceEditComponent} from "./edit/device-edit.component";
 import {WaveEffect} from "../../models/effects/wave-effect.class";
@@ -15,7 +14,7 @@ import {SparkleEffect} from "../../models/effects/sparkle-effect.class";
 import {ParameterNumber} from "../../models/parameters/parameter-number.class";
 import {BreathingEffect} from "../../models/effects/breathing-effect.class";
 import {ParameterBoolean} from "../../models/parameters/parameter-boolean.class";
-import {CommonMessagePositions, ConfigurationMessagePositions, PresenceMessagePositions} from "../../models/positions";
+import {RandomAccess} from "../../models/randomAccess.interface";
 
 @Component({
     selector: 'app-devices',
@@ -60,14 +59,21 @@ export class DevicesComponent implements OnInit {
         });
 
         this.presenceSubscription = this.mqttService.observe(DevicesComponent.PRESENCE_TOPIC).subscribe((message: IMqttMessage) => {
-            for (let i = 0; i < (message.length || 0); i++) {
+            for (let i = 0; i < (message.payload.length || 0); i++) {
                 console.log(i, ':', message.payload[i]);
             }
-            const id: number = message.payload[CommonMessagePositions.commonDeviceID];
+            const randomAccess = RandomAccess.createFrom(message.payload);
+            const id: number = randomAccess.readUnsignedInt();
+
+            // TODO: remove it.
+            if (id !== 9) {
+                return;
+            }
             const device: Device = this.retrieveOrCreateDevice(id);
             device.availableEffects = new Map<EffectCode, Effect>();
-            for (let i = 0; i < message.payload[PresenceMessagePositions.presenceSupportedEffects]; i++) {
-                const effectCode: number = message.payload[PresenceMessagePositions.presenceSupportedEffects + 1 + i];
+            const numAvailableEffect = randomAccess.readUnsignedInt();
+            for (let i = 0; i < numAvailableEffect; i++) {
+                const effectCode: number = randomAccess.readUnsignedInt();
                 console.log(effectCode)
                 const builder: Builder | undefined = Effect.registeredEffects.get(effectCode);
                 console.log(builder)
@@ -77,27 +83,35 @@ export class DevicesComponent implements OnInit {
                 }
                 device.availableEffects.set(effectCode, effect);
             }
-            const b = Uint8Array.from([device.id]);
-            this.mqttService.publish(DevicesComponent.DESCRIBE_TOPIC, new Buffer(b)).subscribe(() => {
+            const sendRandomAccess = new RandomAccess(4);
+            sendRandomAccess.writeUnsignedInt(device.id);
+            this.mqttService.publish(DevicesComponent.DESCRIBE_TOPIC, sendRandomAccess.getBuffer()).subscribe(() => {
             });
         });
 
+        // TODO: done.
         this.descriptionSubscription = this.mqttService.observe(DevicesComponent.DESCRIPTION_TOPIC).subscribe((message: IMqttMessage) => {
-            const id: number = message.payload[CommonMessagePositions.commonDeviceID];
-            const on: number = message.payload[ConfigurationMessagePositions.configurationOnState];
-            const brightness: number = message.payload[ConfigurationMessagePositions.configurationBrightness];
-            const effectCode: number = message.payload[ConfigurationMessagePositions.configurationEffectCode];
+            const randomAccess = RandomAccess.createFrom(message.payload);
+            const id: number = randomAccess.readUnsignedInt();
             const device: Device = this.retrieveOrCreateDevice(id);
-            device.brightness.value = brightness;
-            const effect: Effect | undefined = device.availableEffects?.get(effectCode);
-            if (effect) {
-                effect.applyParameters(message.payload.slice(ConfigurationMessagePositions.configurationEffectParam0));
-                device.currentEffect = effect;
-            }
+            device.deserialize(randomAccess);
         });
 
+        // TODO: done.
         this.pongSubscription = this.mqttService.observe(DevicesComponent.PONG_TOPIC).subscribe((message: IMqttMessage) => {
-            const id: number = message.payload[CommonMessagePositions.commonDeviceID];
+            const randomAccess = RandomAccess.createFrom(message.payload);
+
+            // TODO: remove it.
+            if (message.payload.length < 4) {
+                return;
+            }
+
+            const id: number = randomAccess.readUnsignedInt();
+
+            // TODO: remove it.
+            if (id !== 9) {
+                return;
+            }
             const device: Device = this.retrieveOrCreateDevice(id);
             device.pendingPings = 0;
         });
@@ -151,8 +165,10 @@ export class DevicesComponent implements OnInit {
     }
 
     private sendDeviceConfiguration(device: Device): void {
-        console.log("Sending:", device.serialize());
-        this.mqttService.publish(DevicesComponent.CONFIGURE_TOPIC, new Buffer(device.serialize())).subscribe(() => {
+        const randomAccess = new RandomAccess(device.getSerializationSize());
+        device.serialize(randomAccess);
+        console.log("DevicesComponent.CONFIGURE_TOPIC", randomAccess)
+        this.mqttService.publish(DevicesComponent.CONFIGURE_TOPIC, randomAccess.getBuffer()).subscribe(() => {
         });
     }
 

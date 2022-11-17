@@ -1,4 +1,5 @@
 import {EffectParameterType, Parameter} from "../parameter.class";
+import {RandomAccess} from "../randomAccess.interface";
 
 export class ParameterBoolean extends Parameter {
 
@@ -21,7 +22,20 @@ export class ParameterBoolean extends Parameter {
         this._value = value > 0;
     }
 
-    override serialize(): Array<number> {
-        return Array.from([this.value ? 1 : 0]);
+    get valueNumber(): number {
+        return this._value ? 1 : 0;
+    }
+
+    override serialize(randomAccess: RandomAccess): void {
+        randomAccess.writeUnsignedChar(this.valueNumber);
+    };
+
+    override deserialize(randomAccess: RandomAccess): void {
+        this.valueNumber = randomAccess.readUnsignedChar();
+    };
+
+    override getSerializationSize(): number {
+        // value(1)
+        return 1;
     }
 }

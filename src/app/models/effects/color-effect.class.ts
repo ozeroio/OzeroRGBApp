@@ -1,6 +1,7 @@
 import {Effect, EffectCode} from "../effect.class";
 import {ParameterColor} from "../parameters/parameter-color.class";
 import {Color} from "../color.interface";
+import {ParameterBoolean} from "../parameters/parameter-boolean.class";
 
 export class ColorEffect extends Effect {
 
@@ -9,18 +10,13 @@ export class ColorEffect extends Effect {
 
     constructor() {
         const parameters = [
-            new ParameterColor('Color', 255, 0, 0)
+            new ParameterColor('Color', 255, 0, 0),
+            new ParameterBoolean('Randomize', false)
         ];
         super(ColorEffect.CODE, ColorEffect.NAME, parameters);
     }
 
     public static build(): Effect {
         return new ColorEffect();
-    }
-
-    applyParameters(payload: Uint8Array): void {
-        (this.parameters[0] as ParameterColor).r = payload[0];
-        (this.parameters[0] as ParameterColor).g = payload[1];
-        (this.parameters[0] as ParameterColor).b = payload[2];
     }
 }
