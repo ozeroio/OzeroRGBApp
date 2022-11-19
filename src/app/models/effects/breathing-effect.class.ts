@@ -21,6 +21,12 @@ export class BreathingEffect extends Effect {
             new ParameterRange('Gama', 5, 0, 255, 1),
             new ParameterRange('Delay', 5, 0, 255, 1),
             new ParameterBoolean('Randomize Color', false),
+            new ParameterNumeralOption('Velocity', 1, new Map([
+                [1, 'Normal'],
+                [2, 'Fast'],
+                [3, 'Faster'],
+                [4, 'Fastest']
+            ]))
         ];
         super(BreathingEffect.CODE, BreathingEffect.NAME, parameters);
     }
