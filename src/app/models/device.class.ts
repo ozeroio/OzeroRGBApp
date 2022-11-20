@@ -1,23 +1,26 @@
 import {Effect, EffectCode} from "./effect.class";
 import {ParameterNumber} from "./parameters/parameter-number.class";
 import {ParameterBoolean} from "./parameters/parameter-boolean.class";
-import {Buffer} from "buffer";
 import {RandomAccess} from "./randomAccess.interface";
+import {SemVer} from "./semver.class";
+import {environment} from "../../environments/environment";
 
 export class Device {
 
     public static DEFAULT_BRIGHTNESS: number = 180;
     public static DEVICE_FLAG_ON_BIT: number = 0x01;
 
-    constructor(id: number, on: ParameterBoolean, brightness: ParameterNumber, name: string, pendingPings: number, currentEffect?: Effect, availableEffects?: Map<EffectCode, Effect>, hidden?: boolean) {
+    constructor(id: number, on: ParameterBoolean, version: SemVer, brightness: ParameterNumber, name: string, pendingPings: number, currentEffect?: Effect, availableEffects?: Map<EffectCode, Effect>, hidden?: boolean) {
         this._id = id;
         this._on = on;
+        this._version = version;
         this._brightness = brightness;
         this._name = name;
         this._pendingPings = pendingPings;
         this._currentEffect = currentEffect;
         this._availableEffects = availableEffects;
         this._hidden = hidden;
+        this._supported = false;
     }
 
     private _id: number;
@@ -48,6 +51,16 @@ export class Device {
 
     set brightness(value: ParameterNumber) {
         this._brightness = value;
+    }
+
+    private _version: SemVer;
+
+    get version(): SemVer {
+        return this._version;
+    }
+
+    set version(value: SemVer) {
+        this._version = value;
     }
 
     private _name: string;
@@ -100,7 +113,22 @@ export class Device {
         this._hidden = value;
     }
 
+    private _supported: boolean;
+
+    get supported(): boolean {
+        return this._supported;
+    }
+
+    set supported(value: boolean) {
+        this._supported = value;
+    }
+
+    checkSupportedVersion(): void {
+        this.supported = !environment.minRequiredFirmwareVersion.isGreaterThan(this.version);
+    }
+
     getSerializationSize(): number {
+
         // id(4) + flags(4) + brightness(1) + effectCode(4)
         let size = 4 + 4 + 1 + 4;
         if (this.currentEffect) {
@@ -112,12 +140,12 @@ export class Device {
     serialize(randomAccess: RandomAccess): void {
         randomAccess.writeUnsignedInt(this.id);
         randomAccess.writeUnsignedInt(this.getFlags());
-        randomAccess.writeUnsignedChar(this.brightness.value);
+        this.brightness.serialize(randomAccess);
         if (this.currentEffect) {
             randomAccess.writeUnsignedInt(this.currentEffect.code);
             this.currentEffect.serialize(randomAccess);
         } else {
-            randomAccess.writeUnsignedInt(EffectCode.NONE);
+            Effect.serialize(randomAccess);
         }
     }
 
@@ -125,7 +153,7 @@ export class Device {
 
         // ID was already read from randomAccess.
         this.setFlags(randomAccess.readUnsignedInt());
-        this.brightness.value = randomAccess.readUnsignedChar();
+        this.brightness.deserialize(randomAccess);
         const effectCode = randomAccess.readUnsignedInt()
         if (effectCode != EffectCode.NONE && this.availableEffects?.has(effectCode)) {
             const effect = this.availableEffects?.get(effectCode);

@@ -1,16 +1,16 @@
-$primary-color-700: #fe673b;
-$primary-color-500: #e26d5c;
-$primary-color-100: #e26d5c;
+$primary-color-700: #aabb97;
+$primary-color-500: #aabb97;
+$primary-color-100: #dcedc8;
 $primary-color: $primary-color-500;
 
-$primary-color-contrast-700: #adff02;
-$primary-color-contrast-500: #adff02;
-$primary-color-contrast-100: #adff02;
+$primary-color-contrast-700: #000a12;
+$primary-color-contrast-500: #263238;
+$primary-color-contrast-100: #4f5b62;
 $primary-color-contrast: $primary-color-contrast-500;
 
-$accent-color-700: #6f362b;
-$accent-color-500: #7d3c30;
-$accent-color-100: #9a4a3b;
+$accent-color-700: #c63f17;
+$accent-color-500: #ff7043;
+$accent-color-100: #ffa270;
 $accent-color: $accent-color-500;
 
 $accent-color-contrast-700: #e3bdb6;
@@ -40,5 +40,5 @@ $warn-color-contrast: $warn-color-contrast-500;
     color: $primary-color-100;
 }
 
-$warning-color: #a27109;
+$warning-color: #a20909;
 $critical-color: #fd4200;

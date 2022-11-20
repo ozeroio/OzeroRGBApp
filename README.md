@@ -1,4 +1,4 @@
-**# RGBWindowApp
+**# OzeroRGBApp
 
 Backend repo: https://github.com/ozeroio/OzeroRGBFirmware
 

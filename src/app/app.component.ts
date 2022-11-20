@@ -6,14 +6,14 @@ import {Component} from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    public title = 'RGB Window App';
+    public title = 'Ozero RGB App';
     public navEntries: Array<Array<NavEntry>>;
 
     constructor() {
         this.navEntries = [[
-            {label: 'Recipes', icon: 'book', path: 'recipes'},
+            {label: 'Devices', icon: 'devices', path: 'devices'}
         ], [
-            {label: 'Brass', icon: 'book', path: 'brass'},
+            {label: 'Bookmarks', icon: 'bookmark_border', path: 'bookmarks'}
         ]];
     }
 

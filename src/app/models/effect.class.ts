@@ -11,6 +11,14 @@ export abstract class Effect {
         this._parameters = parameters;
     }
 
+    static serialize(randomAccess: RandomAccess) {
+        randomAccess.writeUnsignedInt(EffectCode.NONE);
+    }
+
+    static deserialize(randomAccess: RandomAccess) {
+        randomAccess.readUnsignedInt();
+    }
+
     private static _registeredEffects: Map<EffectCode, Builder> = new Map<EffectCode, Builder>();
 
     static get registeredEffects(): Map<EffectCode, Builder> {

@@ -68,6 +68,32 @@ export class RandomAccess {
         this.pos += 4;
     }
 
+    readUnsignedShort(): number {
+        this.ensureSpace(2);
+        const value = this.buffer.readUint16LE(this.pos);
+        this.pos += 2;
+        return value;
+    }
+
+    writeUnsignedShort(value: number): void {
+        this.ensureSpace(2);
+        this.buffer.writeUint16LE(value, this.pos);
+        this.pos += 2;
+    }
+
+    readShort(): number {
+        this.ensureSpace(2);
+        const value = this.buffer.readInt16LE(this.pos);
+        this.pos += 2;
+        return value;
+    }
+
+    writeShort(value: number): void {
+        this.ensureSpace(2);
+        this.buffer.writeInt16LE(value, this.pos);
+        this.pos += 2;
+    }
+
     readInt(): number {
         this.ensureSpace(4);
         const value = this.buffer.readInt32LE(this.pos);
@@ -83,7 +109,7 @@ export class RandomAccess {
 
     readLong(): number {
         this.ensureSpace(4);
-        const value = this.buffer.readFloatLE(this.pos) ;
+        const value = this.buffer.readFloatLE(this.pos);
         this.pos += 4;
         return value;
     }

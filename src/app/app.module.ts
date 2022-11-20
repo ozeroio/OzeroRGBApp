@@ -48,6 +48,10 @@ import {ColorPickerComponent} from './components/color-picker/color-picker.compo
 import {DeviceEditComponent} from './components/devices/edit/device-edit.component';
 import {BooleanComponent} from './components/parameter/boolean/boolean.component';
 import {NumeralOptionComponent} from './components/parameter/numeral-option/numeral-option.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ProfilesComponent } from './components/profiles/profiles.component';
+import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
+import { BookmarkEntryComponent } from './components/bookmarks/bookmark-entry/bookmark-entry.component';
 
 
 @NgModule({
@@ -62,7 +66,10 @@ import {NumeralOptionComponent} from './components/parameter/numeral-option/nume
         ColorPickerComponent,
         DeviceEditComponent,
         BooleanComponent,
-        NumeralOptionComponent
+        NumeralOptionComponent,
+        ProfilesComponent,
+        BookmarksComponent,
+        BookmarkEntryComponent
     ],
     imports: [
         BrowserModule,
@@ -97,7 +104,8 @@ import {NumeralOptionComponent} from './components/parameter/numeral-option/nume
         MatSliderModule,
         NgxMatColorPickerModule,
         MqttModule.forRoot(environment.mqtt as IMqttServiceOptions),
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatSlideToggleModule
     ],
     providers: [
         {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}

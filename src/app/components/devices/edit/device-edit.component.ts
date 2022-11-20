@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Device} from "../../../models/device.interface";
+import {Device} from "../../../models/device.class";
 
 @Component({
     selector: 'app-edit',

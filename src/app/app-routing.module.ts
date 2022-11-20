@@ -1,7 +1,9 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {DevicesComponent} from "./components/devices/devices.component";
 import {APP_BASE_HREF} from "@angular/common";
+import {DevicesComponent} from "./components/devices/devices.component";
+import {ProfilesComponent} from "./components/profiles/profiles.component";
+import {BookmarksComponent} from "./components/bookmarks/bookmarks.component";
 
 const routes: Routes = [{
     path: '',
@@ -10,6 +12,12 @@ const routes: Routes = [{
 }, {
     path: 'devices',
     component: DevicesComponent
+}, {
+    path: 'bookmarks',
+    component: BookmarksComponent
+}, {
+    path: 'profiles',
+    component: ProfilesComponent
 }]
 
 export const routingConfiguration: ExtraOptions = {

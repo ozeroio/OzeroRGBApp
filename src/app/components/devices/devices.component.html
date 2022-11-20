@@ -1,5 +1,6 @@
 <div class="container-fluid m-0 p-0">
     <div class="row m-0 p-0">
+        <button (click)="addToBookmarks()">ADD</button>
         <div *ngIf="devices.size === 0" class="m-2">There are no devices to display.</div>
         <ng-container *ngFor="let deviceEntry of devices | keyvalue">
             <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
@@ -9,13 +10,22 @@
                              class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
                             <mat-icon>memory</mat-icon>
                         </div>
+                        <div class="d-flex position-absolute toggle" (click)="toggleDevice(deviceEntry.value)">
+                            <div class="icon">
+                                <mat-icon>{{deviceEntry.value.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
+                            </div>
+                        </div>
                         <mat-card-title>{{deviceEntry.value.name ? deviceEntry.value.name : deviceEntry.key}}</mat-card-title>
                         <mat-card-subtitle>
                             Missing pings: {{deviceEntry.value.pendingPings}}/{{maxAllowedPendingPings}}
                         </mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content [hidden]="deviceEntry.value.hidden" class="p-0 m-0">
-                        <mat-tab-group selectedIndex="1">
+                        <div class="m-4" *ngIf="!deviceEntry.value.supported">
+                            This device's version (<b>{{deviceEntry.value.version}}</b>) is not
+                            supported.
+                        </div>
+                        <mat-tab-group selectedIndex="1" *ngIf="deviceEntry.value.supported">
                             <mat-tab label="Configuration">
                                 <div class="m-4">
                                     <mat-checkbox [(ngModel)]="deviceEntry.value.on.value"
@@ -33,20 +43,23 @@
                                                 class="w-100"
                                                 thumbLabel></mat-slider>
                                 </div>
+                                <div class="m-4">
+                                    <div>{{deviceEntry.value.version.toString()}}</div>
+                                </div>
                             </mat-tab>
                             <mat-tab label="Effects">
                                 <mat-tab-group [selectedIndex]="(deviceEntry.value.currentEffect?.code || 1) - 1">
                                     <ng-container
                                         *ngFor="let availableEffect of deviceEntry.value.availableEffects | keyvalue">
                                         <mat-tab [label]="availableEffect.value.name | titlecase">
-                                            <app-effect (change)="onEffectChange(deviceEntry.key, availableEffect.value)"
-                                                        [effect]="availableEffect.value"></app-effect>
+                                            <app-effect
+                                                (change)="onEffectChange(deviceEntry.key, availableEffect.value)"
+                                                [effect]="availableEffect.value"></app-effect>
                                         </mat-tab>
                                     </ng-container>
                                 </mat-tab-group>
                             </mat-tab>
                         </mat-tab-group>
-
                     </mat-card-content>
                     <mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
                         <div class="">
