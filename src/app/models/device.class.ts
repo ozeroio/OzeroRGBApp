@@ -1,5 +1,5 @@
 import {Effect, EffectCode} from "./effect.class";
-import {ParameterNumber} from "./parameters/parameter-number.class";
+import {NumberSize, ParameterNumber} from "./parameters/parameter-number.class";
 import {ParameterBoolean} from "./parameters/parameter-boolean.class";
 import {RandomAccess} from "./randomAccess.interface";
 import {SemVer} from "./semver.class";
@@ -10,12 +10,21 @@ export class Device {
     public static DEFAULT_BRIGHTNESS: number = 180;
     public static DEVICE_FLAG_ON_BIT: number = 0x01;
 
-    constructor(id: number, on: ParameterBoolean, version: SemVer, brightness: ParameterNumber, name: string, pendingPings: number, currentEffect?: Effect, availableEffects?: Map<EffectCode, Effect>, hidden?: boolean) {
+    constructor(id: number,
+                name: string,
+                on: ParameterBoolean = new ParameterBoolean('On', true),
+                version: SemVer = new SemVer(),
+                brightness: ParameterNumber = new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS, NumberSize.U8),
+                pendingPings: number = 0,
+                currentEffect?: Effect,
+                availableEffects?: Map<EffectCode, Effect>,
+                hidden?: boolean) {
+
         this._id = id;
         this._on = on;
         this._version = version;
         this._brightness = brightness;
-        this._name = name;
+        this._name = name
         this._pendingPings = pendingPings;
         this._currentEffect = currentEffect;
         this._availableEffects = availableEffects;

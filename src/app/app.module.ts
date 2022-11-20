@@ -49,9 +49,9 @@ import {DeviceEditComponent} from './components/devices/edit/device-edit.compone
 import {BooleanComponent} from './components/parameter/boolean/boolean.component';
 import {NumeralOptionComponent} from './components/parameter/numeral-option/numeral-option.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import { ProfilesComponent } from './components/profiles/profiles.component';
-import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
-import { BookmarkEntryComponent } from './components/bookmarks/bookmark-entry/bookmark-entry.component';
+import {ProfilesComponent} from './components/profiles/profiles.component';
+import {PresetsComponent} from './components/presets/presets.component';
+import {PresetEditComponent} from './components/presets/edit/preset-edit.component';
 
 
 @NgModule({
@@ -68,8 +68,8 @@ import { BookmarkEntryComponent } from './components/bookmarks/bookmark-entry/bo
         BooleanComponent,
         NumeralOptionComponent,
         ProfilesComponent,
-        BookmarksComponent,
-        BookmarkEntryComponent
+        PresetsComponent,
+        PresetEditComponent
     ],
     imports: [
         BrowserModule,
@@ -87,7 +87,6 @@ import { BookmarkEntryComponent } from './components/bookmarks/bookmark-entry/bo
         MatSelectModule,
         MatButtonModule,
         MatCheckboxModule,
-        MatListModule,
         MatPaginatorModule,
         MatSortModule,
         MatDialogModule,

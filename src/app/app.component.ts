@@ -13,7 +13,7 @@ export class AppComponent {
         this.navEntries = [[
             {label: 'Devices', icon: 'devices', path: 'devices'}
         ], [
-            {label: 'Bookmarks', icon: 'bookmark_border', path: 'bookmarks'}
+            {label: 'Presets', icon: 'bookmark_border', path: 'presets'}
         ]];
     }
 

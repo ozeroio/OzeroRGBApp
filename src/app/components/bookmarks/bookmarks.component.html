@@ -1,6 +1,0 @@
-<ng-container *ngFor="let entries of entriesMap | keyvalue">
-    <div>{{entries.key}}</div>
-    <ng-container *ngFor="let entry of entries.value">
-        <app-bookmark-entry [entry]="entry"></app-bookmark-entry>
-    </ng-container>
-</ng-container>
