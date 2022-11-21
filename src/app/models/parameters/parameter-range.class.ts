@@ -1,9 +1,9 @@
 import {EffectParameterType} from "../parameter.class";
-import {ParameterNumber} from "./parameter-number.class";
+import {NumberSize, ParameterNumber} from "./parameter-number.class";
 
 export class ParameterRange extends ParameterNumber {
-    constructor(name: string, value: number, min: number, max: number, step: number) {
-        super(name, value);
+    constructor(name: string, value: number, min: number, max: number, step: number, size: NumberSize = NumberSize.U32) {
+        super(name, value, size);
         this._min = min;
         this._max = max;
         this._step = step;

@@ -8,6 +8,7 @@
     </div>
     <div class="row m-0 p-0">
         <div *ngIf="devices.length === 0" class="m-2">There are no devices to display.</div>
+
         <ng-container *ngFor="let device of devices">
             <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
                 <mat-card>

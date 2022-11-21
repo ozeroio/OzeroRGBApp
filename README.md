@@ -42,14 +42,6 @@ export class MyAwesomeEffect extends Effect {
     super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters);
   }
 
-  deserialize(payload: Uint8Array): void {
-    (this.parameters[0] as ParameterColor).r = payload[0];
-    (this.parameters[0] as ParameterColor).g = payload[1];
-    (this.parameters[0] as ParameterColor).b = payload[2];
-    (this.parameters[1] as ParameterRange).value = payload[3];
-    (this.parameters[2] as ParameterBoolean).value = payload[4];
-  }
-
   public static build(): Effect {
     return new MyAwesomeEffect();
   }
@@ -81,6 +73,8 @@ The MAX_CONFIGURATION_SIZE = 64 is the max length of a message.
 - **Describe**: device/describe. Host to device messages. The host wants the device to describe itself - its configuration.
 - **Ping**: device/ping. Host to device requesting acknowledgement.
 - **Pong**: device/pong. Device to host reporting ping.
+- **Request Version**: device/req/version. Host to device requesting device's running firmware version.
+- **Response Version**: device/res/version. Device to host responding with device's running firmware version.
 
 ### Discovery message
 
@@ -95,9 +89,9 @@ Device to host messages indicating the device is available.
 MESSAGE: `"DEVICE_ID:SUPPORTED_EFFECTS[:EFFEC_0_CODE:...:EFFECT_N_CODE]"`
 
 Ex:
-- `0:2:0:1`, meaning device 0 with 2 available effects, 0 and 1.
-- `1:1:1`, meaning device 1 with 1 available effect, 1.
-- `2:0`, meaning device 2 with 0 available effects.
+- `{0,2,0,1}`, meaning device 0 with 2 available effects, 0 and 1.
+- `{1,1,1}`, meaning device 1 with 1 available effect, 1.
+- `{2,0}`, meaning device 2 with 0 available effects.
 
 ### Configure message
 
@@ -138,7 +132,6 @@ Only contains the DEVICE ID.
 MESSAGE: `"DEVICE_ID"`
 
 Only contains the DEVICE ID.
-
 
 ---
 

@@ -15,7 +15,7 @@ import {BreathingEffect} from "../../models/effects/breathing-effect.class";
 import {RandomAccess} from "../../models/randomAccess.interface";
 import {PresetEntry, PresetsService} from "../../services/presets.service";
 import {environment} from "../../../environments/environment";
-import {PresetEditComponent} from "../presets/edit/preset-edit.component";
+import {PresetEditComponent, PresetSelection} from "../presets/edit/preset-edit.component";
 
 @Component({
     selector: 'app-devices',
@@ -153,21 +153,25 @@ export class DevicesComponent implements OnInit {
     }
 
     addToPreset(): void {
-        const data: Array<PresetEntry> = this.devices.filter(d => d.supported).map(d => {
-            const randomAccess = new RandomAccess(d.getSerializationSize())
-            d.serialize(randomAccess);
-            const entry: PresetEntry = {
-                deviceName: d.name,
-                configuration: Array.from(randomAccess.getBuffer())
-            };
-            return entry;
-        });
         const dialogRef = this.dialog.open(PresetEditComponent, {
-            data: {},
+            data: {
+                devices: this.devices.filter(d => d.supported)
+            },
             closeOnNavigation: true
         });
-        const onSave = dialogRef.componentInstance.save.subscribe((name: string) => {
-            this.presetService.addPreset(name, data);
+        const onSave = dialogRef.componentInstance.save.subscribe((selection: PresetSelection) => {
+            console.log(selection)
+            const data: Array<PresetEntry> = selection.devices.map(d => {
+                console.log(d)
+                const randomAccess = new RandomAccess(d.getSerializationSize())
+                d.serialize(randomAccess);
+                const entry: PresetEntry = {
+                    deviceName: d.name,
+                    configuration: Array.from(randomAccess.getBuffer())
+                };
+                return entry;
+            });
+            this.presetService.addPreset(selection.name, data);
             dialogRef.close();
         });
         const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {

@@ -1,5 +1,7 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Device} from "../../../models/device.class";
+import {MatSelectionList} from "@angular/material/list";
 
 @Component({
   selector: 'app-edit',
@@ -8,25 +10,38 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class PresetEditComponent implements OnInit {
 
-    @Output() save: EventEmitter<string>;
+    @Output() save: EventEmitter<PresetSelection>;
     @Output() cancel: EventEmitter<void>;
     name: string;
+    devices: Array<Device>;
+    chosenDevices: Array<Device>;
 
     constructor(public dialogRef: MatDialogRef<PresetEditComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: {  }) {
-        this.save = new EventEmitter<string>();
+                @Inject(MAT_DIALOG_DATA) public data: { devices: Array<Device> }) {
+        this.save = new EventEmitter<PresetSelection>();
         this.cancel = new EventEmitter<void>();
         this.name = '';
+        this.devices = data.devices;
+        this.chosenDevices = new Array<Device>();
     }
 
     ngOnInit(): void {
     }
 
     public onSaveButtonClick(): void {
-        this.save.emit(this.name);
+        const selections: PresetSelection = {
+            name: this.name,
+            devices: this.chosenDevices
+        }
+        this.save.emit(selections);
     }
 
     public onCancelButtonClick(): void {
         this.cancel.emit();
     }
+}
+
+export interface PresetSelection {
+    name: string,
+    devices: Array<Device>
 }
