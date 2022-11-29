@@ -5,6 +5,9 @@ import {ParameterNumber} from "../../models/parameters/parameter-number.class";
 import {ParameterRange} from "../../models/parameters/parameter-range.class";
 import {ParameterBoolean} from "../../models/parameters/parameter-boolean.class";
 import {ParameterNumeralOption} from "../../models/parameters/parameter-numeral-option.class";
+import {ParameterColorSegment} from "../../models/parameters/parameter-color-segment.class";
+import {ParameterColorSegmentList} from "../../models/parameters/parameter-color-segment-list.class";
+import {Device} from "../../models/device.class";
 
 @Component({
     selector: 'app-parameter',
@@ -14,6 +17,7 @@ import {ParameterNumeralOption} from "../../models/parameters/parameter-numeral-
 export class ParameterComponent implements OnInit {
 
     @Input() parameter: Parameter;
+    @Input() device: Device;
     @Output() change: EventEmitter<void>;
 
     EffectParameterType = EffectParameterType;
@@ -21,6 +25,7 @@ export class ParameterComponent implements OnInit {
     constructor() {
         this.change = new EventEmitter<void>();
         this.parameter = {} as Parameter;
+        this.device = {} as Device;
     }
 
     ngOnInit(): void {
@@ -44,6 +49,14 @@ export class ParameterComponent implements OnInit {
 
     castToNumeralOption(): ParameterNumeralOption {
         return this.parameter as ParameterNumeralOption;
+    }
+
+    castToColorSegment(): ParameterColorSegment {
+        return this.parameter as ParameterColorSegment;
+    }
+
+    castToColorSegmentList(): ParameterColorSegmentList {
+        return this.parameter as ParameterColorSegmentList;
     }
 
     onChange(): void {

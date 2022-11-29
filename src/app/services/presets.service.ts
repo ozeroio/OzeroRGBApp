@@ -31,7 +31,6 @@ export class PresetsService {
 
     private serialize(): string {
         const json = JSON.stringify(Array.from(this.entriesMap.entries()));
-        console.log(json)
         return json;
     }
 

@@ -85,7 +85,14 @@ export class ParameterNumber extends Parameter {
     };
 
     override getSerializationSize(): number {
-        // value(4)
-        return 4;
+        const sizes: Map<NumberSize, number> = new Map<NumberSize, number>([
+            [NumberSize.U32, 4],
+            [NumberSize.I32, 4],
+            [NumberSize.U16, 2],
+            [NumberSize.I16, 2],
+            [NumberSize.U8, 1],
+            [NumberSize.I8, 1],
+        ]);
+        return sizes.get(this.size) || 0;
     }
 }

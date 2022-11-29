@@ -3,6 +3,7 @@ import {ParameterColor} from "../../../models/parameters/parameter-color.class";
 import {ColorPickerComponent} from "../../color-picker/color-picker.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Color} from "../../../models/color.interface";
+import {Device} from "../../../models/device.class";
 
 @Component({
     selector: 'app-color',
@@ -12,11 +13,13 @@ import {Color} from "../../../models/color.interface";
 export class ColorComponent implements OnInit {
 
     @Input() parameter: ParameterColor;
+    @Input() device: Device;
     @Output() change: EventEmitter<void>;
 
     constructor(protected dialog: MatDialog) {
         this.change = new EventEmitter<void>();
         this.parameter = {} as ParameterColor;
+        this.device = {} as Device;
     }
 
     ngOnInit(): void {

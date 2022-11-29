@@ -52,6 +52,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {ProfilesComponent} from './components/profiles/profiles.component';
 import {PresetsComponent} from './components/presets/presets.component';
 import {PresetEditComponent} from './components/presets/edit/preset-edit.component';
+import {ColorSegmentComponent} from "./components/parameter/color-segment/color-segment.component";
+import {ColorSegmentListComponent} from "./components/parameter/color-segment-list/color-segment-list.component";
 
 
 @NgModule({
@@ -69,7 +71,9 @@ import {PresetEditComponent} from './components/presets/edit/preset-edit.compone
         NumeralOptionComponent,
         ProfilesComponent,
         PresetsComponent,
-        PresetEditComponent
+        PresetEditComponent,
+        ColorSegmentComponent,
+        ColorSegmentListComponent
     ],
     imports: [
         BrowserModule,

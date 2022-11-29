@@ -3,6 +3,10 @@
         <mat-icon>play_circle_outline</mat-icon>
     </button>
 </div>
+<div class="m-4" *ngIf="effect.description !== ''">
+    <div><b>Description</b></div>
+    <div class="mt-1">{{effect.description}}</div>
+</div>
 <div *ngFor="let parameter of parameters" class="m-4">
-    <app-parameter (change)="onParameterChange(parameter)" [parameter]="parameter"></app-parameter>
+    <app-parameter (change)="onParameterChange(parameter)" [parameter]="parameter" [device]="device"></app-parameter>
 </div>

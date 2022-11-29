@@ -30,6 +30,7 @@ export class Device {
         this._availableEffects = availableEffects;
         this._hidden = hidden;
         this._supported = false;
+        this._numLeds = 0;
     }
 
     private _id: number;
@@ -130,6 +131,16 @@ export class Device {
 
     set supported(value: boolean) {
         this._supported = value;
+    }
+
+    private _numLeds: number;
+
+    get numLeds(): number {
+        return this._numLeds;
+    }
+
+    set numLeds(value: number) {
+        this._numLeds = value;
     }
 
     checkSupportedVersion(): void {
