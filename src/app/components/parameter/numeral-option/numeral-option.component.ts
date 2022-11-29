@@ -16,7 +16,7 @@ export class NumeralOptionComponent implements OnInit {
     constructor() {
         this.change = new EventEmitter<void>();
         this.parameter = {} as ParameterNumeralOption;
-        this.device = {} as Device;:wq
+        this.device = {} as Device;
     }
 
     ngOnInit(): void {
