@@ -13,7 +13,7 @@ export class FireEffect extends Effect {
             new ParameterRange('Delay', 20, 0, 255, 1),
             new ParameterRange('Spark Level', 7, 1, 16, 1),
         ];
-        super(FireEffect.CODE, FireEffect.NAME, parameters);
+        super(FireEffect.CODE, FireEffect.NAME, parameters, 'Fire effect.');
     }
 
     public static build(): Effect {

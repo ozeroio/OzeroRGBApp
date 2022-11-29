@@ -5,10 +5,11 @@ export type Builder = () => Effect;
 
 export abstract class Effect {
 
-    protected constructor(code: number, name: string, parameters: Array<Parameter>) {
+    protected constructor(code: number, name: string, parameters: Array<Parameter>, description: string = '') {
         this._code = code;
         this._name = name;
         this._parameters = parameters;
+        this._description = description;
     }
 
     static serialize(randomAccess: RandomAccess) {
@@ -59,6 +60,16 @@ export abstract class Effect {
         this._parameters = value;
     }
 
+    private _description: string;
+
+    get description(): string {
+        return this._description;
+    }
+
+    set description(value: string) {
+        this._description = value;
+    }
+
     static registerEffect(code: EffectCode, deserializer: Builder): void {
         this._registeredEffects.set(code, deserializer);
     }
@@ -96,5 +107,6 @@ export enum EffectCode {
     WAVE,
     CHASE,
     SPARKLE,
-    BREATHING
+    BREATHING,
+    RAINBOW
 }

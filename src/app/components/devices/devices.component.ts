@@ -16,6 +16,7 @@ import {RandomAccess} from "../../models/randomAccess.interface";
 import {PresetEntry, PresetsService} from "../../services/presets.service";
 import {environment} from "../../../environments/environment";
 import {PresetEditComponent, PresetSelection} from "../presets/edit/preset-edit.component";
+import {RainbowEffect} from "../../models/effects/rainbow-effect.class";
 
 @Component({
     selector: 'app-devices',
@@ -70,6 +71,7 @@ export class DevicesComponent implements OnInit {
 
             const device: Device = this.retrieveOrCreateDevice(id);
             device.availableEffects = new Map<EffectCode, Effect>();
+            device.numLeds = randomAccess.readUnsignedInt();
             const numAvailableEffect = randomAccess.readUnsignedInt();
             for (let i = 0; i < numAvailableEffect; i++) {
                 const effectCode: number = randomAccess.readUnsignedInt();
@@ -129,6 +131,7 @@ export class DevicesComponent implements OnInit {
         Effect.registerEffect(ChaseEffect.CODE, ChaseEffect.build);
         Effect.registerEffect(SparkleEffect.CODE, SparkleEffect.build);
         Effect.registerEffect(BreathingEffect.CODE, BreathingEffect.build);
+        Effect.registerEffect(RainbowEffect.CODE, RainbowEffect.build);
     }
 
     ngOnInit(): void {
@@ -160,9 +163,7 @@ export class DevicesComponent implements OnInit {
             closeOnNavigation: true
         });
         const onSave = dialogRef.componentInstance.save.subscribe((selection: PresetSelection) => {
-            console.log(selection)
             const data: Array<PresetEntry> = selection.devices.map(d => {
-                console.log(d)
                 const randomAccess = new RandomAccess(d.getSerializationSize())
                 d.serialize(randomAccess);
                 const entry: PresetEntry = {

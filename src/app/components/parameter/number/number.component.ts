@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ParameterNumber} from "../../../models/parameters/parameter-number.class";
+import {Device} from "../../../models/device.class";
 
 @Component({
     selector: 'app-number',
@@ -9,11 +10,13 @@ import {ParameterNumber} from "../../../models/parameters/parameter-number.class
 export class NumberComponent implements OnInit {
 
     @Input() parameter: ParameterNumber;
+    @Input() device: Device;
     @Output() change: EventEmitter<void>;
 
     constructor() {
         this.change = new EventEmitter<void>();
         this.parameter = {} as ParameterNumber;
+        this.device = {} as Device;
     }
 
     ngOnInit(): void {

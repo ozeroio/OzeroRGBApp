@@ -3,7 +3,7 @@ import {RandomAccess} from "../randomAccess.interface";
 
 export class ParameterColor extends Parameter {
 
-    constructor(name: string, r: number, g: number, b: number) {
+    constructor(name: string, r: number = 0, g: number = 0, b: number = 0) {
         super(EffectParameterType.COLOR, name);
         this._r = r;
         this._g = g;
@@ -38,6 +38,10 @@ export class ParameterColor extends Parameter {
 
     set b(value: number) {
         this._b = value;
+    }
+
+    toRGB(): string {
+        return `#${this.r.toString(16).padStart(2, '0')}${this.g.toString(16).padStart(2, '0')}${this.b.toString(16).padStart(2, '0')}`
     }
 
     override serialize(randomAccess: RandomAccess): void {

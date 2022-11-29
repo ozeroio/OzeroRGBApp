@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Effect} from "../../models/effect.class";
 import {Parameter} from "../../models/parameter.class";
+import {Device} from "../../models/device.class";
 
 @Component({
     selector: 'app-effect',
@@ -10,6 +11,7 @@ import {Parameter} from "../../models/parameter.class";
 export class EffectComponent implements OnInit {
 
     @Input() effect: Effect;
+    @Input() device: Device;
     @Output() change: EventEmitter<Parameter>;
 
     parameters: Array<Parameter>;
@@ -17,6 +19,7 @@ export class EffectComponent implements OnInit {
     constructor() {
         this.change = new EventEmitter<Parameter>();
         this.effect = {} as Effect;
+        this.device = {} as Device;
         this.parameters = [];
     }
 

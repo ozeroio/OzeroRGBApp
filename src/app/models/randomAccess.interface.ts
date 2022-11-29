@@ -126,6 +126,9 @@ export class RandomAccess {
 
     private ensureSpace(size: number): void {
         if (this.pos + size > this.buffer.length) {
+            console.log("Exception: buffer: ", this.buffer);
+            console.log("Exception: pos: " , this.pos);
+            console.log("Exception: size: " , size);
             throw new Error('Buffer overflow.');
         }
     }

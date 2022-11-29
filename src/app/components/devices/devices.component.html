@@ -22,7 +22,7 @@
                                 <mat-icon>{{device.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
                             </div>
                         </div>
-                        <mat-card-title>{{device.name ? device.name : device.id}}</mat-card-title>
+                        <mat-card-title>{{device.name ? device.name : device.id}} ({{device.numLeds}} LEDs)</mat-card-title>
                         <mat-card-subtitle>
                             Missing pings: {{device.pendingPings}}/{{maxAllowedPendingPings}}
                         </mat-card-subtitle>
@@ -35,10 +35,9 @@
                         <mat-tab-group selectedIndex="1" *ngIf="device.supported">
                             <mat-tab label="Configuration">
                                 <div class="m-4">
-                                    <mat-checkbox [(ngModel)]="device.on.value"
-                                                  (change)="onDeviceConfigurationChange(device)">
-                                        <mat-label>On/Off</mat-label>
-                                    </mat-checkbox>
+                                    <mat-slide-toggle [(ngModel)]="device.on.value" (ngModelChange)="onDeviceConfigurationChange(device)">
+                                        On/Off
+                                    </mat-slide-toggle>
                                 </div>
                                 <div class="m-4">
                                     <mat-label>Brightness</mat-label>
@@ -51,6 +50,9 @@
                                                 thumbLabel></mat-slider>
                                 </div>
                                 <div class="m-4">
+                                    <div>Num LEDs: {{device.numLeds}}</div>
+                                </div>
+                                <div class="m-4">
                                     <div>{{device.version.toString()}}</div>
                                 </div>
                             </mat-tab>
@@ -61,7 +63,8 @@
                                         <mat-tab [label]="availableEffect.value.name | titlecase">
                                             <app-effect
                                                 (change)="onEffectChange(device.id, availableEffect.value)"
-                                                [effect]="availableEffect.value"></app-effect>
+                                                [effect]="availableEffect.value"
+                                                [device]="device"></app-effect>
                                         </mat-tab>
                                     </ng-container>
                                 </mat-tab-group>
