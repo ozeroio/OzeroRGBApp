@@ -1,5 +1,6 @@
 .toggle {
     right: 1em;
+
     .icon {
         background: #d9d9d9;
         width: 32px;
@@ -8,4 +9,9 @@
         padding: 4px;
         cursor: pointer;
     }
+}
+
+mat-card {
+    background: linear-gradient(122deg, #ff84842b, #8a88ff33);
+    //background: linear-gradient(303deg, #ff07073d, rgb(18 245 245 / 9%));
 }

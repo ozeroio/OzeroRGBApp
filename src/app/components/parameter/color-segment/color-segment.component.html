@@ -1,4 +1,4 @@
-<mat-card class="mt-4">
+<mat-card class="mt-4" [style]="{background: 'linear-gradient(122deg, #ffffff33, ' + parameter.color.toRGB() + '33)'}">
     <mat-card-content>
         <div class="d-flex">
             <app-color class="m-1" [parameter]="parameter.color" (change)="onChange()"></app-color>
@@ -6,14 +6,14 @@
                 <mat-label>{{parameter.name | titlecase}} ({{parameter.length}}):</mat-label>&nbsp;
                 <mat-slider [(ngModel)]="parameter.length"
                             [max]="device.numLeds || 255"
-                            [min]="0"
+                            [min]="1"
                             [step]="1"
                             [tickInterval]="1"
                             (ngModelChange)="onChange()"
                             class="w-100"
                             thumbLabel></mat-slider>
             </div>
-            <button mat-mini-fab class="m-1" color="warn" (click)="onRemove()">
+            <button mat-mini-fab class="m-1 remove" color="secondary" (click)="onRemove()">
                 <mat-icon>remove</mat-icon>
             </button>
         </div>

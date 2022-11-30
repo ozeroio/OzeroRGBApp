@@ -108,5 +108,5 @@ export enum EffectCode {
     CHASE,
     SPARKLE,
     BREATHING,
-    RAINBOW
+    SHIFT
 }

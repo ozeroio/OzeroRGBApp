@@ -18,7 +18,7 @@ export class Device {
                 pendingPings: number = 0,
                 currentEffect?: Effect,
                 availableEffects?: Map<EffectCode, Effect>,
-                hidden?: boolean) {
+                hidden: boolean = true) {
 
         this._id = id;
         this._on = on;
