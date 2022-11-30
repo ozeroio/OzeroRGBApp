@@ -11,7 +11,7 @@ export class ParameterColorSegment extends Parameter {
     }
 
     static createFromDeserialize(randomAccess: RandomAccess): ParameterColorSegment {
-        const instance = new ParameterColorSegment('Color Segment');
+        const instance = new ParameterColorSegment('Segment size');
         instance.deserialize(randomAccess);
         return instance;
     }

@@ -5,6 +5,7 @@ import {Device} from "../models/device.class";
 import {Builder, Effect, EffectCode} from "../models/effect.class";
 import {Subscription} from "rxjs";
 import {LocalStorageService} from "./local-storage.service";
+import {Buffer} from "buffer";
 
 @Injectable({
     providedIn: 'root'
@@ -109,7 +110,11 @@ export class DeviceService {
     sendDeviceConfiguration(device: Device): void {
         const randomAccess = new RandomAccess(device.getSerializationSize());
         device.serialize(randomAccess);
-        this.mqttService.publish(DeviceService.COMM_TOPIC_CONFIGURE, randomAccess.getBuffer()).subscribe(() => {
+        this.sendConfiguration(randomAccess.getBuffer());
+    }
+
+    sendConfiguration(buffer: Buffer): void {
+        this.mqttService.publish(DeviceService.COMM_TOPIC_CONFIGURE, buffer).subscribe(() => {
         });
     }
 

@@ -17,16 +17,20 @@ export class PresetsService {
 
     addPreset(name: string, entries: Array<PresetEntry>): void {
         this.entriesMap.set(name, entries);
-        this.storageService.set(PresetsService.storageEntry, this.serialize());
+        this.persist();
     }
 
     removePreset(name: string): void {
         this.entriesMap.delete(name);
-        this.storageService.set(PresetsService.storageEntry, this.serialize());
+        this.persist();
     }
 
     getBookmarks(): Map<string, Array<PresetEntry>> {
         return this.entriesMap;
+    }
+
+    persist(): void {
+        this.storageService.set(PresetsService.storageEntry, this.serialize());
     }
 
     private serialize(): string {
