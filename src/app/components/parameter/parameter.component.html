@@ -1,34 +1,38 @@
-<app-color (change)="onChange()"
-           *ngIf="parameter.type === EffectParameterType.COLOR"
-           [parameter]="castToColor()"
-           [device]="device"></app-color>
+<mat-card>
+    <mat-card-content>
+        <app-color (change)="onChange()"
+                   *ngIf="parameter.type === EffectParameterType.COLOR"
+                   [parameter]="castToColor()"
+                   [device]="device"></app-color>
 
-<app-number (change)="onChange()"
-            *ngIf="parameter.type === EffectParameterType.NUMBER"
-            [parameter]="castToNumber()"
-            [device]="device"></app-number>
+        <app-number (change)="onChange()"
+                    *ngIf="parameter.type === EffectParameterType.NUMBER"
+                    [parameter]="castToNumber()"
+                    [device]="device"></app-number>
 
-<app-range (change)="onChange()"
-           *ngIf="parameter.type === EffectParameterType.RANGE"
-           [parameter]="castToRange()"
-           [device]="device"></app-range>
+        <app-range (change)="onChange()"
+                   *ngIf="parameter.type === EffectParameterType.RANGE"
+                   [parameter]="castToRange()"
+                   [device]="device"></app-range>
 
-<app-boolean (change)="onChange()"
-             *ngIf="parameter.type === EffectParameterType.BOOLEAN"
-             [parameter]="castToBoolean()"
-             [device]="device"></app-boolean>
+        <app-boolean (change)="onChange()"
+                     *ngIf="parameter.type === EffectParameterType.BOOLEAN"
+                     [parameter]="castToBoolean()"
+                     [device]="device"></app-boolean>
 
-<app-numeral-option (change)="onChange()"
-                    *ngIf="parameter.type === EffectParameterType.NUMERAL_OPTION"
-                    [parameter]="castToNumeralOption()"
-                    [device]="device"></app-numeral-option>
+        <app-numeral-option (change)="onChange()"
+                            *ngIf="parameter.type === EffectParameterType.NUMERAL_OPTION"
+                            [parameter]="castToNumeralOption()"
+                            [device]="device"></app-numeral-option>
 
-<app-color-segment (change)="onChange()"
-                   *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT"
-                   [parameter]="castToColorSegment()"
-                   [device]="device"></app-color-segment>
+        <app-color-segment (change)="onChange()"
+                           *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT"
+                           [parameter]="castToColorSegment()"
+                           [device]="device"></app-color-segment>
 
-<app-color-segment-list (change)="onChange()"
-                        *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT_LIST"
-                        [parameter]="castToColorSegmentList()"
-                        [device]="device"></app-color-segment-list>
+        <app-color-segment-list (change)="onChange()"
+                                *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT_LIST"
+                                [parameter]="castToColorSegmentList()"
+                                [device]="device"></app-color-segment-list>
+    </mat-card-content>
+</mat-card>

@@ -1,14 +1,5 @@
-mat-card {
-    &:hover {
-        .remove {
-            display: block;
-        }
-    }
-}
-
 .remove {
     position: absolute;
     right: -15px;
     top: -15px;
-    display: block;
 }

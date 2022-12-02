@@ -16,10 +16,9 @@
                              class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
                             <mat-icon>memory</mat-icon>
                         </div>
-                        <div class="d-flex position-absolute toggle" (click)="toggleDevice(device)">
-                            <div class="icon">
-                                <mat-icon>{{device.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
-                            </div>
+                        <div (click)="toggleDevice(device)"
+                             class="d-flex align-items-center justify-content-center card-icon mt-1 toggle" mat-card-avatar>
+                            <mat-icon>{{device.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
                         </div>
                         <mat-card-title>{{device.name ? device.name : device.id}} ({{device.numLeds}} LEDs)</mat-card-title>
                         <mat-card-subtitle>

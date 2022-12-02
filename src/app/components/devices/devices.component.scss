@@ -1,14 +1,8 @@
 .toggle {
     right: 1em;
-
-    .icon {
-        background: #d9d9d9;
-        width: 32px;
-        height: 32px;
-        border-radius: 16px;
-        padding: 4px;
-        cursor: pointer;
-    }
+    position: absolute;
+    cursor: pointer;
+    background: gray;
 }
 
 mat-card {

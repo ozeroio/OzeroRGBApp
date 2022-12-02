@@ -18,6 +18,7 @@ import {environment} from "../../../environments/environment";
 import {PresetEditComponent, PresetSelection} from "../presets/edit/preset-edit.component";
 import {ShiftEffect} from "../../models/effects/shift-effect.class";
 import {DeviceService} from "../../services/device.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-devices',
@@ -33,6 +34,7 @@ export class DevicesComponent implements OnInit {
     constructor(private deviceService: DeviceService,
                 private storageService: LocalStorageService,
                 private presetService: PresetsService,
+                private snackBar: MatSnackBar,
                 protected dialog: MatDialog) {
 
         this.storageService.set('device-name-0', 'Office Window');
@@ -106,10 +108,16 @@ export class DevicesComponent implements OnInit {
     }
 
     onDeviceConfigurationChange(device: Device): void {
+        this.snackBar.open('Configuration sent to device(s).', 'OK', {
+            duration: 3000
+        });
         this.deviceService.sendDeviceConfiguration(device);
     }
 
     onEffectChange(id: number, effect: Effect): void {
+        this.snackBar.open('Configuration sent to device(s).', 'OK', {
+            duration: 3000
+        });
         this.deviceService.updateEffect(id, effect);
     }
 }

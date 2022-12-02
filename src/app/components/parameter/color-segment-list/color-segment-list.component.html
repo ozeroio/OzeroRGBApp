@@ -1,5 +1,5 @@
 <mat-label>{{parameter.name | titlecase}} ({{parameter.segments.length}}):</mat-label>&nbsp;
-<button color="seconday" mat-mini-fab (click)="onAddButtonClick()">
+<button color="seconday" mat-mini-fab (click)="onAddButtonClick()" [disabled]="parameter.segments.length > 15">
     <mat-icon>plus_one</mat-icon>
 </button>
 <app-color-segment *ngFor="let colorSegment of parameter.segments"
