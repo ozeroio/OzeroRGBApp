@@ -11,13 +11,11 @@
 		<ng-container *ngFor="let device of devices">
 			<div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
 				<mat-card>
-					<mat-card-header>
-						<div (click)="toggleDevice(device)"
-						     class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
+					<mat-card-header (click)="toggleDevice(device)">
+						<div class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
 							<mat-icon>memory</mat-icon>
 						</div>
-						<div (click)="toggleDevice(device)"
-						     class="d-flex align-items-center justify-content-center card-icon mt-1 toggle"
+						<div class="d-flex align-items-center justify-content-center card-icon mt-1 toggle"
 						     mat-card-avatar>
 							<mat-icon>{{device.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
 						</div>
