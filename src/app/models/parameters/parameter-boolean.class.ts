@@ -3,39 +3,39 @@ import {RandomAccess} from "../randomAccess.interface";
 
 export class ParameterBoolean extends Parameter {
 
-    constructor(name: string, value: boolean) {
-        super(EffectParameterType.BOOLEAN, name);
-        this._value = value;
-    }
+	constructor(name: string, value: boolean) {
+		super(EffectParameterType.BOOLEAN, name);
+		this._value = value;
+	}
 
-    private _value: boolean;
+	private _value: boolean;
 
-    get value(): boolean {
-        return this._value;
-    }
+	get value(): boolean {
+		return this._value;
+	}
 
-    set value(value: boolean) {
-        this._value = value;
-    }
+	set value(value: boolean) {
+		this._value = value;
+	}
 
-    set valueNumber(value: number) {
-        this._value = value > 0;
-    }
+	get valueNumber(): number {
+		return this._value ? 1 : 0;
+	}
 
-    get valueNumber(): number {
-        return this._value ? 1 : 0;
-    }
+	set valueNumber(value: number) {
+		this._value = value > 0;
+	}
 
-    override serialize(randomAccess: RandomAccess): void {
-        randomAccess.writeUnsignedChar(this.valueNumber);
-    };
+	override serialize(randomAccess: RandomAccess): void {
+		randomAccess.writeUnsignedChar(this.valueNumber);
+	};
 
-    override deserialize(randomAccess: RandomAccess): void {
-        this.valueNumber = randomAccess.readUnsignedChar();
-    };
+	override deserialize(randomAccess: RandomAccess): void {
+		this.valueNumber = randomAccess.readUnsignedChar();
+	};
 
-    override getSerializationSize(): number {
-        // value(1)
-        return 1;
-    }
+	override getSerializationSize(): number {
+		// value(1)
+		return 1;
+	}
 }

@@ -7,188 +7,188 @@ import {environment} from "../../environments/environment";
 
 export class Device {
 
-    public static DEFAULT_BRIGHTNESS: number = 180;
-    public static DEVICE_FLAG_ON_BIT: number = 0x01;
+	public static DEFAULT_BRIGHTNESS: number = 180;
+	public static DEVICE_FLAG_ON_BIT: number = 0x01;
 
-    constructor(id: number,
-                name: string,
-                on: ParameterBoolean = new ParameterBoolean('On', true),
-                version: SemVer = new SemVer(),
-                brightness: ParameterNumber = new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS, NumberSize.U8),
-                pendingPings: number = 0,
-                currentEffect?: Effect,
-                availableEffects?: Map<EffectCode, Effect>,
-                hidden: boolean = true) {
+	constructor(id: number,
+	            name: string,
+	            on: ParameterBoolean = new ParameterBoolean('On', true),
+	            version: SemVer = new SemVer(),
+	            brightness: ParameterNumber = new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS, NumberSize.U8),
+	            pendingPings: number = 0,
+	            currentEffect?: Effect,
+	            availableEffects?: Map<EffectCode, Effect>,
+	            hidden: boolean = true) {
 
-        this._id = id;
-        this._on = on;
-        this._version = version;
-        this._brightness = brightness;
-        this._name = name
-        this._pendingPings = pendingPings;
-        this._currentEffect = currentEffect;
-        this._availableEffects = availableEffects;
-        this._hidden = hidden;
-        this._supported = false;
-        this._numLeds = 0;
-    }
+		this._id = id;
+		this._on = on;
+		this._version = version;
+		this._brightness = brightness;
+		this._name = name
+		this._pendingPings = pendingPings;
+		this._currentEffect = currentEffect;
+		this._availableEffects = availableEffects;
+		this._hidden = hidden;
+		this._supported = false;
+		this._numLeds = 0;
+	}
 
-    private _id: number;
+	private _id: number;
 
-    get id(): number {
-        return this._id;
-    }
+	get id(): number {
+		return this._id;
+	}
 
-    set id(value: number) {
-        this._id = value;
-    }
+	set id(value: number) {
+		this._id = value;
+	}
 
-    private _on: ParameterBoolean;
+	private _on: ParameterBoolean;
 
-    get on(): ParameterBoolean {
-        return this._on;
-    }
+	get on(): ParameterBoolean {
+		return this._on;
+	}
 
-    set on(value: ParameterBoolean) {
-        this._on = value;
-    }
+	set on(value: ParameterBoolean) {
+		this._on = value;
+	}
 
-    private _brightness: ParameterNumber;
+	private _brightness: ParameterNumber;
 
-    get brightness(): ParameterNumber {
-        return this._brightness;
-    }
+	get brightness(): ParameterNumber {
+		return this._brightness;
+	}
 
-    set brightness(value: ParameterNumber) {
-        this._brightness = value;
-    }
+	set brightness(value: ParameterNumber) {
+		this._brightness = value;
+	}
 
-    private _version: SemVer;
+	private _version: SemVer;
 
-    get version(): SemVer {
-        return this._version;
-    }
+	get version(): SemVer {
+		return this._version;
+	}
 
-    set version(value: SemVer) {
-        this._version = value;
-    }
+	set version(value: SemVer) {
+		this._version = value;
+	}
 
-    private _name: string;
+	private _name: string;
 
-    get name(): string {
-        return this._name;
-    }
+	get name(): string {
+		return this._name;
+	}
 
-    set name(value: string) {
-        this._name = value;
-    }
+	set name(value: string) {
+		this._name = value;
+	}
 
-    private _pendingPings: number;
+	private _pendingPings: number;
 
-    get pendingPings(): number {
-        return this._pendingPings;
-    }
+	get pendingPings(): number {
+		return this._pendingPings;
+	}
 
-    set pendingPings(value: number) {
-        this._pendingPings = value;
-    }
+	set pendingPings(value: number) {
+		this._pendingPings = value;
+	}
 
-    private _currentEffect?: Effect;
+	private _currentEffect?: Effect;
 
-    get currentEffect(): Effect | undefined {
-        return this._currentEffect;
-    }
+	get currentEffect(): Effect | undefined {
+		return this._currentEffect;
+	}
 
-    set currentEffect(value: Effect | undefined) {
-        this._currentEffect = value;
-    }
+	set currentEffect(value: Effect | undefined) {
+		this._currentEffect = value;
+	}
 
-    private _availableEffects?: Map<EffectCode, Effect>;
+	private _availableEffects?: Map<EffectCode, Effect>;
 
-    get availableEffects(): Map<EffectCode, Effect> | undefined {
-        return this._availableEffects;
-    }
+	get availableEffects(): Map<EffectCode, Effect> | undefined {
+		return this._availableEffects;
+	}
 
-    set availableEffects(value: Map<EffectCode, Effect> | undefined) {
-        this._availableEffects = value;
-    }
+	set availableEffects(value: Map<EffectCode, Effect> | undefined) {
+		this._availableEffects = value;
+	}
 
-    private _hidden?: boolean;
+	private _hidden?: boolean;
 
-    get hidden(): boolean | undefined {
-        return this._hidden;
-    }
+	get hidden(): boolean | undefined {
+		return this._hidden;
+	}
 
-    set hidden(value: boolean | undefined) {
-        this._hidden = value;
-    }
+	set hidden(value: boolean | undefined) {
+		this._hidden = value;
+	}
 
-    private _supported: boolean;
+	private _supported: boolean;
 
-    get supported(): boolean {
-        return this._supported;
-    }
+	get supported(): boolean {
+		return this._supported;
+	}
 
-    set supported(value: boolean) {
-        this._supported = value;
-    }
+	set supported(value: boolean) {
+		this._supported = value;
+	}
 
-    private _numLeds: number;
+	private _numLeds: number;
 
-    get numLeds(): number {
-        return this._numLeds;
-    }
+	get numLeds(): number {
+		return this._numLeds;
+	}
 
-    set numLeds(value: number) {
-        this._numLeds = value;
-    }
+	set numLeds(value: number) {
+		this._numLeds = value;
+	}
 
-    checkSupportedVersion(): void {
-        this.supported = !environment.minRequiredFirmwareVersion.isGreaterThan(this.version);
-    }
+	checkSupportedVersion(): void {
+		this.supported = !environment.minRequiredFirmwareVersion.isGreaterThan(this.version);
+	}
 
-    getSerializationSize(): number {
+	getSerializationSize(): number {
 
-        // id(4) + flags(4) + brightness(1) + effectCode(4)
-        let size = 4 + 4 + 1 + 4;
-        if (this.currentEffect) {
-            size += this.currentEffect.getSerializationSize();
-        }
-        return size;
-    }
+		// id(4) + flags(4) + brightness(1 - bul always?) + effectCode(4)
+		let size = 4 + 4 + this.brightness.getSerializationSize() + 4;
+		if (this.currentEffect) {
+			size += this.currentEffect.getSerializationSize();
+		}
+		return size;
+	}
 
-    serialize(randomAccess: RandomAccess): void {
-        randomAccess.writeUnsignedInt(this.id);
-        randomAccess.writeUnsignedInt(this.getFlags());
-        this.brightness.serialize(randomAccess);
-        if (this.currentEffect) {
-            randomAccess.writeUnsignedInt(this.currentEffect.code);
-            this.currentEffect.serialize(randomAccess);
-        } else {
-            Effect.serialize(randomAccess);
-        }
-    }
+	serialize(randomAccess: RandomAccess): void {
+		randomAccess.writeUnsignedInt(this.id);
+		randomAccess.writeUnsignedInt(this.getFlags());
+		this.brightness.serialize(randomAccess);
+		if (this.currentEffect) {
+			randomAccess.writeUnsignedInt(this.currentEffect.code);
+			this.currentEffect.serialize(randomAccess);
+		} else {
+			randomAccess.writeUnsignedInt(EffectCode.NONE);
+		}
+	}
 
-    deserialize(randomAccess: RandomAccess): void {
+	deserialize(randomAccess: RandomAccess): void {
 
-        // ID was already read from randomAccess.
-        this.setFlags(randomAccess.readUnsignedInt());
-        this.brightness.deserialize(randomAccess);
-        const effectCode = randomAccess.readUnsignedInt()
-        if (effectCode != EffectCode.NONE && this.availableEffects?.has(effectCode)) {
-            const effect = this.availableEffects?.get(effectCode);
-            effect?.deserialize(randomAccess);
-            this.currentEffect = effect;
-        }
-    }
+		// ID was already read from randomAccess.
+		this.setFlags(randomAccess.readUnsignedInt());
+		this.brightness.deserialize(randomAccess);
+		const effectCode = randomAccess.readUnsignedInt()
+		if (effectCode != EffectCode.NONE && this.availableEffects?.has(effectCode)) {
+			const effect = this.availableEffects?.get(effectCode);
+			effect?.deserialize(randomAccess);
+			this.currentEffect = effect;
+		}
+	}
 
-    private getFlags(): number {
-        let flags: number = 0;
-        flags |= this.on.value ? Device.DEVICE_FLAG_ON_BIT : 0;
-        return flags;
-    }
+	private getFlags(): number {
+		let flags: number = 0;
+		flags |= this.on.value ? Device.DEVICE_FLAG_ON_BIT : 0;
+		return flags;
+	}
 
-    private setFlags(flags: number): void {
-        this.on.value = (flags & Device.DEVICE_FLAG_ON_BIT) > 0;
-    }
+	private setFlags(flags: number): void {
+		this.on.value = (flags & Device.DEVICE_FLAG_ON_BIT) > 0;
+	}
 }

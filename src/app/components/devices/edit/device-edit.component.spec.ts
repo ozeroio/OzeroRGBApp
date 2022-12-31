@@ -2,22 +2,22 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DeviceEditComponent} from './device-edit.component';
 
-describe('BookmarkEditComponent', () => {
-    let component: DeviceEditComponent;
-    let fixture: ComponentFixture<DeviceEditComponent>;
+describe('DeviceEditComponent', () => {
+	let component: DeviceEditComponent;
+	let fixture: ComponentFixture<DeviceEditComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            declarations: [DeviceEditComponent]
-        })
-            .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [DeviceEditComponent]
+		})
+			.compileComponents();
 
-        fixture = TestBed.createComponent(DeviceEditComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+		fixture = TestBed.createComponent(DeviceEditComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

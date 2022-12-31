@@ -10,56 +10,56 @@ import {ParameterColorSegmentList} from "../../models/parameters/parameter-color
 import {Device} from "../../models/device.class";
 
 @Component({
-    selector: 'app-parameter',
-    templateUrl: './parameter.component.html',
-    styleUrls: ['./parameter.component.scss']
+	selector: 'app-parameter',
+	templateUrl: './parameter.component.html',
+	styleUrls: ['./parameter.component.scss']
 })
 export class ParameterComponent implements OnInit {
 
-    @Input() parameter: Parameter;
-    @Input() device: Device;
-    @Output() change: EventEmitter<void>;
+	@Input() parameter: Parameter;
+	@Input() device: Device;
+	@Output() change: EventEmitter<void>;
 
-    EffectParameterType = EffectParameterType;
+	EffectParameterType = EffectParameterType;
 
-    constructor() {
-        this.change = new EventEmitter<void>();
-        this.parameter = {} as Parameter;
-        this.device = {} as Device;
-    }
+	constructor() {
+		this.change = new EventEmitter<void>();
+		this.parameter = {} as Parameter;
+		this.device = {} as Device;
+	}
 
-    ngOnInit(): void {
-    }
+	ngOnInit(): void {
+	}
 
-    castToColor(): ParameterColor {
-        return this.parameter as ParameterColor;
-    }
+	castToColor(): ParameterColor {
+		return this.parameter as ParameterColor;
+	}
 
-    castToNumber(): ParameterNumber {
-        return this.parameter as ParameterNumber;
-    }
+	castToNumber(): ParameterNumber {
+		return this.parameter as ParameterNumber;
+	}
 
-    castToRange(): ParameterRange {
-        return this.parameter as ParameterRange;
-    }
+	castToRange(): ParameterRange {
+		return this.parameter as ParameterRange;
+	}
 
-    castToBoolean(): ParameterBoolean {
-        return this.parameter as ParameterBoolean;
-    }
+	castToBoolean(): ParameterBoolean {
+		return this.parameter as ParameterBoolean;
+	}
 
-    castToNumeralOption(): ParameterNumeralOption {
-        return this.parameter as ParameterNumeralOption;
-    }
+	castToNumeralOption(): ParameterNumeralOption {
+		return this.parameter as ParameterNumeralOption;
+	}
 
-    castToColorSegment(): ParameterColorSegment {
-        return this.parameter as ParameterColorSegment;
-    }
+	castToColorSegment(): ParameterColorSegment {
+		return this.parameter as ParameterColorSegment;
+	}
 
-    castToColorSegmentList(): ParameterColorSegmentList {
-        return this.parameter as ParameterColorSegmentList;
-    }
+	castToColorSegmentList(): ParameterColorSegmentList {
+		return this.parameter as ParameterColorSegmentList;
+	}
 
-    onChange(): void {
-        this.change.emit();
-    }
+	onChange(): void {
+		this.change.emit();
+	}
 }

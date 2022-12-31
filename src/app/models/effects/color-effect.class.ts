@@ -5,18 +5,18 @@ import {ParameterBoolean} from "../parameters/parameter-boolean.class";
 
 export class ColorEffect extends Effect {
 
-    public static CODE: EffectCode = EffectCode.COLOR;
-    public static NAME: string = 'color';
+	public static CODE: EffectCode = EffectCode.COLOR;
+	public static NAME: string = 'color';
 
-    constructor() {
-        const parameters = [
-            new ParameterColor('Color', 255, 0, 0),
-            new ParameterBoolean('Randomize', false)
-        ];
-        super(ColorEffect.CODE, ColorEffect.NAME, parameters);
-    }
+	constructor() {
+		const parameters = [
+			new ParameterColor('Color', 255, 0, 0),
+			new ParameterBoolean('Randomize', false)
+		];
+		super(ColorEffect.CODE, ColorEffect.NAME, parameters);
+	}
 
-    public static build(): Effect {
-        return new ColorEffect();
-    }
+	public static build(): Effect {
+		return new ColorEffect();
+	}
 }

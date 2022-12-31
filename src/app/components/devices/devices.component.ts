@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {IMqttMessage, MqttService} from "ngx-mqtt";
-import {Subscription} from "rxjs";
 import {Device} from "../../models/device.class";
 import {FireEffect} from "../../models/effects/fire-effect.class";
-import {Builder, Effect, EffectCode} from "../../models/effect.class";
+import {Effect} from "../../models/effect.class";
 import {ColorEffect} from "../../models/effects/color-effect.class";
 import {LocalStorageService} from "../../services/local-storage.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -15,109 +13,118 @@ import {BreathingEffect} from "../../models/effects/breathing-effect.class";
 import {RandomAccess} from "../../models/randomAccess.interface";
 import {PresetEntry, PresetsService} from "../../services/presets.service";
 import {environment} from "../../../environments/environment";
-import {PresetEditComponent, PresetSelection} from "../presets/edit/preset-edit.component";
+import {PresetSaveComponent, PresetSelection} from "../presets/save/preset-save.component";
 import {ShiftEffect} from "../../models/effects/shift-effect.class";
 import {DeviceService} from "../../services/device.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-    selector: 'app-devices',
-    templateUrl: './devices.component.html',
-    styleUrls: ['./devices.component.scss']
+	selector: 'app-devices',
+	templateUrl: './devices.component.html',
+	styleUrls: ['./devices.component.scss']
 })
 export class DevicesComponent implements OnInit {
 
-    Effect = Effect;
-    maxAllowedPendingPings = DeviceService.MAX_ALLOWED_PENDING_PINGS;
-    minSupportedVersion = environment.minRequiredFirmwareVersion;
+	Effect = Effect;
+	maxAllowedPendingPings = DeviceService.MAX_ALLOWED_PENDING_PINGS;
+	minSupportedVersion = environment.minRequiredFirmwareVersion;
+	devices: Array<Device>;
 
-    constructor(private deviceService: DeviceService,
-                private storageService: LocalStorageService,
-                private presetService: PresetsService,
-                private snackBar: MatSnackBar,
-                protected dialog: MatDialog) {
+	constructor(private deviceService: DeviceService,
+	            private storageService: LocalStorageService,
+	            private presetService: PresetsService,
+	            private snackBar: MatSnackBar,
+	            protected dialog: MatDialog) {
 
-        this.storageService.set('device-name-0', 'Office Window');
-        this.storageService.set('device-name-1', 'Suite Window');
-        this.storageService.set('device-name-2', 'Lucas Window');
-        this.storageService.set('device-name-3', 'House Front');
-        this.storageService.set('device-name-4', 'Lucas Desk');
-        this.storageService.set('device-name-5', 'Davi Desk');
-        this.storageService.set('device-name-6', 'Office Desk');
-        this.storageService.set('device-name-7', 'Kitchen Top');
-        this.storageService.set('device-name-8', 'Unknown');
-        this.storageService.set('device-name-9', 'Test Device');
+		this.devices = [];
 
-        Effect.registerEffect(FireEffect.CODE, FireEffect.build);
-        Effect.registerEffect(ColorEffect.CODE, ColorEffect.build);
-        Effect.registerEffect(WaveEffect.CODE, WaveEffect.build);
-        Effect.registerEffect(ChaseEffect.CODE, ChaseEffect.build);
-        Effect.registerEffect(SparkleEffect.CODE, SparkleEffect.build);
-        Effect.registerEffect(BreathingEffect.CODE, BreathingEffect.build);
-        Effect.registerEffect(ShiftEffect.CODE, ShiftEffect.build);
-    }
+		this.storageService.set('device-name-0', 'Office Window');
+		this.storageService.set('device-name-1', 'Suite Window');
+		this.storageService.set('device-name-2', 'Lucas Window');
+		this.storageService.set('device-name-3', 'House Front');
+		this.storageService.set('device-name-4', 'Lucas Desk');
+		this.storageService.set('device-name-5', 'Davi Desk');
+		this.storageService.set('device-name-6', 'Office Desk');
+		this.storageService.set('device-name-7', 'Kitchen Top');
+		this.storageService.set('device-name-8', 'Unknown');
+		this.storageService.set('device-name-9', 'Test Device');
 
-    ngOnInit(): void {
-    }
+		Effect.registerEffect(FireEffect.CODE, FireEffect.build);
+		Effect.registerEffect(ColorEffect.CODE, ColorEffect.build);
+		Effect.registerEffect(WaveEffect.CODE, WaveEffect.build);
+		Effect.registerEffect(ChaseEffect.CODE, ChaseEffect.build);
+		Effect.registerEffect(SparkleEffect.CODE, SparkleEffect.build);
+		Effect.registerEffect(BreathingEffect.CODE, BreathingEffect.build);
+		Effect.registerEffect(ShiftEffect.CODE, ShiftEffect.build);
+	}
 
-    getDevices(): Array<Device> {
-        return this.deviceService.getDevices();
-    }
+	ngOnInit(): void {
+		this.devices = this.sortById(this.deviceService.getDevices());
+		this.deviceService.observeChangeDevice().subscribe((devices: Array<Device>) => {
+			this.devices = this.sortById(devices);
+		});
+	}
 
-    onRenameDeviceClick(device: Device): void {
-        const dialogRef = this.dialog.open(DeviceEditComponent, {
-            data: {device},
-            closeOnNavigation: true
-        });
-        const onSave = dialogRef.componentInstance.save.subscribe((d: Device) => {
-            this.storageService.set(`device-name-${d.id}`, d.name);
-            dialogRef.close();
-        });
-        const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {
-            dialogRef.close();
-        });
-    }
+	onRenameDeviceClick(device: Device): void {
+		const dialogRef = this.dialog.open(DeviceEditComponent, {
+			data: {device},
+			closeOnNavigation: true
+		});
+		const onSave = dialogRef.componentInstance.save.subscribe((d: Device) => {
+			this.storageService.set(`device-name-${d.id}`, d.name);
+			dialogRef.close();
+		});
+		const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {
+			dialogRef.close();
+		});
+	}
 
-    toggleDevice(device: Device): void {
-        device.hidden = !device.hidden;
-    }
+	toggleDevice(device: Device): void {
+		device.hidden = !device.hidden;
+	}
 
-    addToPreset(): void {
-        const dialogRef = this.dialog.open(PresetEditComponent, {
-            data: {
-                devices: this.deviceService.getSupportedDevices()
-            },
-            closeOnNavigation: true
-        });
-        const onSave = dialogRef.componentInstance.save.subscribe((selection: PresetSelection) => {
-            const data: Array<PresetEntry> = selection.devices.map(d => {
-                const randomAccess = new RandomAccess(d.getSerializationSize())
-                d.serialize(randomAccess);
-                const entry: PresetEntry = {
-                    deviceName: d.name,
-                    configuration: Array.from(randomAccess.getBuffer())
-                };
-                return entry;
-            });
-            this.presetService.addPreset(selection.name, data);
-            dialogRef.close();
-        });
-        const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {
-            dialogRef.close();
-        });
-    }
+	addToPreset(): void {
+		const dialogRef = this.dialog.open(PresetSaveComponent, {
+			data: {
+				devices: this.deviceService.getSupportedDevices()
+			},
+			closeOnNavigation: true
+		});
+		const onSave = dialogRef.componentInstance.save.subscribe((selection: PresetSelection) => {
+			const data: Array<PresetEntry> = selection.devices.map(d => {
+				const randomAccess = new RandomAccess(d.getSerializationSize())
+				d.serialize(randomAccess);
+				const entry: PresetEntry = {
+					deviceName: d.name,
+					configuration: Array.from(randomAccess.getBuffer())
+				};
+				return entry;
+			});
+			this.presetService.addPreset(selection.name, data);
+			dialogRef.close();
+		});
+		const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {
+			dialogRef.close();
+		});
+	}
 
-    onDeviceConfigurationChange(device: Device): void {
-        this.snackBar.open('Configuration sent to device(s).', 'OK', {
-            duration: 3000
-        });
-        this.deviceService.sendDeviceConfiguration(device);
-    }
+	onDeviceConfigurationChange(device: Device): void {
+		this.deviceService.sendDeviceConfiguration(device);
+		this.showSnack();
+	}
 
-    onEffectChange(id: number, effect: Effect): void {
-        this.snackBar.open('Configuration sent to device(s).', 'OK', {
-            duration: 3000
-        });
-        this.deviceService.updateEffect(id, effect);
-    }
+	onEffectChange(id: number, effect: Effect): void {
+		this.deviceService.updateEffect(id, effect);
+		this.showSnack();
+	}
+
+	private showSnack(): void {
+		this.snackBar.open('Configuration sent to device(s).', 'OK', {
+			duration: 3000
+		});
+	}
+
+	private sortById(devices: Array<Device>): Array<Device> {
+		return devices.sort((a, b) => b.id - a.id);
+	}
 }

@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PresetsComponent } from './presets.component';
+import {PresetsComponent} from './presets.component';
 
 describe('BookmarksComponent', () => {
-  let component: PresetsComponent;
-  let fixture: ComponentFixture<PresetsComponent>;
+	let component: PresetsComponent;
+	let fixture: ComponentFixture<PresetsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PresetsComponent ]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [PresetsComponent]
+		})
+			.compileComponents();
 
-    fixture = TestBed.createComponent(PresetsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(PresetsComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

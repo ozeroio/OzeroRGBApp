@@ -3,26 +3,26 @@ import {ParameterNumeralOption} from "../../../models/parameters/parameter-numer
 import {Device} from "../../../models/device.class";
 
 @Component({
-    selector: 'app-numeral-option',
-    templateUrl: './numeral-option.component.html',
-    styleUrls: ['./numeral-option.component.scss']
+	selector: 'app-numeral-option',
+	templateUrl: './numeral-option.component.html',
+	styleUrls: ['./numeral-option.component.scss']
 })
 export class NumeralOptionComponent implements OnInit {
 
-    @Input() parameter: ParameterNumeralOption;
-    @Input() device: Device;
-    @Output() change: EventEmitter<void>;
+	@Input() parameter: ParameterNumeralOption;
+	@Input() device: Device;
+	@Output() change: EventEmitter<void>;
 
-    constructor() {
-        this.change = new EventEmitter<void>();
-        this.parameter = {} as ParameterNumeralOption;
-        this.device = {} as Device;
-    }
+	constructor() {
+		this.change = new EventEmitter<void>();
+		this.parameter = {} as ParameterNumeralOption;
+		this.device = {} as Device;
+	}
 
-    ngOnInit(): void {
-    }
+	ngOnInit(): void {
+	}
 
-    onChange(): void {
-        this.change.emit();
-    }
+	onChange(): void {
+		this.change.emit();
+	}
 }

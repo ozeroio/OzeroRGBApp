@@ -32,6 +32,7 @@ export class MyAwesomeEffect extends Effect {
 
   public static CODE: EffectCode = EffectCode.MY_AWESOME_EFFECT_CODE;
   public static NAME: string = 'my awesome effect';
+  public static DESCRIPTION: string = 'my awesome effect description';
 
   constructor() {
     const parameters = [
@@ -39,19 +40,20 @@ export class MyAwesomeEffect extends Effect {
       new ParameterRange('Delay', 20, 0, 255, 1),
       new ParameterBoolean('Invert Direction', 0)
     ];
-    super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters);
+    super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters, MyAwesomeEffect.DESCRIPTION);
   }
 
   public static build(): Effect {
     return new MyAwesomeEffect();
   }
+      
+  // You can optionally override the 'serialize' and 'deserialize' methods for custom serialization. 
 }
 ```
 
-```deserialize``` should receive the current device's config and recreate your effect's state.
 ```build``` should create an instance of your effect.
 
-In your constructor you should call ```super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters);``` with code, name and the parameters of your effect.
+In your constructor you should call ```super(MyAwesomeEffect.CODE, MyAwesomeEffect.NAME, parameters. 'Effect description.');``` with code, name, parameters and the description of your effect.
 
 - Register your effect by adding your effect into the file ```app/components/devices/devices.component.ts```. Adding the following line into the constructor:
 ```
@@ -73,8 +75,8 @@ The MAX_CONFIGURATION_SIZE = 64 is the max length of a message.
 - **Describe**: device/describe. Host to device messages. The host wants the device to describe itself - its configuration.
 - **Ping**: device/ping. Host to device requesting acknowledgement.
 - **Pong**: device/pong. Device to host reporting ping.
-- **Request Version**: device/req/version. Host to device requesting device's running firmware version.
-- **Response Version**: device/res/version. Device to host responding with device's running firmware version.
+- **Req Version**: device/req/version. Host to device requesting its running firmware version.
+- **Res Version**: device/res/version. Device to host reporting its running firmware version.
 
 ### Discovery message
 
@@ -86,34 +88,38 @@ Discovery is broadcast with no payload.
 
 Device to host messages indicating the device is available.
 
-MESSAGE: `"DEVICE_ID:SUPPORTED_EFFECTS[:EFFEC_0_CODE:...:EFFECT_N_CODE]"`
+MESSAGE: `"DEVICE_ID:NUM_LEDS:NUM_SUPPORTED_EFFECTS[:EFFEC_0_CODE:...:EFFECT_N_CODE]"`
 
 Ex:
-- `{0,2,0,1}`, meaning device 0 with 2 available effects, 0 and 1.
-- `{1,1,1}`, meaning device 1 with 1 available effect, 1.
-- `{2,0}`, meaning device 2 with 0 available effects.
+- `0:130:2:0:1`, meaning device 0, 130 LEDs, with 2 available effects, 0 and 1.
+- `1:130:1:1`, meaning device 1, 130 LEDs with 1 available effect, 1.
+- `2:130:0`, meaning device 2, 130 LEDs with 0 available effects.
+
+NOTE: Each entry is an `uint32_t`.
 
 ### Configure message
 
 Host to device messages. The host wants the device to receive a new configuration.
 
-MESSAGE: `"DEVICE_ID:ON_STATE:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
+MESSAGE: `"DEVICE_ID:FLAGS:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
 
 Ex:
 - `{0,1,255,2,255,1}`, meaning device 0, on, full (255) brightness, effect 2 with 255 and 1 as parameters.
 - `{0,0,255,1,1}`, meaning device 0, off, full (255) brightness, effect 1 with 1 as parameter.
-- `{0,1,0,0}`, meaning device 0, on, brightness 0, effect 0 with no params.
+- `{0,1,0,0}`, meaning device 0, on, brightness 0, effect 0 with no state.
+
+NOTE: Each entry is an `uint32_t`, except effect parameter that can be a type of any size.
 
 ### Description message
 
 Device to host messages. The device is reporting its configuration to the host.
 
-MESSAGE: `"DEVICE_ID:ON_STATE:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
+MESSAGE: `"DEVICE_ID:FLAGS:BRIGHTNESS:EFFECT_CODE[:EFFEC_PARAM_0:...:EFFEC_PARAM_N]"`
 
 Ex:
 - `{0,1,255,2,255,1}`, meaning device 0, on, full (255) brightness, effect 2 with 255 and 1 as parameters.
 - `{0,0,255,1,1}`, meaning device 0, off, full (255) brightness, effect 1 with 1 as parameter.
-- `{0,1,0,0}`, meaning device 0, on, brightness 0, effect 0 with no params.
+- `{0,1,0,0}`, meaning device 0, on, brightness 0, effect 0 with no state.
 
 ### Describe message
 
@@ -132,6 +138,20 @@ Only contains the DEVICE ID.
 MESSAGE: `"DEVICE_ID"`
 
 Only contains the DEVICE ID.
+
+### Req version
+
+MESSAGE: `"DEVICE_ID"`
+
+Only contains the DEVICE ID.
+
+### Res message
+
+MESSAGE: `"DEVICE_ID:DEVICE_VERSION_MAJOR:DEVICE_VERSION_MINOR:DEVICE_VERSION_PATCH:DEVICE_VERSION_BUILD"`
+
+Contains the DEVICE ID and the SemVer of the firmware running on the device.
+
+NOTE: Each SemVer elements are `uin8_t`.
 
 ---
 

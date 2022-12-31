@@ -6,39 +6,39 @@ import {Color} from "../../../models/color.interface";
 import {Device} from "../../../models/device.class";
 
 @Component({
-    selector: 'app-color',
-    templateUrl: './color.component.html',
-    styleUrls: ['./color.component.scss']
+	selector: 'app-color',
+	templateUrl: './color.component.html',
+	styleUrls: ['./color.component.scss']
 })
 export class ColorComponent implements OnInit {
 
-    @Input() parameter: ParameterColor;
-    @Input() device: Device;
-    @Output() change: EventEmitter<void>;
+	@Input() parameter: ParameterColor;
+	@Input() device: Device;
+	@Output() change: EventEmitter<void>;
 
-    constructor(protected dialog: MatDialog) {
-        this.change = new EventEmitter<void>();
-        this.parameter = {} as ParameterColor;
-        this.device = {} as Device;
-    }
+	constructor(protected dialog: MatDialog) {
+		this.change = new EventEmitter<void>();
+		this.parameter = {} as ParameterColor;
+		this.device = {} as Device;
+	}
 
-    ngOnInit(): void {
-    }
+	ngOnInit(): void {
+	}
 
-    onClick(): void {
-        const signUpDialogRef = this.dialog.open(ColorPickerComponent, {
-            data: {color: this.parameter},
-            closeOnNavigation: true
-        });
-        signUpDialogRef.componentInstance.change.subscribe((color: Color) => {
-            this.parameter.r = color.r;
-            this.parameter.g = color.g;
-            this.parameter.b = color.b;
-            this.onChange();
-        });
-    }
+	onClick(): void {
+		const signUpDialogRef = this.dialog.open(ColorPickerComponent, {
+			data: {color: this.parameter},
+			closeOnNavigation: true
+		});
+		signUpDialogRef.componentInstance.change.subscribe((color: Color) => {
+			this.parameter.r = color.r;
+			this.parameter.g = color.g;
+			this.parameter.b = color.b;
+			this.onChange();
+		});
+	}
 
-    onChange(): void {
-        this.change.emit();
-    }
+	onChange(): void {
+		this.change.emit();
+	}
 }

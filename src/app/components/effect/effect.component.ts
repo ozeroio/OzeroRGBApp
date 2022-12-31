@@ -2,36 +2,60 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Effect} from "../../models/effect.class";
 import {Parameter} from "../../models/parameter.class";
 import {Device} from "../../models/device.class";
+import {MatDialog} from "@angular/material/dialog";
+import {DeviceService} from "../../services/device.service";
+import {EffectReplicateComponent, ReplicationSelection} from "./replicate/effect-replicate.component";
 
 @Component({
-    selector: 'app-effect',
-    templateUrl: './effect.component.html',
-    styleUrls: ['./effect.component.scss']
+	selector: 'app-effect',
+	templateUrl: './effect.component.html',
+	styleUrls: ['./effect.component.scss']
 })
 export class EffectComponent implements OnInit {
 
-    @Input() effect: Effect;
-    @Input() device: Device;
-    @Output() change: EventEmitter<Parameter>;
+	@Input() effect: Effect;
 
-    parameters: Array<Parameter>;
+	// NOTE: Not ideal drill down this property, but some parameters
+	//  require to know the device settings they are associated to.
+	@Input() device: Device;
+	@Output() change: EventEmitter<Parameter>;
 
-    constructor() {
-        this.change = new EventEmitter<Parameter>();
-        this.effect = {} as Effect;
-        this.device = {} as Device;
-        this.parameters = [];
-    }
+	constructor(private deviceService: DeviceService,
+				private dialog: MatDialog) {
+		this.change = new EventEmitter<Parameter>();
+		this.effect = {} as Effect;
+		this.device = {} as Device;
+	}
 
-    onApplyClick(): void {
-        this.change.emit({} as Parameter);
-    }
+	ngOnInit(): void {
+	}
 
-    onParameterChange(parameter: Parameter): void {
-        this.change.emit(parameter);
-    }
+	replicateEffect(): void {
+		const dialogRef = this.dialog.open(EffectReplicateComponent, {
+			data: {
+				effect: this.effect,
+				devices: this.deviceService.getSupportedDevices()
+			},
+			closeOnNavigation: true
+		});
+		const onSave = dialogRef.componentInstance.save.subscribe((selection: ReplicationSelection) => {
+			this.deviceService.replicateEffectTo(this.effect, selection.devices);
+			dialogRef.close();
+		});
+		const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {
+			dialogRef.close();
+		});
+	}
 
-    ngOnInit(): void {
-        this.parameters = Array.from(this.effect.parameters.values());
-    }
+	onApplyClick(): void {
+		this.change.emit({} as Parameter);
+	}
+
+	onReplicateClick(): void {
+		this.replicateEffect();
+	}
+
+	onParameterChange(parameter: Parameter): void {
+		this.change.emit(parameter);
+	}
 }

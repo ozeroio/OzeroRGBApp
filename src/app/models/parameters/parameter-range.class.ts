@@ -2,41 +2,41 @@ import {EffectParameterType} from "../parameter.class";
 import {NumberSize, ParameterNumber} from "./parameter-number.class";
 
 export class ParameterRange extends ParameterNumber {
-    constructor(name: string, value: number, min: number, max: number, step: number, size: NumberSize = NumberSize.U32) {
-        super(name, value, size);
-        this._min = min;
-        this._max = max;
-        this._step = step;
-        this.type = EffectParameterType.RANGE;
-    }
+	constructor(name: string, value: number, min: number, max: number, step: number, size: NumberSize = NumberSize.U32) {
+		super(name, value, size);
+		this._min = min;
+		this._max = max;
+		this._step = step;
+		this.type = EffectParameterType.RANGE;
+	}
 
-    private _min: number;
+	private _min: number;
 
-    get min(): number {
-        return this._min;
-    }
+	get min(): number {
+		return this._min;
+	}
 
-    set min(value: number) {
-        this._min = value;
-    }
+	set min(value: number) {
+		this._min = value;
+	}
 
-    private _max: number;
+	private _max: number;
 
-    get max(): number {
-        return this._max;
-    }
+	get max(): number {
+		return this._max;
+	}
 
-    set max(value: number) {
-        this._max = value;
-    }
+	set max(value: number) {
+		this._max = value;
+	}
 
-    private _step: number;
+	private _step: number;
 
-    get step(): number {
-        return this._step;
-    }
+	get step(): number {
+		return this._step;
+	}
 
-    set step(value: number) {
-        this._step = value;
-    }
+	set step(value: number) {
+		this._step = value;
+	}
 }

@@ -1,84 +1,87 @@
 <div class="container-fluid m-0 p-0">
-    <div class="row m-0 p-0">
-        <div class="col-12 d-flex justify-content-end">
-            <button (click)="addToPreset()" class="cursor-pointer" mat-icon-button>
-                <mat-icon>save</mat-icon>
-            </button>
-        </div>
-    </div>
-    <div class="row m-0 p-0">
-        <div *ngIf="getDevices().length === 0" class="m-2">There are no devices to display.</div>
-        <ng-container *ngFor="let device of getDevices()">
-            <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
-                <mat-card>
-                    <mat-card-header>
-                        <div (click)="toggleDevice(device)"
-                             class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
-                            <mat-icon>memory</mat-icon>
-                        </div>
-                        <div (click)="toggleDevice(device)"
-                             class="d-flex align-items-center justify-content-center card-icon mt-1 toggle" mat-card-avatar>
-                            <mat-icon>{{device.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
-                        </div>
-                        <mat-card-title>{{device.name ? device.name : device.id}} ({{device.numLeds}} LEDs)</mat-card-title>
-                        <mat-card-subtitle>
-                            Missing pings: {{device.pendingPings}}/{{maxAllowedPendingPings}}
-                        </mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content [hidden]="device.hidden" class="p-0 m-0">
-                        <div class="m-4" *ngIf="!device.supported">
-                            This device's version <b>{{device.version}}</b> is not
-                            supported. Minimum supported version is: <b>{{minSupportedVersion}}</b>.
-                        </div>
-                        <mat-tab-group selectedIndex="1" *ngIf="device.supported">
-                            <mat-tab label="Configuration">
-                                <div class="m-4">
-                                    <mat-slide-toggle [(ngModel)]="device.on.value" (ngModelChange)="onDeviceConfigurationChange(device)">
-                                        On/Off
-                                    </mat-slide-toggle>
-                                </div>
-                                <div class="m-4">
-                                    <mat-label>Brightness</mat-label>
-                                    <mat-slider (change)="onDeviceConfigurationChange(device)"
-                                                [(ngModel)]="device.brightness.value" [max]="255"
-                                                [min]="0"
-                                                [step]="10"
-                                                [tickInterval]="10"
-                                                class="w-100"
-                                                thumbLabel></mat-slider>
-                                </div>
-                                <div class="m-4">
-                                    <div>Num LEDs: {{device.numLeds}}</div>
-                                </div>
-                                <div class="m-4">
-                                    <div>{{device.version.toString()}}</div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab label="Effects">
-                                <mat-tab-group [selectedIndex]="(device.currentEffect?.code || 1) - 1">
-                                    <ng-container
-                                        *ngFor="let availableEffect of device.availableEffects | keyvalue">
-                                        <mat-tab [label]="availableEffect.value.name | titlecase">
-                                            <app-effect
-                                                (change)="onEffectChange(device.id, availableEffect.value)"
-                                                [effect]="availableEffect.value"
-                                                [device]="device"></app-effect>
-                                        </mat-tab>
-                                    </ng-container>
-                                </mat-tab-group>
-                            </mat-tab>
-                        </mat-tab-group>
-                    </mat-card-content>
-                    <mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
-                        <div class="">
-                            <button (click)="onRenameDeviceClick(device)" color="primary" mat-icon-button>
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-        </ng-container>
-    </div>
+	<div class="row m-0 p-0">
+		<div class="col-12 d-flex justify-content-end">
+			<button (click)="addToPreset()" class="cursor-pointer" mat-icon-button>
+				<mat-icon>save</mat-icon>
+			</button>
+		</div>
+	</div>
+	<div class="row m-0 p-0">
+		<div *ngIf="devices.length === 0" class="m-2">There are no devices to display.</div>
+		<ng-container *ngFor="let device of devices">
+			<div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
+				<mat-card>
+					<mat-card-header>
+						<div (click)="toggleDevice(device)"
+						     class="d-flex align-items-center justify-content-center card-icon mt-1" mat-card-avatar>
+							<mat-icon>memory</mat-icon>
+						</div>
+						<div (click)="toggleDevice(device)"
+						     class="d-flex align-items-center justify-content-center card-icon mt-1 toggle"
+						     mat-card-avatar>
+							<mat-icon>{{device.hidden ? 'expand_more' : 'expand_less'}}</mat-icon>
+						</div>
+						<mat-card-title>{{device.name ? device.name : device.id}} ({{device.numLeds}}LEDs)
+						</mat-card-title>
+						<mat-card-subtitle>
+							Missing pings: {{device.pendingPings}}/{{maxAllowedPendingPings}}
+						</mat-card-subtitle>
+					</mat-card-header>
+					<mat-card-content *ngIf="!device.hidden" class="p-0 m-0">
+						<div *ngIf="!device.supported" class="m-4">
+							This device's version <b>{{device.version}}</b> is not
+							supported. Minimum supported version is: <b>{{minSupportedVersion}}</b>.
+						</div>
+						<mat-tab-group *ngIf="device.supported" selectedIndex="1">
+							<mat-tab label="Configuration">
+								<div class="m-4">
+									<mat-slide-toggle (ngModelChange)="onDeviceConfigurationChange(device)"
+									                  [(ngModel)]="device.on.value">
+										On/Off
+									</mat-slide-toggle>
+								</div>
+								<div class="m-4">
+									<mat-label>Brightness</mat-label>
+									<mat-slider (change)="onDeviceConfigurationChange(device)"
+									            [(ngModel)]="device.brightness.value" [max]="255"
+									            [min]="0"
+									            [step]="10"
+									            [tickInterval]="10"
+									            class="w-100"
+									            thumbLabel></mat-slider>
+								</div>
+								<div class="m-4">
+									<div>Num LEDs: {{device.numLeds}}</div>
+								</div>
+								<div class="m-4">
+									<div>{{device.version.toString()}}</div>
+								</div>
+							</mat-tab>
+							<mat-tab label="Effects">
+								<mat-tab-group [selectedIndex]="(device.currentEffect?.code || 1) - 1">
+									<ng-container
+										*ngFor="let availableEffect of device.availableEffects | keyvalue">
+										<mat-tab [label]="availableEffect.value.name | titlecase">
+											<app-effect
+												(change)="onEffectChange(device.id, availableEffect.value)"
+												[device]="device"
+												[effect]="availableEffect.value"></app-effect>
+										</mat-tab>
+									</ng-container>
+								</mat-tab-group>
+							</mat-tab>
+						</mat-tab-group>
+					</mat-card-content>
+					<mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
+						<div class="">
+							<button (click)="onRenameDeviceClick(device)" color="primary" mat-icon-button>
+								<mat-icon>edit</mat-icon>
+							</button>
+						</div>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+		</ng-container>
+	</div>
 </div>
 

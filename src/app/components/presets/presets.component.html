@@ -1,37 +1,37 @@
 <div class="container-fluid m-0 p-0">
-    <div class="row m-0 p-0">
-        <div *ngIf="entriesMap.size === 0" class="m-2">There are no saved presets to display.</div>
-        <ng-container *ngFor="let entries of entriesMap | keyvalue">
-            <div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>{{entries.key || 'No named'}}</mat-card-title>
-                        <mat-card-subtitle>
-                            Saved preset
-                        </mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content class="p-0 m-0 d-block">
-                        <!--                        <mat-list>-->
-                        <!--                            <mat-list-item *ngFor="let entry of entries.value">-->
-                        <ng-container *ngFor="let entry of entries.value">
-                            <div class="mt-4"><b>{{entry.deviceName}}</b></div>
-                            <div>[{{entry.configuration.join(', ')}}]</div>
-                        </ng-container>
-                        <!--                            </mat-list-item>-->
-                        <!--                        </mat-list>-->
-                    </mat-card-content>
-                    <mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
-                        <div class="">
-                            <button (click)="applyBookmark(entries.value)" color="primary" mat-icon-button>
-                                <mat-icon>publish</mat-icon>
-                            </button>
-                            <button (click)="deleteBookmark(entries.key)" color="accent" mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-        </ng-container>
-    </div>
+	<div class="row m-0 p-0">
+		<div *ngIf="entriesMap.size === 0" class="m-2">There are no saved presets to display.</div>
+		<ng-container *ngFor="let entries of entriesMap | keyvalue">
+			<div class="col-12 col-lg-6 col-md-12 p-lg-2 p-1">
+				<mat-card>
+					<mat-card-header>
+						<mat-card-title>{{entries.key || 'No named'}}</mat-card-title>
+						<mat-card-subtitle>
+							Saved preset
+						</mat-card-subtitle>
+					</mat-card-header>
+					<mat-card-content class="p-0 m-0 d-block">
+						<!--                        <mat-list>-->
+						<!--                            <mat-list-item *ngFor="let entry of entries.value">-->
+						<ng-container *ngFor="let entry of entries.value">
+							<div class="mt-4"><b>{{entry.deviceName}}</b></div>
+							<div>[{{entry.configuration.join(', ')}}]</div>
+						</ng-container>
+						<!--                            </mat-list-item>-->
+						<!--                        </mat-list>-->
+					</mat-card-content>
+					<mat-card-actions class="d-flex justify-content-end align-content-center p-0 m-0">
+						<div class="">
+							<button (click)="applyBookmark(entries.value)" color="primary" mat-icon-button>
+								<mat-icon>publish</mat-icon>
+							</button>
+							<button (click)="deleteBookmark(entries.key)" color="accent" mat-icon-button>
+								<mat-icon>delete</mat-icon>
+							</button>
+						</div>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+		</ng-container>
+	</div>
 </div>

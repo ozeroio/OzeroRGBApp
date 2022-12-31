@@ -1,10 +1,10 @@
 <mat-label>{{parameter.name | titlecase}} ({{parameter.value}}):</mat-label>&nbsp;
 <mat-slider [(ngModel)]="parameter.value"
-            [max]="parameter.max"
+			(ngModelChange)="onChange()"
+			[max]="parameter.max"
             [min]="parameter.min"
             [step]="parameter.step"
             [tickInterval]="parameter.step"
-            (ngModelChange)="onChange()"
-            showTickMarks
             class="w-100"
+            showTickMarks
             thumbLabel></mat-slider>

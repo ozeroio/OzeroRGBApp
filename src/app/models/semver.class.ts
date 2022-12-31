@@ -2,97 +2,97 @@ import {RandomAccess} from "./randomAccess.interface";
 
 export class SemVer {
 
-    static version0: number = 0;
+	static version0: number = 0;
 
-    constructor(major?: number, minor?: number, patch?: number, build?: number) {
-        this._major = major || 0;
-        this._minor = minor || 0;
-        this._patch = patch || 0;
-        this._build = build || 0;
-    }
+	constructor(major?: number, minor?: number, patch?: number, build?: number) {
+		this._major = major || 0;
+		this._minor = minor || 0;
+		this._patch = patch || 0;
+		this._build = build || 0;
+	}
 
-    static createFromDeserialization(randomAccess: RandomAccess): SemVer {
-        const version = new SemVer();
-        version.deserialize(randomAccess);
-        return version;
-    }
+	private _major: number;
 
-    static serialize(randomAccess: RandomAccess) {
-        randomAccess.writeUnsignedInt(SemVer.version0);
-    }
+	get major(): number {
+		return this._major;
+	}
 
-    static deserialize(randomAccess: RandomAccess) {
-        randomAccess.readUnsignedInt();
-    }
+	set major(value: number) {
+		this._major = value;
+	}
 
-    private _major: number;
+	private _minor: number;
 
-    get major(): number {
-        return this._major;
-    }
+	get minor(): number {
+		return this._minor;
+	}
 
-    set major(value: number) {
-        this._major = value;
-    }
+	set minor(value: number) {
+		this._minor = value;
+	}
 
-    private _minor: number;
+	private _patch: number;
 
-    get minor(): number {
-        return this._minor;
-    }
+	get patch(): number {
+		return this._patch;
+	}
 
-    set minor(value: number) {
-        this._minor = value;
-    }
+	set patch(value: number) {
+		this._patch = value;
+	}
 
-    private _patch: number;
+	private _build: number;
 
-    get patch(): number {
-        return this._patch;
-    }
+	get build(): number {
+		return this._build;
+	}
 
-    set patch(value: number) {
-        this._patch = value;
-    }
+	set build(value: number) {
+		this._build = value;
+	}
 
-    private _build: number;
+	static createFromDeserialization(randomAccess: RandomAccess): SemVer {
+		const version = new SemVer();
+		version.deserialize(randomAccess);
+		return version;
+	}
 
-    get build(): number {
-        return this._build;
-    }
+	static serialize(randomAccess: RandomAccess) {
+		randomAccess.writeUnsignedInt(SemVer.version0);
+	}
 
-    set build(value: number) {
-        this._build = value;
-    }
+	static deserialize(randomAccess: RandomAccess) {
+		randomAccess.readUnsignedInt();
+	}
 
-    isGreaterThan(other: SemVer): boolean {
-        if (this.major > other.major) {
-            return true;
-        }
-        if (this.minor > other.minor) {
-            return true;
-        }
-        if (this.patch > other.patch) {
-            return true;
-        }
-        return this.build > other.build;
-    }
+	isGreaterThan(other: SemVer): boolean {
+		if (this.major > other.major) {
+			return true;
+		}
+		if (this.minor > other.minor) {
+			return true;
+		}
+		if (this.patch > other.patch) {
+			return true;
+		}
+		return this.build > other.build;
+	}
 
-    serialize(randomAccess: RandomAccess): void {
-        randomAccess.writeUnsignedChar(this.major);
-        randomAccess.writeUnsignedChar(this.minor);
-        randomAccess.writeUnsignedChar(this.patch);
-        randomAccess.writeUnsignedChar(this.build);
-    }
+	serialize(randomAccess: RandomAccess): void {
+		randomAccess.writeUnsignedChar(this.major);
+		randomAccess.writeUnsignedChar(this.minor);
+		randomAccess.writeUnsignedChar(this.patch);
+		randomAccess.writeUnsignedChar(this.build);
+	}
 
-    deserialize(randomAccess: RandomAccess): void {
-        this.major = randomAccess.readUnsignedChar();
-        this.minor = randomAccess.readUnsignedChar();
-        this.patch = randomAccess.readUnsignedChar();
-        this.build = randomAccess.readUnsignedChar();
-    }
+	deserialize(randomAccess: RandomAccess): void {
+		this.major = randomAccess.readUnsignedChar();
+		this.minor = randomAccess.readUnsignedChar();
+		this.patch = randomAccess.readUnsignedChar();
+		this.build = randomAccess.readUnsignedChar();
+	}
 
-    toString(): string {
-        return `v${this.major}.${this.minor}.${this.patch}`
-    }
+	toString(): string {
+		return `v${this.major}.${this.minor}.${this.patch}`
+	}
 }

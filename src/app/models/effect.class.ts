@@ -5,108 +5,100 @@ export type Builder = () => Effect;
 
 export abstract class Effect {
 
-    protected constructor(code: number, name: string, parameters: Array<Parameter>, description: string = '') {
-        this._code = code;
-        this._name = name;
-        this._parameters = parameters;
-        this._description = description;
-    }
+	protected constructor(code: number, name: string, parameters: Array<Parameter>, description: string = '') {
+		this._code = code;
+		this._name = name;
+		this._parameters = parameters;
+		this._description = description;
+	}
 
-    static serialize(randomAccess: RandomAccess) {
-        randomAccess.writeUnsignedInt(EffectCode.NONE);
-    }
+	private static _registeredEffects: Map<EffectCode, Builder> = new Map<EffectCode, Builder>();
 
-    static deserialize(randomAccess: RandomAccess) {
-        randomAccess.readUnsignedInt();
-    }
+	static get registeredEffects(): Map<EffectCode, Builder> {
+		return this._registeredEffects;
+	}
 
-    private static _registeredEffects: Map<EffectCode, Builder> = new Map<EffectCode, Builder>();
+	static set registeredEffects(value: Map<EffectCode, Builder>) {
+		this._registeredEffects = value;
+	}
 
-    static get registeredEffects(): Map<EffectCode, Builder> {
-        return this._registeredEffects;
-    }
+	private _code: EffectCode;
 
-    static set registeredEffects(value: Map<EffectCode, Builder>) {
-        this._registeredEffects = value;
-    }
+	get code(): EffectCode {
+		return this._code;
+	}
 
-    private _code: EffectCode;
+	set code(value: EffectCode) {
+		this._code = value;
+	}
 
-    get code(): EffectCode {
-        return this._code;
-    }
+	private _name: string;
 
-    set code(value: EffectCode) {
-        this._code = value;
-    }
+	get name(): string {
+		return this._name;
+	}
 
-    private _name: string;
+	set name(value: string) {
+		this._name = value;
+	}
 
-    get name(): string {
-        return this._name;
-    }
+	private _parameters: Array<Parameter>;
 
-    set name(value: string) {
-        this._name = value;
-    }
+	get parameters(): Array<Parameter> {
+		return this._parameters;
+	}
 
-    private _parameters: Array<Parameter>;
+	set parameters(value: Array<Parameter>) {
+		this._parameters = value;
+	}
 
-    get parameters(): Array<Parameter> {
-        return this._parameters;
-    }
+	private _description: string;
 
-    set parameters(value: Array<Parameter>) {
-        this._parameters = value;
-    }
+	get description(): string {
+		return this._description;
+	}
 
-    private _description: string;
+	set description(value: string) {
+		this._description = value;
+	}
 
-    get description(): string {
-        return this._description;
-    }
+	static registerEffect(code: EffectCode, deserializer: Builder): void {
+		this._registeredEffects.set(code, deserializer);
+	}
 
-    set description(value: string) {
-        this._description = value;
-    }
+	static registeredEffect(code: EffectCode): Builder | undefined {
+		return this._registeredEffects.get(code);
+	}
 
-    static registerEffect(code: EffectCode, deserializer: Builder): void {
-        this._registeredEffects.set(code, deserializer);
-    }
+	getSerializationSize(): number {
+		let size = 0;
+		this.parameters.forEach((parameter: Parameter) => {
+			size += parameter.getSerializationSize();
+		});
+		return size;
+	}
 
-    static registeredEffect(code: EffectCode): Builder | undefined {
-        return this._registeredEffects.get(code);
-    }
+	serialize(randomAccess: RandomAccess): void {
+		this.parameters.forEach((parameter: Parameter) => {
+			parameter.serialize(randomAccess);
+		});
+	}
 
-    getSerializationSize(): number {
-        let size = 0;
-        this.parameters.forEach((parameter: Parameter) => {
-            size += parameter.getSerializationSize();
-        });
-        return size;
-    }
-
-    serialize(randomAccess: RandomAccess): void {
-        this.parameters.forEach((parameter: Parameter) => {
-            parameter.serialize(randomAccess);
-        });
-    }
-
-    deserialize(randomAccess: RandomAccess): void {
-        this.parameters.forEach((parameter: Parameter) => {
-            parameter.deserialize(randomAccess);
-        });
-    }
+	deserialize(randomAccess: RandomAccess): void {
+		this.parameters.forEach((parameter: Parameter) => {
+			parameter.deserialize(randomAccess);
+		});
+	}
 }
 
 
 export enum EffectCode {
-    NONE,
-    COLOR,
-    FIRE ,
-    WAVE,
-    CHASE,
-    SPARKLE,
-    BREATHING,
-    SHIFT
+	NONE,
+	COLOR,
+	FIRE,
+	WAVE,
+	CHASE,
+	SPARKLE,
+	BREATHING,
+	SHIFT
 }

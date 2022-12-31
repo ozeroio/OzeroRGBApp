@@ -3,21 +3,21 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ParameterComponent} from './parameter.component';
 
 describe('ParameterComponent', () => {
-    let component: ParameterComponent;
-    let fixture: ComponentFixture<ParameterComponent>;
+	let component: ParameterComponent;
+	let fixture: ComponentFixture<ParameterComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            declarations: [ParameterComponent]
-        })
-            .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [ParameterComponent]
+		})
+			.compileComponents();
 
-        fixture = TestBed.createComponent(ParameterComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+		fixture = TestBed.createComponent(ParameterComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

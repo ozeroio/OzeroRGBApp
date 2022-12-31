@@ -6,31 +6,31 @@ import {ProfilesComponent} from "./components/profiles/profiles.component";
 import {PresetsComponent} from "./components/presets/presets.component";
 
 const routes: Routes = [{
-    path: '',
-    redirectTo: 'devices',
-    pathMatch: 'full'
+	path: '',
+	redirectTo: 'devices',
+	pathMatch: 'full'
 }, {
-    path: 'devices',
-    component: DevicesComponent
+	path: 'devices',
+	component: DevicesComponent
 }, {
-    path: 'presets',
-    component: PresetsComponent
+	path: 'presets',
+	component: PresetsComponent
 }, {
-    path: 'profiles',
-    component: ProfilesComponent
+	path: 'profiles',
+	component: ProfilesComponent
 }]
 
 export const routingConfiguration: ExtraOptions = {
-    paramsInheritanceStrategy: 'always',
-    useHash: true
+	paramsInheritanceStrategy: 'always',
+	useHash: true
 };
 
 export const routing = RouterModule.forRoot(routes, routingConfiguration);
 
 @NgModule({
-    imports: [routing],
-    exports: [RouterModule],
-    providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+	imports: [routing],
+	exports: [RouterModule],
+	providers: [{provide: APP_BASE_HREF, useValue: '/'}]
 })
 export class AppRoutingModule {
 }
