@@ -1,8 +1,6 @@
 import {Parameter} from "./parameter.class";
 import {RandomAccess} from "./randomAccess.interface";
 
-export type Builder = () => Effect;
-
 export abstract class Effect {
 
 	protected constructor(code: number, name: string, parameters: Array<Parameter>, description: string = '') {
@@ -90,6 +88,8 @@ export abstract class Effect {
 		});
 	}
 }
+
+export type Builder = () => Effect;
 
 
 export enum EffectCode {

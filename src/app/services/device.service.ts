@@ -92,16 +92,16 @@ export class DeviceService {
 			device.pendingPings = 0;
 		});
 
-		// setInterval(() => {
-		// 	this.devices.filter(d => d.pendingPings >= DeviceService.MAX_ALLOWED_PENDING_PINGS).map(device => {
-		// 		this.removeDevice(device);
-		// 	});
-		// 	this.devices.map(d => {
-		// 		d.pendingPings++;
-		// 	})
-		// 	this.mqttService.publish(DeviceService.COMM_TOPIC_PING, '').subscribe(() => {
-		// 	});
-		// }, DeviceService.PING_TIMEOUT);
+		setInterval(() => {
+			this.devices.filter(d => d.pendingPings >= DeviceService.MAX_ALLOWED_PENDING_PINGS).map(device => {
+				this.removeDevice(device);
+			});
+			this.devices.map(d => {
+				d.pendingPings++;
+			})
+			this.mqttService.publish(DeviceService.COMM_TOPIC_PING, '').subscribe(() => {
+			});
+		}, DeviceService.PING_TIMEOUT);
 	}
 
 	observeAddDevice(): Observable<Device> {

@@ -8,6 +8,8 @@ import {ParameterNumeralOption} from "../../models/parameters/parameter-numeral-
 import {ParameterColorSegment} from "../../models/parameters/parameter-color-segment.class";
 import {ParameterColorSegmentList} from "../../models/parameters/parameter-color-segment-list.class";
 import {Device} from "../../models/device.class";
+import {ParameterFireSegment} from "../../models/parameters/parameter-fire-segment.class";
+import {ParameterFireSegmentList} from "../../models/parameters/parameter-fire-segment-list.class";
 
 @Component({
 	selector: 'app-parameter',
@@ -57,6 +59,14 @@ export class ParameterComponent implements OnInit {
 
 	castToColorSegmentList(): ParameterColorSegmentList {
 		return this.parameter as ParameterColorSegmentList;
+	}
+
+	castToFireSegment(): ParameterFireSegment {
+		return this.parameter as ParameterFireSegment;
+	}
+
+	castToFireSegmentList(): ParameterFireSegmentList {
+		return this.parameter as ParameterFireSegmentList;
 	}
 
 	onChange(): void {

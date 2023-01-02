@@ -26,13 +26,23 @@
 		                    [parameter]="castToNumeralOption()"></app-numeral-option>
 
 		<app-color-segment (change)="onChange()"
-		                   *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT"
-		                   [device]="device"
-		                   [parameter]="castToColorSegment()"></app-color-segment>
+						   *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT"
+						   [device]="device"
+						   [parameter]="castToColorSegment()"></app-color-segment>
 
 		<app-color-segment-list (change)="onChange()"
-		                        *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT_LIST"
-		                        [device]="device"
-		                        [parameter]="castToColorSegmentList()"></app-color-segment-list>
+								*ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT_LIST"
+								[device]="device"
+								[parameter]="castToColorSegmentList()"></app-color-segment-list>
+
+		<app-fire-segment (change)="onChange()"
+						   *ngIf="parameter.type === EffectParameterType.FIRE_SEGMENT"
+						   [device]="device"
+						   [parameter]="castToFireSegment()"></app-fire-segment>
+
+		<app-fire-segment-list (change)="onChange()"
+								*ngIf="parameter.type === EffectParameterType.FIRE_SEGMENT_LIST"
+								[device]="device"
+								[parameter]="castToFireSegmentList()"></app-fire-segment-list>
 	</mat-card-content>
 </mat-card>

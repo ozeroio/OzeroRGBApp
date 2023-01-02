@@ -21,9 +21,6 @@ export class ColorSegmentListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.parameter.segments.length == 0) {
-			// this.addUnitSegment();
-		}
 	}
 
 	onChange(): void {

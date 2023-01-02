@@ -64,7 +64,7 @@ Effect.registerEffect(MyAwesomeEffect.CODE, MyAwesomeEffect.build);
 
 Each message type should be exchanged at the appropriated topic.
 
-The MAX_CONFIGURATION_SIZE = 64 is the max length of a message. 
+The MAX_CONFIGURATION_SIZE = 256 is the max length of a message. 
 
 ### Topics:
 

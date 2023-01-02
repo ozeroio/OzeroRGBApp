@@ -1,0 +1,9 @@
+<mat-label>{{parameter.name | titlecase}} ({{parameter.segments.length}}):</mat-label>&nbsp;
+<button (click)="onAddButtonClick()" [disabled]="parameter.segments.length >= FireEffect.FIRE_MAX_NUM_SEGMENTS" color="seconday" mat-mini-fab>
+	<mat-icon>plus_one</mat-icon>
+</button>
+<app-fire-segment (change)="onChange()"
+				  (remove)="onRemove(fireSegment)"
+				  *ngFor="let fireSegment of parameter.segments; let i = index"
+				  [device]="device"
+				  [parameter]="fireSegment">Segment {{i + 1}}</app-fire-segment>
