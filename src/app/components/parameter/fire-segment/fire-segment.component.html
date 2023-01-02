@@ -1,0 +1,85 @@
+<mat-card class="mt-4">
+	<mat-card-content>
+		<ng-content></ng-content>
+		<mat-card class="mt-4">
+			<mat-card-content>
+				<mat-label>Start ({{parameter.start}}):</mat-label>&nbsp;
+				<mat-slider [(ngModel)]="parameter.start"
+							(ngModelChange)="onChange()"
+							[max]="device.numLeds"
+							[min]="0"
+							[step]="1"
+							[tickInterval]="1"
+							class="w-100"
+							showTickMarks
+							thumbLabel></mat-slider>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="mt-4">
+			<mat-card-content>
+				<mat-label>Length ({{parameter.length}}):</mat-label>&nbsp;
+				<mat-slider [(ngModel)]="parameter.length"
+							(ngModelChange)="onChange()"
+							[max]="device.numLeds - parameter.start"
+							[min]="FireEffect.FIRE_MIN_SEGMENT_SIZE"
+							[step]="1"
+							[tickInterval]="1"
+							class="w-100"
+							showTickMarks
+							thumbLabel></mat-slider>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="mt-4">
+			<mat-card-content>
+				<mat-label>Sparking ({{parameter.sparking}}):</mat-label>&nbsp;
+				<mat-slider [(ngModel)]="parameter.sparking"
+							(ngModelChange)="onChange()"
+							[max]="255"
+							[min]="0"
+							[step]="1"
+							[tickInterval]="1"
+							class="w-100"
+							showTickMarks
+							thumbLabel></mat-slider>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="mt-4">
+			<mat-card-content>
+				<mat-label>Cooling ({{parameter.cooling}}):</mat-label>&nbsp;
+				<mat-slider [(ngModel)]="parameter.cooling"
+							(ngModelChange)="onChange()"
+							[max]="255"
+							[min]="0"
+							[step]="1"
+							[tickInterval]="1"
+							class="w-100"
+							showTickMarks
+							thumbLabel></mat-slider>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="mt-4">
+			<mat-card-content>
+				<mat-label>Spark level ({{parameter.sparkLevel}}):</mat-label>&nbsp;
+				<mat-slider [(ngModel)]="parameter.sparkLevel"
+							(ngModelChange)="onChange()"
+							[max]="parameter.length"
+							[min]="FireEffect.FIRE_MIN_SPARK_LEVEL"
+							[step]="1"
+							[tickInterval]="1"
+							class="w-100"
+							showTickMarks
+							thumbLabel></mat-slider>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="mt-4">
+			<mat-card-content>
+				<mat-slide-toggle [(ngModel)]="parameter.inverted" (ngModelChange)="onChange()">
+					Inverted
+				</mat-slide-toggle>
+			</mat-card-content>
+		</mat-card>
+		<button (click)="onRemove()" class="m-1 remove" color="secondary" mat-mini-fab>
+			<mat-icon>remove</mat-icon>
+		</button>
+	</mat-card-content>
+</mat-card>

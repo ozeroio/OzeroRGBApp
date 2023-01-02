@@ -8,7 +8,7 @@ button {
 
 body, html {
 	font-family: $font-family;
-	height: calc(100vh - 48px);
+	height: calc(100vh - 48px) !important;
 	margin: 0;
 }
 

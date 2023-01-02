@@ -33,16 +33,16 @@
 						<mat-tab-group *ngIf="device.supported" selectedIndex="1">
 							<mat-tab label="Configuration">
 								<div class="m-4">
-									<mat-slide-toggle (ngModelChange)="onDeviceConfigurationChange(device)"
-									                  [(ngModel)]="device.on.value">
+									<mat-slide-toggle [(ngModel)]="device.on.value"
+													  (ngModelChange)="onDeviceConfigurationChange(device)">
 										On/Off
 									</mat-slide-toggle>
 								</div>
 								<div class="m-4">
 									<mat-label>Brightness</mat-label>
-									<mat-slider (change)="onDeviceConfigurationChange(device)"
-									            [(ngModel)]="device.brightness.value" [max]="255"
-									            [min]="0"
+									<mat-slider [(ngModel)]="device.brightness.value" [max]="255"
+												(change)="onDeviceConfigurationChange(device)"
+												[min]="0"
 									            [step]="10"
 									            [tickInterval]="10"
 									            class="w-100"
