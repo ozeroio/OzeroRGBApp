@@ -6,15 +6,21 @@ import {Component} from '@angular/core';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	public title = 'Ozero RGB App';
+	title = 'Ozero RGB App';
 	public navEntries: Array<Array<NavEntry>>;
+	test: number;
 
 	constructor() {
+		this.test = 88;
 		this.navEntries = [[
 			{label: 'Devices', icon: 'devices', path: 'devices'}
 		], [
 			{label: 'Presets', icon: 'bookmark_border', path: 'presets'}
 		]];
+	}
+
+	f(): void {
+		console.log(this.test)
 	}
 
 	public onExitClick(): void {

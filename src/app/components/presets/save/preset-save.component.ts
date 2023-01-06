@@ -16,7 +16,7 @@ export class PresetSaveComponent implements OnInit {
 	chosenDevices: Array<Device>;
 
 	constructor(public dialogRef: MatDialogRef<PresetSaveComponent>,
-	            @Inject(MAT_DIALOG_DATA) public data: { devices: Array<Device> }) {
+				@Inject(MAT_DIALOG_DATA) public data: { devices: Array<Device> }) {
 		this.save = new EventEmitter<PresetSelection>();
 		this.cancel = new EventEmitter<void>();
 		this.name = '';

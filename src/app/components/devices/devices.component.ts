@@ -31,10 +31,10 @@ export class DevicesComponent implements OnInit {
 	devices: Array<Device>;
 
 	constructor(private deviceService: DeviceService,
-	            private storageService: LocalStorageService,
-	            private presetService: PresetsService,
-	            private snackBar: MatSnackBar,
-	            protected dialog: MatDialog) {
+				private storageService: LocalStorageService,
+				private presetService: PresetsService,
+				private snackBar: MatSnackBar,
+				protected dialog: MatDialog) {
 
 		this.devices = [];
 

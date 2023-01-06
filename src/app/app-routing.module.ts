@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {APP_BASE_HREF} from "@angular/common";
-import {DevicesComponent} from "./components/devices/devices.component";
 import {ProfilesComponent} from "./components/profiles/profiles.component";
+import {DevicesComponent} from "./components/devices/devices.component";
 import {PresetsComponent} from "./components/presets/presets.component";
+
 
 const routes: Routes = [{
 	path: '',
@@ -26,6 +27,7 @@ export const routingConfiguration: ExtraOptions = {
 };
 
 export const routing = RouterModule.forRoot(routes, routingConfiguration);
+
 
 @NgModule({
 	imports: [routing],

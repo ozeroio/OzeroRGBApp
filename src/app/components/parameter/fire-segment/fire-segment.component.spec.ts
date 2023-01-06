@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ColorSegmentComponent} from './fire-segment.component';
+import {FireSegmentComponent} from './fire-segment.component';
 
-describe('ColorSegmentComponent', () => {
-	let component: ColorSegmentComponent;
-	let fixture: ComponentFixture<ColorSegmentComponent>;
+describe('FireSegmentComponent', () => {
+	let component: FireSegmentComponent;
+	let fixture: ComponentFixture<FireSegmentComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ColorSegmentComponent]
+			declarations: [FireSegmentComponent]
 		})
 			.compileComponents();
 
-		fixture = TestBed.createComponent(ColorSegmentComponent);
+		fixture = TestBed.createComponent(FireSegmentComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

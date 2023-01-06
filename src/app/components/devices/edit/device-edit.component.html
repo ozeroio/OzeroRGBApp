@@ -1,18 +1,10 @@
-<div class="dialog">
-	<div class="mat-dialog-title" mat-dialog-title>
-		<h1>Edit device</h1>
-	</div>
-	<div class="mat-dialog-content" mat-dialog-content>
-		<div class="container-fluid m-0 p-0">
-			<div class="m-2">
-				<mat-form-field>
-					<input [(ngModel)]="name" matInput placeholder="Name" type="text">
-				</mat-form-field>
-			</div>
-		</div>
-	</div>
-	<div class="mat-dialog-actions" mat-dialog-actions>
-		<button (click)="onSaveButtonClick()" mat-raised-button>Save</button>
-		<button (click)="onCancelButtonClick()" mat-button>Cancel</button>
-	</div>
+<h1 mat-dialog-title>Edit device</h1>
+<div mat-dialog-content>
+	<mat-form-field>
+		<input [(ngModel)]="name" matInput placeholder="Name" type="text">
+	</mat-form-field>
+</div>
+<div class="m-3" mat-dialog-actions>
+	<button (click)="onSaveButtonClick()" color="primary" mat-raised-button>Save</button>
+	<button (click)="onCancelButtonClick()" mat-button>Cancel</button>
 </div>

@@ -13,8 +13,8 @@ export class PresetsComponent implements OnInit {
 	entriesMap: Map<string, Array<PresetEntry>>;
 
 	constructor(private presetsService: PresetsService,
-	            private deviceService: DeviceService,
-	            private snackBar: MatSnackBar) {
+				private deviceService: DeviceService,
+				private snackBar: MatSnackBar) {
 		this.entriesMap = new Map<string, Array<PresetEntry>>();
 	}
 

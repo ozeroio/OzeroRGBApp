@@ -15,7 +15,7 @@ export class DeviceEditComponent implements OnInit {
 	device: Device;
 
 	constructor(public dialogRef: MatDialogRef<DeviceEditComponent>,
-	            @Inject(MAT_DIALOG_DATA) public data: { device: Device }) {
+				@Inject(MAT_DIALOG_DATA) public data: { device: Device }) {
 		this.device = data.device;
 		this.name = data.device.name;
 		this.save = new EventEmitter<Device>();

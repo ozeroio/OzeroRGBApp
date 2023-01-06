@@ -11,14 +11,14 @@ export class Device {
 	public static DEVICE_FLAG_ON_BIT: number = 0x01;
 
 	constructor(id: number,
-	            name: string,
-	            on: ParameterBoolean = new ParameterBoolean('On', true),
-	            version: SemVer = new SemVer(),
-	            brightness: ParameterNumber = new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS, NumberSize.U8),
-	            pendingPings: number = 0,
-	            currentEffect?: Effect,
-	            availableEffects?: Map<EffectCode, Effect>,
-	            hidden: boolean = true) {
+				name: string,
+				on: ParameterBoolean = new ParameterBoolean('On', true),
+				version: SemVer = new SemVer(),
+				brightness: ParameterNumber = new ParameterNumber('Brightness', Device.DEFAULT_BRIGHTNESS, NumberSize.U8),
+				pendingPings: number = 0,
+				currentEffect?: Effect,
+				availableEffects?: Map<EffectCode, Effect>,
+				hidden: boolean = true) {
 
 		this._id = id;
 		this._on = on;

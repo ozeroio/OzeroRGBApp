@@ -1,5 +1,6 @@
 <mat-label>{{parameter.name | titlecase}} ({{parameter.segments.length}}):</mat-label>&nbsp;
-<button (click)="onAddButtonClick()" [disabled]="parameter.segments.length >= FireEffect.FIRE_MAX_NUM_SEGMENTS" color="seconday" mat-mini-fab>
+<button (click)="onAddButtonClick()" [disabled]="parameter.segments.length >= FireEffect.FIRE_MAX_NUM_SEGMENTS"
+		color="seconday" mat-mini-fab>
 	<mat-icon>plus_one</mat-icon>
 </button>
 <app-fire-segment (change)="onChange()"

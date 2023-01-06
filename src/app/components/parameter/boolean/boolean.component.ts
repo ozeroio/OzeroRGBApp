@@ -22,7 +22,7 @@ export class BooleanComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	onChange(e: MouseEvent): void {
+	onChange(): void {
 		this.change.emit();
 	}
 }

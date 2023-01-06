@@ -1,50 +1,61 @@
-@import '~@angular/material/theming';
-@import "colors";
+@use '@angular/material' as mat;
+
+@include mat.core();
 
 $font-family: 'Syne Mono';
 
-$custom-typography: mat-typography-config(
-	$font-family: $font-family
-);
-@include mat-core($custom-typography);
+//@use '@angular/material' as mat;
 
-$custom-mat-primary-color: (
-	700: $primary-color-700,
-	500: $primary-color-500,
-	100: $primary-color-100,
-	contrast: (
-		700: $primary-color-contrast-700,
-		500: $primary-color-contrast-500,
-		100: $primary-color-contrast-100
-	)
-);
-
-$custom-mat-accent-color: (
-	700: $accent-color-700,
-	500: $accent-color-500,
-	100: $accent-color-700,
-	contrast: (
-		700: $accent-color-contrast-700,
-		500: $accent-color-contrast-500,
-		100: $accent-color-contrast-100
-	)
+//$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+//$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+//
+//$my-theme: mat.define-light-theme((
+//  color: (
+//    primary: $my-primary,
+//    accent: $my-accent,
+//  ),
+//  typography: mat.define-typography-config(),
+//  density: 0,
+//));
+//
+//@include mat.all-component-themes($my-theme);
+$default-typography: mat.define-typography-config(
+	$font-family: $font-family,
 );
 
-$custom-mat-warn-color: (
-	700: $warn-color-700,
-	500: $warn-color-500,
-	100: $warn-color-100,
-	contrast: (
-		700: $warn-color-contrast-700,
-		500: $warn-color-contrast-500,
-		100: $warn-color-contrast-100
-	)
-);
+//
+// Define a dark theme
+//$dark-theme: mat.define-dark-theme((
+//  color: (
+//    primary: mat.define-palette(mat.$pink-palette),
+//    accent: mat.define-palette(mat.$blue-grey-palette),
+//  ),
+//  // Only include `typography` and `density` in the default dark theme.
+//  typography: $default-typography,
+//  density: 0,
+//));
 
-$custom-app-primary: mat-palette($custom-mat-primary-color);
-$custom-app-accent: mat-palette($custom-mat-accent-color);
-$custom-app-warn: mat-palette($custom-mat-warn-color);
+// Define a light theme
+$light-theme: mat.define-light-theme((
+	color: (
+		primary: mat.define-palette(mat.$blue-grey-palette),
+		accent: mat.define-palette(mat.$blue-grey-palette),
+	),
+	typography: $default-typography,
+	density: -2
+));
+//
+//// Apply the dark theme by default
+//@include mat.core-theme($dark-theme);
+//@include mat.button-theme($dark-theme);
 
-$custom-app-theme: mat-light-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
+// Apply the light theme only when the user prefers light themes.
+//@media (prefers-color-scheme: light) {
+//  // Use the `-color` mixins to only apply color styles without reapplying the same
+//  // typography and density styles.
+//  @include mat.core-color($light-theme);
+//  @include mat.button-color($light-theme);
+//}
 
-@include angular-material-theme($custom-app-theme);
+@include mat.all-component-themes($light-theme);
+

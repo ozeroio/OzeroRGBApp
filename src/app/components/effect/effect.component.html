@@ -1,17 +1,20 @@
-<div class="d-flex flex-row-reverse mt-4 mr-2">
-	<div (click)="onApplyClick()"
-	     class="d-flex align-items-center justify-content-center card-icon" mat-card-avatar>
-		<mat-icon>play_circle_outline</mat-icon>
+<div class="mt-3 mx-3">
+	<div class="d-flex flex-row-reverse mb-3">
+		<button (click)="onApplyClick()"
+				mat-icon-button>
+			<mat-icon>play_circle_outline</mat-icon>
+		</button>
+		<button (click)="onReplicateClick()"
+				mat-icon-button>
+			<mat-icon>queue</mat-icon>
+		</button>
 	</div>
-	<div (click)="onReplicateClick()"
-	     class="d-flex align-items-center justify-content-center card-icon" mat-card-avatar>
-		<mat-icon>queue</mat-icon>
+	<div *ngIf="effect.description !== ''">
+		<div><b>Description</b></div>
+		<div class="mt-1">{{effect.description}}</div>
 	</div>
-</div>
-<div *ngIf="effect.description !== ''" class="m-4">
-	<div><b>Description</b></div>
-	<div class="mt-1">{{effect.description}}</div>
-</div>
-<div *ngFor="let parameter of this.effect.parameters" class="mt-4">
-	<app-parameter (change)="onParameterChange(parameter)" [device]="device" [parameter]="parameter"></app-parameter>
+	<div *ngFor="let parameter of this.effect.parameters" class="mt-3">
+		<app-parameter (change)="onParameterChange(parameter)" [device]="device"
+					   [parameter]="parameter"></app-parameter>
+	</div>
 </div>

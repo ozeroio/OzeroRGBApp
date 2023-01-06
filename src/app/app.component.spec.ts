@@ -1,12 +1,15 @@
 import {TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
+import {IMqttServiceOptions, MqttModule} from "ngx-mqtt";
+import {environment} from "../environments/environment";
 
 describe('AppComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				RouterTestingModule
+				RouterTestingModule,
+				MqttModule.forRoot(environment.mqtt as IMqttServiceOptions)
 			],
 			declarations: [
 				AppComponent

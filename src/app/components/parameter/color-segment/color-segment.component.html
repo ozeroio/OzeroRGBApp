@@ -4,14 +4,14 @@
 			<app-color (change)="onChange()" [parameter]="parameter.color" class="m-1"></app-color>
 			<div class="m-1 w-100">
 				<mat-label>{{parameter.name | titlecase}} ({{parameter.length}}):</mat-label>&nbsp;
-				<mat-slider [(ngModel)]="parameter.length"
-							(ngModelChange)="onChange()"
-							[max]="device.numLeds || 255"
-				            [min]="1"
-				            [step]="1"
-				            [tickInterval]="1"
-				            class="w-100"
-				            thumbLabel></mat-slider>
+				<mat-slider [max]="device.numLeds || 255"
+							[min]="1"
+							[step]="1"
+							class="w-100">
+					<input (change)="onChange()"
+						   [(ngModel)]="parameter.length"
+						   matSliderThumb>
+				</mat-slider>
 			</div>
 			<button (click)="onRemove()" class="m-1 remove" color="secondary" mat-mini-fab>
 				<mat-icon>remove</mat-icon>

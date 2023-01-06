@@ -32,7 +32,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 	predefinedColors: Array<Color>;
 
 	constructor(public dialogRef: MatDialogRef<ColorPickerComponent>,
-	            @Inject(MAT_DIALOG_DATA) public data: { color: Color }) {
+				@Inject(MAT_DIALOG_DATA) public data: { color: Color }) {
 		this.change = new EventEmitter<Color>();
 		this.parameter = {} as ParameterColor;
 		if (data.color) {

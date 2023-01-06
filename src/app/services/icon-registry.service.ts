@@ -8,7 +8,7 @@ import {MatIconRegistry} from '@angular/material/icon';
 export class IconRegistryService {
 
 	constructor(private iconRegistry: MatIconRegistry,
-	            private domSanitizer: DomSanitizer) {
+				private domSanitizer: DomSanitizer) {
 	}
 
 	public registerIcons() {

@@ -5,6 +5,7 @@ import {Device} from "../../models/device.class";
 import {MatDialog} from "@angular/material/dialog";
 import {DeviceService} from "../../services/device.service";
 import {EffectReplicateComponent, ReplicationSelection} from "./replicate/effect-replicate.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
 	selector: 'app-effect',
@@ -21,7 +22,8 @@ export class EffectComponent implements OnInit {
 	@Output() change: EventEmitter<Parameter>;
 
 	constructor(private deviceService: DeviceService,
-				private dialog: MatDialog) {
+				private dialog: MatDialog,
+				private snackBar: MatSnackBar) {
 		this.change = new EventEmitter<Parameter>();
 		this.effect = {} as Effect;
 		this.device = {} as Device;
@@ -40,6 +42,9 @@ export class EffectComponent implements OnInit {
 		});
 		const onSave = dialogRef.componentInstance.save.subscribe((selection: ReplicationSelection) => {
 			this.deviceService.replicateEffectTo(this.effect, selection.devices);
+			this.snackBar.open('Effect replicated.', 'OK', {
+				duration: 3000
+			});
 			dialogRef.close();
 		});
 		const onCancel = dialogRef.componentInstance.cancel.subscribe(() => {

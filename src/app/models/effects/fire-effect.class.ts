@@ -2,7 +2,6 @@ import {Effect, EffectCode} from "../effect.class";
 import {ParameterRange} from "../parameters/parameter-range.class";
 import {NumberSize} from "../parameters/parameter-number.class";
 import {ParameterFireSegmentList} from "../parameters/parameter-fire-segment-list.class";
-import {RandomAccess} from "../randomAccess.interface";
 
 export class FireEffect extends Effect {
 
@@ -19,7 +18,7 @@ export class FireEffect extends Effect {
 			new ParameterFireSegmentList('Fire segments'),
 			new ParameterRange('Delay', 20, 0, 255, 1, NumberSize.U8)
 		];
-		super(FireEffect.CODE, FireEffect.NAME, parameters, 'Fire effect.');
+		super(FireEffect.CODE, FireEffect.NAME, parameters);
 	}
 
 	public static build(): Effect {

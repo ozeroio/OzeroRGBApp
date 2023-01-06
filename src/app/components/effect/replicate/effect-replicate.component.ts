@@ -17,7 +17,7 @@ export class EffectReplicateComponent implements OnInit {
 	chosenDevices: Array<Device>;
 
 	constructor(public dialogRef: MatDialogRef<EffectReplicateComponent>,
-	            @Inject(MAT_DIALOG_DATA) public data: ReplicationSelection) {
+				@Inject(MAT_DIALOG_DATA) public data: ReplicationSelection) {
 		this.effect = data.effect;
 		this.devices = data.devices;
 		this.save = new EventEmitter<ReplicationSelection>();
