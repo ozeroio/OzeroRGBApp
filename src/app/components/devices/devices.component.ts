@@ -91,11 +91,11 @@ export class DevicesComponent implements OnInit {
 			closeOnNavigation: true
 		});
 		const onSave = dialogRef.componentInstance.save.subscribe((selection: PresetSelection) => {
-			const data: Array<PresetEntry> = selection.devices.map(d => {
-				const randomAccess = new RandomAccess(d.getSerializationSize())
-				d.serialize(randomAccess);
+			const data: Array<PresetEntry> = selection.devices.map((device: Device) => {
+				const randomAccess = new RandomAccess(device.getSerializationSize())
+				device.serialize(randomAccess);
 				const entry: PresetEntry = {
-					deviceName: d.name,
+					deviceName: device.name,
 					configuration: Array.from(randomAccess.getBuffer())
 				};
 				return entry;

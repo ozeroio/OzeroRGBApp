@@ -73,30 +73,30 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 			let angle = 0;
 			let pivotPointer = 0;
 
-			// For each degree in circle, perform operation
+			// For each degree in circle, perform operation.
 			while (angle < 360) {
 
-				// find index immediately before and after our pivot
+				// Find index immediately before and after our pivot.
 				const pivotPointerBefore = (pivotPointer + 3 - 1) % 3;
 
-				// Modify colors
+				// Modify colors.
 				if (hexCode[pivotPointer] < 255) {
 
-					// If main points isn't full, add to main pointer
+					// If main points isn't full, add to main pointer.
 					hexCode[pivotPointer] =
 						hexCode[pivotPointer] + colorOffsetByDegree > 255 ?
 							255 :
 							hexCode[pivotPointer] + colorOffsetByDegree;
 				} else if (hexCode[pivotPointerBefore] > 0) {
 
-					// If color before main isn't zero, subtract
+					// If color before main isn't zero, subtract.
 					hexCode[pivotPointerBefore] =
 						hexCode[pivotPointerBefore] > colorOffsetByDegree ?
 							hexCode[pivotPointerBefore] - colorOffsetByDegree :
 							0;
 				} else if (hexCode[pivotPointer] >= 255) {
 
-					// If main color is full, move pivot
+					// If main color is full, move pivot.
 					hexCode[pivotPointer] = 255;
 					pivotPointer = (pivotPointer + 1) % 3;
 				}
@@ -114,7 +114,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 				grad.addColorStop(1, rgb);
 				this.context.fillStyle = grad;
 
-				// draw circle portion
+				// Draw circle portion.
 				this.context.globalCompositeOperation = 'source-over';
 				this.context.beginPath();
 				this.context.moveTo(radius, radius);

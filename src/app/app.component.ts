@@ -19,10 +19,6 @@ export class AppComponent {
 		]];
 	}
 
-	f(): void {
-		console.log(this.test)
-	}
-
 	public onExitClick(): void {
 	}
 }
