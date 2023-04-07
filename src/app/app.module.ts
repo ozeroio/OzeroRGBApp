@@ -51,6 +51,7 @@ import {ColorSegmentComponent} from "./components/parameter/color-segment/color-
 import {ColorSegmentListComponent} from "./components/parameter/color-segment-list/color-segment-list.component";
 import {FireSegmentComponent} from "./components/parameter/fire-segment/fire-segment.component";
 import {FireSegmentListComponent} from "./components/parameter/fire-segment-list/fire-segment-list.component";
+import { AuthenticateComponent } from './components/authenticate/authenticate.component';
 
 @NgModule({
 	declarations: [
@@ -72,7 +73,8 @@ import {FireSegmentListComponent} from "./components/parameter/fire-segment-list
 		ColorSegmentComponent,
 		ColorSegmentListComponent,
 		FireSegmentComponent,
-		FireSegmentListComponent
+		FireSegmentListComponent,
+  AuthenticateComponent
 	],
 	imports: [
 		BrowserModule,

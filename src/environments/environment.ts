@@ -4,8 +4,10 @@ export const environment = {
 	production: false,
 	minRequiredFirmwareVersion: new SemVer(5),
 	mqtt: {
-		hostname: '10.0.0.9',
-		port: 9001,
-		path: '/mqtt'
+		hostname: '10.0.0.102',
+		port: 3964,
+		path: '/mqtt',
+		username: 'mosquitto',
+		password: ''
 	}
 };

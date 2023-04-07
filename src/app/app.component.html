@@ -3,6 +3,10 @@
 		<mat-icon>menu</mat-icon>
 	</button>
 	<h3 class="ml-2">{{title}}</h3>
+	<span class="spacer"></span>
+	<button (click)="onExitClick()" class="cursor-pointer" mat-icon-button>
+		<mat-icon>exit_to_app</mat-icon>
+	</button>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
 	<mat-sidenav #nav (click)="nav.toggle()" fixedTopGap="56" mode="over">

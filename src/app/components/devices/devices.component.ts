@@ -17,6 +17,9 @@ import {PresetSaveComponent, PresetSelection} from "../presets/save/preset-save.
 import {ShiftEffect} from "../../models/effects/shift-effect.class";
 import {DeviceService} from "../../services/device.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
+import {APP_ROUTES} from "../../app-routing.module";
+import {MqttService} from "ngx-mqtt";
 
 @Component({
 	selector: 'app-devices',
@@ -30,11 +33,18 @@ export class DevicesComponent implements OnInit {
 	minSupportedVersion = environment.minRequiredFirmwareVersion;
 	devices: Array<Device>;
 
-	constructor(private deviceService: DeviceService,
+	constructor(private mqttService: MqttService,
+				private deviceService: DeviceService,
 				private storageService: LocalStorageService,
 				private presetService: PresetsService,
 				private snackBar: MatSnackBar,
-				protected dialog: MatDialog) {
+				protected dialog: MatDialog,
+				private router: Router) {
+
+		if (environment.mqtt.password === '') {
+			this.snackBar.open('You must first authenticate.');
+			this.router.navigate([APP_ROUTES.AUTHENTICATE]);
+		}
 
 		this.devices = [];
 

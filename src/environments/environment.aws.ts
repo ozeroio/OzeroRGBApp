@@ -4,7 +4,7 @@ export const environment = {
 	production: true,
 	minRequiredFirmwareVersion: new SemVer(5),
 	mqtt: {
-		hostname: '10.0.0.102',
+		hostname: 'mqtt.ozero.io',
 		port: 3964,
 		path: '/mqtt',
 		username: 'mosquitto',

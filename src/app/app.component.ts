@@ -1,4 +1,8 @@
 import {Component} from '@angular/core';
+import {Router} from "@angular/router";
+import {LocalStorageService} from "./services/local-storage.service";
+import {environment} from "../environments/environment";
+import {APP_ROUTES} from "./app-routing.module";
 
 @Component({
 	selector: 'app-root',
@@ -6,20 +10,27 @@ import {Component} from '@angular/core';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	title = 'Ozero RGB App';
+	public static STORAGE_PASS_KEY: string = 'key/password';
 	public navEntries: Array<Array<NavEntry>>;
-	test: number;
+	title = 'Ozero RGB App';
 
-	constructor() {
-		this.test = 88;
+	constructor(private router: Router,
+				private storageService: LocalStorageService) {
 		this.navEntries = [[
 			{label: 'Devices', icon: 'devices', path: 'devices'}
 		], [
 			{label: 'Presets', icon: 'bookmark_border', path: 'presets'}
 		]];
+		const storedPassword = this.storageService.get(AppComponent.STORAGE_PASS_KEY);
+		if (storedPassword) {
+			environment.mqtt.password = storedPassword;
+		}
 	}
 
 	public onExitClick(): void {
+		environment.mqtt.password = '';
+		this.storageService.set(AppComponent.STORAGE_PASS_KEY, '');
+		this.router.navigate([APP_ROUTES.AUTHENTICATE]);
 	}
 }
 

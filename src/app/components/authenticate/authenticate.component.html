@@ -1,0 +1,9 @@
+<div class="h-100 d-flex align-items-center justify-content-center flex-column">
+	<mat-form-field>
+		<input matInput placeholder="Email (login)" type="email">
+	</mat-form-field>
+	<mat-form-field>
+		<input [(ngModel)]="environment.mqtt.password" matInput placeholder="Password" type="password">
+	</mat-form-field>
+	<button (click)="onLoginButtonClick()" mat-raised-button>Sign In</button>
+</div>

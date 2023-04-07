@@ -4,20 +4,30 @@ import {APP_BASE_HREF} from "@angular/common";
 import {ProfilesComponent} from "./components/profiles/profiles.component";
 import {DevicesComponent} from "./components/devices/devices.component";
 import {PresetsComponent} from "./components/presets/presets.component";
+import {AuthenticateComponent} from "./components/authenticate/authenticate.component";
 
+export const APP_ROUTES = {
+	AUTHENTICATE: 'authenticate',
+	DEVICES: 'devices',
+	PRESETS: 'presets',
+	PROFILES: 'profiles'
+}
 
 const routes: Routes = [{
 	path: '',
-	redirectTo: 'devices',
+	redirectTo: APP_ROUTES.AUTHENTICATE,
 	pathMatch: 'full'
 }, {
-	path: 'devices',
+	path: APP_ROUTES.AUTHENTICATE,
+	component: AuthenticateComponent
+}, {
+	path: APP_ROUTES.DEVICES,
 	component: DevicesComponent
 }, {
-	path: 'presets',
+	path: APP_ROUTES.PRESETS,
 	component: PresetsComponent
 }, {
-	path: 'profiles',
+	path: APP_ROUTES.PROFILES,
 	component: ProfilesComponent
 }]
 
