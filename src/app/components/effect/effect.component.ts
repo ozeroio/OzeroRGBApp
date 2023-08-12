@@ -19,12 +19,12 @@ export class EffectComponent implements OnInit {
 	// NOTE: Not ideal drill down this property, but some parameters
 	//  require to know the device settings they are associated to.
 	@Input() device: Device;
-	@Output() change: EventEmitter<Parameter>;
+	@Output() valueChange: EventEmitter<Parameter>;
 
 	constructor(private deviceService: DeviceService,
 				private dialog: MatDialog,
 				private snackBar: MatSnackBar) {
-		this.change = new EventEmitter<Parameter>();
+		this.valueChange = new EventEmitter<Parameter>();
 		this.effect = {} as Effect;
 		this.device = {} as Device;
 	}
@@ -53,7 +53,7 @@ export class EffectComponent implements OnInit {
 	}
 
 	onApplyClick(): void {
-		this.change.emit({} as Parameter);
+		this.valueChange.emit({} as Parameter);
 	}
 
 	onReplicateClick(): void {
@@ -61,6 +61,6 @@ export class EffectComponent implements OnInit {
 	}
 
 	onParameterChange(parameter: Parameter): void {
-		this.change.emit(parameter);
+		this.valueChange.emit(parameter);
 	}
 }

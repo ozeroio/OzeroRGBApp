@@ -20,12 +20,12 @@ export class ParameterComponent implements OnInit {
 
 	@Input() parameter: Parameter;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 
 	EffectParameterType = EffectParameterType;
 
 	constructor() {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.parameter = {} as Parameter;
 		this.device = {} as Device;
 	}
@@ -70,6 +70,6 @@ export class ParameterComponent implements OnInit {
 	}
 
 	onChange(): void {
-		this.change.emit();
+		this.valueChange.emit();
 	}
 }

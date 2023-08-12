@@ -1,7 +1,7 @@
 <mat-card [style]="{background: 'linear-gradient(122deg, #ffffffff, ' + parameter.color.toRGB() + '33)'}" class="mt-4">
 	<mat-card-content>
 		<div class="d-flex">
-			<app-color (change)="onChange()" [parameter]="parameter.color" class="m-1"></app-color>
+			<app-color (valueChange)="onChange()" [parameter]="parameter.color" class="m-1"></app-color>
 			<div class="m-1 w-100">
 				<mat-label>{{parameter.name | titlecase}} ({{parameter.length}}):</mat-label>&nbsp;
 				<mat-slider [max]="device.numLeds || 255"

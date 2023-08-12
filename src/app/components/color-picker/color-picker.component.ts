@@ -20,7 +20,7 @@ import {Color} from "../../models/color.interface";
 })
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 
-	@Output() change: EventEmitter<Color>;
+	@Output() valueChange: EventEmitter<Color>;
 	@Input() parameter: ParameterColor;
 	@ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement> | undefined;
 	context: CanvasRenderingContext2D | null | undefined;
@@ -33,7 +33,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 
 	constructor(public dialogRef: MatDialogRef<ColorPickerComponent>,
 				@Inject(MAT_DIALOG_DATA) public data: { color: Color }) {
-		this.change = new EventEmitter<Color>();
+		this.valueChange = new EventEmitter<Color>();
 		this.parameter = {} as ParameterColor;
 		if (data.color) {
 			this.color.r = data.color.r;
@@ -180,7 +180,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 	}
 
 	onChange(): void {
-		this.change.emit(this.color);
+		this.valueChange.emit(this.color);
 	}
 
 	onColorClick(color: Color): void {

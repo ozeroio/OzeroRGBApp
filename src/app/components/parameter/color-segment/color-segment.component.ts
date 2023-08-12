@@ -11,11 +11,11 @@ export class ColorSegmentComponent implements OnInit {
 
 	@Input() parameter: ParameterColorSegment;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 	@Output() remove: EventEmitter<void>;
 
 	constructor() {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.remove = new EventEmitter<void>();
 		this.parameter = {} as ParameterColorSegment;
 		this.device = {} as Device;
@@ -25,7 +25,7 @@ export class ColorSegmentComponent implements OnInit {
 	}
 
 	onChange(): void {
-		this.change.emit();
+		this.valueChange.emit();
 	}
 
 	onRemove(): void {

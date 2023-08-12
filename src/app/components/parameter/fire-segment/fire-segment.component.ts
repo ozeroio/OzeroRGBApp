@@ -13,13 +13,13 @@ export class FireSegmentComponent implements OnInit {
 
 	@Input() parameter: ParameterFireSegment;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 	@Output() remove: EventEmitter<void>;
 
 	FireEffect = FireEffect;
 
 	constructor(private snackBar: MatSnackBar) {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.remove = new EventEmitter<void>();
 		this.parameter = {} as ParameterFireSegment;
 		this.device = {} as Device;
@@ -30,7 +30,7 @@ export class FireSegmentComponent implements OnInit {
 
 	onChange(): void {
 		if (this.isSegmentValid()) {
-			this.change.emit();
+			this.valueChange.emit();
 		}
 	}
 

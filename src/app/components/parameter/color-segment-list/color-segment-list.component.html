@@ -2,7 +2,7 @@
 <button (click)="onAddButtonClick()" [disabled]="parameter.segments.length > 15" color="seconday" mat-mini-fab>
 	<mat-icon>plus_one</mat-icon>
 </button>
-<app-color-segment (change)="onChange()"
+<app-color-segment (valueChange)="onChange()"
 				   (remove)="onRemove(colorSegment)"
 				   *ngFor="let colorSegment of parameter.segments"
 				   [device]="device"

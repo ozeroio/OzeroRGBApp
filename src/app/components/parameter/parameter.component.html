@@ -1,46 +1,46 @@
 <mat-card>
 	<mat-card-content>
-		<app-color (change)="onChange()"
+		<app-color (valueChange)="onChange()"
 				   *ngIf="parameter.type === EffectParameterType.COLOR"
 				   [device]="device"
 				   [parameter]="castToColor()"></app-color>
 
-		<app-number (change)="onChange()"
+		<app-number (valueChange)="onChange()"
 					*ngIf="parameter.type === EffectParameterType.NUMBER"
 					[device]="device"
 					[parameter]="castToNumber()"></app-number>
 
-		<app-range (change)="onChange()"
+		<app-range (valueChange)="onChange()"
 				   *ngIf="parameter.type === EffectParameterType.RANGE"
 				   [device]="device"
 				   [parameter]="castToRange()"></app-range>
 
-		<app-boolean (change)="onChange()"
+		<app-boolean (valueChange)="onChange()"
 					 *ngIf="parameter.type === EffectParameterType.BOOLEAN"
 					 [device]="device"
 					 [parameter]="castToBoolean()"></app-boolean>
 
-		<app-numeral-option (change)="onChange()"
+		<app-numeral-option (valueChange)="onChange()"
 							*ngIf="parameter.type === EffectParameterType.NUMERAL_OPTION"
 							[device]="device"
 							[parameter]="castToNumeralOption()"></app-numeral-option>
 
-		<app-color-segment (change)="onChange()"
+		<app-color-segment (valueChange)="onChange()"
 						   *ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT"
 						   [device]="device"
 						   [parameter]="castToColorSegment()"></app-color-segment>
 
-		<app-color-segment-list (change)="onChange()"
+		<app-color-segment-list (valueChange)="onChange()"
 								*ngIf="parameter.type === EffectParameterType.COLOR_SEGMENT_LIST"
 								[device]="device"
 								[parameter]="castToColorSegmentList()"></app-color-segment-list>
 
-		<app-fire-segment (change)="onChange()"
+		<app-fire-segment (valueChange)="onChange()"
 						  *ngIf="parameter.type === EffectParameterType.FIRE_SEGMENT"
 						  [device]="device"
 						  [parameter]="castToFireSegment()"></app-fire-segment>
 
-		<app-fire-segment-list (change)="onChange()"
+		<app-fire-segment-list (valueChange)="onChange()"
 							   *ngIf="parameter.type === EffectParameterType.FIRE_SEGMENT_LIST"
 							   [device]="device"
 							   [parameter]="castToFireSegmentList()"></app-fire-segment-list>

@@ -14,10 +14,10 @@ export class ColorComponent implements OnInit {
 
 	@Input() parameter: ParameterColor;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 
 	constructor(protected dialog: MatDialog) {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.parameter = {} as ParameterColor;
 		this.device = {} as Device;
 	}
@@ -30,7 +30,7 @@ export class ColorComponent implements OnInit {
 			data: {color: this.parameter},
 			closeOnNavigation: true
 		});
-		signUpDialogRef.componentInstance.change.subscribe((color: Color) => {
+		signUpDialogRef.componentInstance.valueChange.subscribe((color: Color) => {
 			this.parameter.r = color.r;
 			this.parameter.g = color.g;
 			this.parameter.b = color.b;
@@ -39,6 +39,6 @@ export class ColorComponent implements OnInit {
 	}
 
 	onChange(): void {
-		this.change.emit();
+		this.valueChange.emit();
 	}
 }

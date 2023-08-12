@@ -13,12 +13,12 @@ export class FireSegmentListComponent implements OnInit {
 
 	@Input() parameter: ParameterFireSegmentList;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 
 	FireEffect = FireEffect;
 
 	constructor() {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.parameter = {} as ParameterFireSegmentList;
 		this.device = {} as Device;
 	}
@@ -27,12 +27,12 @@ export class FireSegmentListComponent implements OnInit {
 	}
 
 	onChange(): void {
-		this.change.emit();
+		this.valueChange.emit();
 	}
 
 	onRemove(segment: ParameterFireSegment): void {
 		this.parameter.removeSegment(segment);
-		this.change.emit();
+		this.valueChange.emit();
 	}
 
 	onAddButtonClick(): void {
@@ -48,7 +48,7 @@ export class FireSegmentListComponent implements OnInit {
 				FireEffect.DEFAULT_SPARKING,
 				FireEffect.DEFAULT_COOLING,
 				3));
-			this.change.emit();
+			this.valueChange.emit();
 		}
 	}
 }

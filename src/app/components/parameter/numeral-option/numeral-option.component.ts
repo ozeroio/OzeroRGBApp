@@ -11,10 +11,10 @@ export class NumeralOptionComponent implements OnInit {
 
 	@Input() parameter: ParameterNumeralOption;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 
 	constructor() {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.parameter = {} as ParameterNumeralOption;
 		this.device = {} as Device;
 	}
@@ -23,6 +23,6 @@ export class NumeralOptionComponent implements OnInit {
 	}
 
 	onChange(): void {
-		this.change.emit();
+		this.valueChange.emit();
 	}
 }

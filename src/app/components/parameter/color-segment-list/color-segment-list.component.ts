@@ -12,10 +12,10 @@ export class ColorSegmentListComponent implements OnInit {
 
 	@Input() parameter: ParameterColorSegmentList;
 	@Input() device: Device;
-	@Output() change: EventEmitter<void>;
+	@Output() valueChange: EventEmitter<void>;
 
 	constructor() {
-		this.change = new EventEmitter<void>();
+		this.valueChange = new EventEmitter<void>();
 		this.parameter = {} as ParameterColorSegmentList;
 		this.device = {} as Device;
 	}
@@ -24,17 +24,17 @@ export class ColorSegmentListComponent implements OnInit {
 	}
 
 	onChange(): void {
-		this.change.emit();
+		this.valueChange.emit();
 	}
 
 	onRemove(segment: ParameterColorSegment): void {
 		this.parameter.removeSegment(segment);
-		this.change.emit();
+		this.valueChange.emit();
 	}
 
 	onAddButtonClick(): void {
 		this.addUnitSegment();
-		this.change.emit();
+		this.valueChange.emit();
 	}
 
 	private addUnitSegment(): void {
