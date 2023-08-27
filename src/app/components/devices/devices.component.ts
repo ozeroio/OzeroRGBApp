@@ -58,6 +58,7 @@ export class DevicesComponent implements OnInit {
 		this.storageService.set('device-name-7', 'Kitchen Top');
 		this.storageService.set('device-name-8', 'Davi Window');
 		this.storageService.set('device-name-9', 'Davi Closet');
+		this.storageService.set('device-name-10', 'Living Room Window');
 		this.storageService.set('device-name-255', 'Test Device');
 
 		Effect.registerEffect(FireEffect.CODE, FireEffect.build);
