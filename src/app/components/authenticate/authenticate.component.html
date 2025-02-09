@@ -1,6 +1,9 @@
 <div class="h-100 d-flex align-items-center justify-content-center flex-column">
 	<mat-form-field>
-		<input matInput placeholder="Email (login)" type="email">
+		<input [(ngModel)]="environment.mqtt.hostname"  matInput placeholder="Server" type="text">
+	</mat-form-field>
+	<mat-form-field>
+		<input [(ngModel)]="environment.mqtt.username" matInput placeholder="Email (login)" type="email">
 	</mat-form-field>
 	<mat-form-field>
 		<input [(ngModel)]="environment.mqtt.password" matInput placeholder="Password" type="password">

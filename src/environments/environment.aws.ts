@@ -7,7 +7,7 @@ export const environment = {
 		hostname: 'mqtt.ozero.io',
 		port: 3964,
 		path: '/mqtt',
-		username: 'mosquitto',
+		username: 'ozero',
 		password: ''
 	}
 };
